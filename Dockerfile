@@ -43,7 +43,7 @@ RUN ${HOME}/installation_scripts/install_kotlin.sh
 ADD ./installation_scripts/install_groovy.sh ${HOME}/installation_scripts/install_groovy.sh
 RUN ${HOME}/installation_scripts/install_groovy.sh
 
-RUN echo "source $HOME/.bash_profile >> $HOME/.bashrc"
+RUN echo "source $HOME/.bash_profile" >> $HOME/.bashrc
 
 # Now cleanup helper scripts
 RUN sudo rm -rf ${HOME}/installation_scripts
@@ -51,5 +51,14 @@ RUN sudo rm -rf ${HOME}/installation_scripts
 # Add source code
 ADD ./hephaestus ${HOME}/hephaestus
 
-# Install hephaestus
-RUN cd ${HOME}/hephaestus/ 
+RUN sudo chown -R hephaestus:hephaestus ${HOME}/hephaestus
+
+RUN sudo apt install -yq python3.9-distutils
+RUn pip3 install --upgrade setuptools
+
+# Run hephaestus
+RUN cd ${HOME}/hephaestus/ && python setup.py test
+
+# Install hephaestus 
+RUN cd ${HOME}/hephaestus/ && python setup.py install --prefix /home/hephaestus/.local/
+RUN echo "export PATH=$PATH:/home/hephaestus/.local/bin" >> ${HOME}/.bash_profile
