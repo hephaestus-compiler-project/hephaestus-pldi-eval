@@ -24,6 +24,35 @@ An archived version of the artifact is also available on Zenodo. See <https://do
 
 # Overview
 
+The artifact contains the instructions and scripts to re-run the evaluation 
+described in our paper. The artifact has the following structure:
+
+* `scripts/`: This is the directory that contains the scripts needed to 
+re-run the experiments presented in our paper.
+* `data/`: This is the directory that contains the precomputed results of our 
+evaluation.
+* `database/bug_schema.sql`: This is the database schema that contains the bugs 
+discovered by our approach.
+* `database/bugdb.sqlite3`: This is the sqlite3 database file corresponding to 
+the schema defined in `bugs/bug_schema.sql`.
+* `example_bugs/`: Contains the test programs that trigger the two compiler 
+bugs demonstrated in Section II of our paper.
+* `hephaestus/`: Contains the source code of the tool 
+(provided as a git submodule) used in our paper for testing the compilers of 
+Java, Kotlin, and Groovy.
+
+Note that `Hephaestus` is available as open-source software under the
+GNU General Public License v3.0., and can also be reached through the following 
+repository : <https://github.com/ hephaestus-compiler-project /hephaestus>.
+
+Inside the `hephaestus` directory, there are the following directories:
+
+* `src/`: The source code of `Hephaestus` written in Python.
+* `scripts/`: Some helper scripts for trying to reproduce detected bugs.
+* `tests/`: Contains the tests of `Hephaestus`.
+* `deployment/`: Contains configuration and scripts to install and run
+`Hephaestus` on a machine every second day.
+
 # Requirements
 
 See [REQUIREMENTS.md](./REQUIREMENTS.md)
