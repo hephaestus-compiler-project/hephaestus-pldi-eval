@@ -11,10 +11,11 @@ An archived version of the artifact is also available on Zenodo. See <https://do
 - [Setup](#setup)
 - [Getting Started](#getting-started)
   * [Usage](#usage)
+  * [Run Tests](#run-tests)
   * [Example](#example)
+  * [Reproducing the Two Motivating Examples](#reproducing-the-two-motivating-examples)
   * [Simple Query of the Reported Bugs](#simply-query-of-the-reported-bugs)
 - [Step by Step Instructions](#step-by-step-instructions)
-  * [Reproducing the Two Motivating Examples](#reproducing-the-two-motivating-eExamples)
   * [Bug Database](#bug-database)
   * [RQ1: Bug-Finding Results (Section 4.2)](#rq1-bug-finding-results-section-42)
   * [RQ2: Bug and Test Case Characteristics (Section 4.3)](#rq2-bug-and-test-case-characteristics-section-43)
@@ -34,6 +35,8 @@ See [INSTALL.md](./INSTALL.md)
 # Getting Started
 
 ## Usage
+
+## Run Tests
 
 ## Example
 
