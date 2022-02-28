@@ -14,7 +14,7 @@ Docker Image
 
 We provide a `Dockerfile` to build images that contain:
 
-* An installation of Python (version 3.9.1).
+* An installation of Python (version 3.9.10).
 * An installation of [SDKMAN](https://sdkman.io/).
 * An installation of all OpenJDK Java versions form version `11` to version
 `18.15` available on SDKMAN.
@@ -24,6 +24,8 @@ SDKMAN.
 on SDKMAN.
 * An installation of `Hephaestus`.
 * A user named `hephaestus` with sudo privileges.
+* Python packages for creating figures (i.e., `seaborn`, `pandas`, 
+and `matplotlib`)
 
 Pull Docker Image from Github's Container Registry
 --------------------------------------------------
