@@ -1,0 +1,3 @@
+[submodule "hephaestus"]
+	path = hephaestus
+	url = https://github.com/hephaestus-compiler-project/hephaestus.git
