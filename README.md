@@ -40,6 +40,8 @@ bugs demonstrated in Section II of our paper.
 * `hephaestus/`: Contains the source code of the tool 
 (provided as a git submodule) used in our paper for testing the compilers of 
 Java, Kotlin, and Groovy.
+* `installation_scripts/`: Contains helper scripts needed to install all
+dependencies (e.g. compiler versions from SDKMAN).
 
 Note that `Hephaestus` is available as open-source software under the
 GNU General Public License v3.0., and can also be reached through the following 
