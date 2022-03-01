@@ -13,8 +13,8 @@ CREATE TABLE CompilerBug (
     compiler            TEXT NOT NULL,
     title               TEXT NOT NULL,
     issue_tracker_link  TEXT NOT NULL,
-    fix_link            TEXT NOT NULL,
     mutator             TEXT NOT NULL,
+    fix_link            TEXT,
     severity            TEXT,
     status              TEXT,
     resolution          TEXT,
@@ -26,11 +26,11 @@ CREATE TABLE CompilerBug (
     error_msg           TEXT
 );
 
-DROP TABLE IF EXISTS "CompilerBugCharacteristics"
+DROP TABLE IF EXISTS "CompilerBugCharacteristics";
 CREATE TABLE CompilerBugCharacteristics (
     bcid                INTEGER PRIMARY KEY,
     cid                 INTEGER NOT NULL,
     bid                 INTEGER NOT NULL,
     FOREIGN KEY (cid) REFERENCES Characteristic (cid),
-    FOREIGN KEY (bid) REFERENCES CompilerBug (bid),
+    FOREIGN KEY (bid) REFERENCES CompilerBug (bid)
 );
