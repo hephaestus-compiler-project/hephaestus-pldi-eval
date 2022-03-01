@@ -78,7 +78,7 @@ docker run -ti --rm hephaestus-eval
 `hephaestus` provide a rich CLI with many available options. Below, we explain the most important parameters you should specify when running `hephaestus`.
 
 ```
-hephaestus.py -h
+hephaestus@e0456a9b520e:~$ hephaestus.py -h
 usage: hephaestus.py [-h] [-s SECONDS] [-i ITERATIONS] [-t TRANSFORMATIONS] [--batch BATCH] [-b BUGS] [-n NAME] [-T [{TypeErasure} ...]] [--transformation-schedule TRANSFORMATION_SCHEDULE] [-R REPLAY]
                      [-e] [-k] [-S] [-w WORKERS] [-d] [-r] [-F LOG_FILE] [-L] [-N] [--language {kotlin,groovy,java}] [--disable-params-type-widening] [--disable-inverted-smart-cast]
                      [--find-classes-blacklist] [--max-type-params MAX_TYPE_PARAMS] [--min-expr-depth MIN_EXPR_DEPTH] [-P] [--timeout TIMEOUT] [--cast-numbers] [--disable-use-site-variance]
@@ -282,9 +282,9 @@ To run `hephaestus` tests you should execute the following commands:
 
 ```
 # Enter hephaestus directory
-cd hephaestus
+hephaestus@e0456a9b520e:~$ cd hephaestus
 # Run tests
-python setup.py test
+hephaestus@e0456a9b520e:~/hephaestus$ python setup.py test
 ```
 
 The output of the previous command should be similar to the following:
@@ -302,7 +302,8 @@ tests/test_use_analysis.py::test_program8 PASSED                        [100%]
 Here, we will test the Kotlin compiler by employing hephaestus' program generator . Specifically with the following command we are going to produce 30 test programs in batches of 10 test programs using 2 workers.
 
 ```
-hephaestus.py --language kotlin --transformations 0 \
+hephaestus@e0456a9b520e:~/hephaestus$ hephaestus.py \
+    --language kotlin --transformations 0 \
     --batch 10 --iterations 30 --workers 2
 ```
 
@@ -390,6 +391,12 @@ In the above scenario, the testing session directory would be like the following
 |   `-- program.kt.bin
 |-- faults.json
 `-- stats.json
+```
+
+Now, you can exit the Docker container by running:
+
+```
+hephaestus@e0456a9b520e:~$ exit
 ```
 
 ## Reproducing the Two Motivating Examples
