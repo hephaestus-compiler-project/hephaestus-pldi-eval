@@ -135,11 +135,146 @@ optional arguments:
                         Disable contravariance in use-site variance
 ```
 
-### `--language`
+### `--bugs` (Optional)
 
-When running `hephaestus` you should specify which language's the compiler you want to test. The available options are `kotlin`, `groovy`, and `java`. Hephaestus will use the selected language's compiler that is on the `PATH`. If you want to test a specific compiler version, you should configure it as the current session's default compiler.
+Set the directory to save the results of the testing session.
 
-Example: `--language kotlin`
+NOTE: The defaults directory is `$(pwd)/bugs`.
+
+* Example: `--bugs hephaestus-results`
+
+### `--name` (Optional)
+
+Name of the current testing session.
+
+NOTE: The default name is a randomly generated 5-character long string (e.g., hl43S).
+
+* Example: `--name test-javac-1`
+
+### `--language` 
+
+When running `hephaestus`, you should specify which language's the compiler you want to test. The available options are `kotlin`, `groovy`, and `java`. Hephaestus will use the selected language's compiler that is on the `PATH`. If you want to test a specific compiler version, you should configure it as the current session's default compiler.
+
+* Example: `--language kotlin` -- `hephaestus` will test Kotlin's compiler (i.e., `kotlinc`)
+
+## `--seconds` and `--iterations`
+
+You should always specify either `--seconds` or `--iterations` option. The former specifies how much time `hephaestus` should test a compiler in seconds, whereas the second specifies how many test cases should `hephaestus` generate and run.
+
+* Example 1: `--seconds 120` -- hephaestus will run for 2 minutes.
+
+* Example 2: `--transformations 60` -- hephaestus will generate and run 60 test programs.
+
+## `--batch` (Optional)
+
+When running `hephaestus`, most of the testing time is spent compiling the test programs. Instead of generating one program at a time, you can specify the number of programs you want to generate before compiling them with the `--batch` option.
+
+NOTE: The default option is 1.
+
+* Example: `--batch 30` -- First, create 30 programs and then compile them with a single compiler execution.
+
+## `--workers` (Optional)
+
+When `--batch` option is larger than one, you can specify the number of workers that will generate and mutate programs in parallel.
+
+NOTE: The default option is 1.
+
+* Example: `--workers 4` -- Use four workers to generate and mutate test programs.
+
+## `--transformation-types` (Optional)
+
+This option specifies which mutations can be used during a testing session. There are two option: `TypeErasure` and `TypeOverwriting`. If this option is not specified, `hephaestus` will run only the program generator. Although you can use the mutators in combination, they have not been rigorously tested.
+
+* Example: `--transformation-types TypeErasure` -- enable TypeErasure mutation.
+
+## `--transformations` and `--transformation-schedule`
+
+You should always specify one of those options. `--transformations` specify the number of mutations that should be applied per test program. If the value is `0`, `hephaestus` will run only the generator. Note that the expected value of this option is between `0`, `1`, or `2`. 
+
+`--transformation-schedule` expects a path for a file containing the schedule of transformations. This file should specify a transformation per line.
+
+* Example 1: `--transformations 0` -- Do not perform any transformation
+
+* Example 2: `--transformation-schedule transformations.txt` -- Perform the transformations declared in file `transformations.txt`. The `transformations.txt` file could contain the following.
+
+```
+TypeErasure
+```
+
+## `--max-type-params` (Optional)
+
+Specify the number maximum number of type parameters for a parameterized class.
+
+NOTE: the default value is `3`.
+
+Example: `--max-type-params 5`
+
+## `--keep-all` (Optional)
+
+`hephaestus` only save programs that cause a compiler error.
+When `--keep-all` is enabled, `hephaestus` will save all generated and mutated test programs.
+
+* Example: `--keep-all`
+
+## `--dry-run` (Optional)
+
+When this option is used, `hephaestus` only produces and mutates test programs, i.e. it does not test the compiler.
+
+NOTE: always use this option with `-keep-all`.
+
+* Example: `--dry-run`
+
+## `--log-file` (Optional)
+
+By default, `hephaestus` keeps logs of testing sessions in a file called `logs` in the working directory. With `--log-file` option, you can specify another file to save the logs.
+
+* Example: `--log-file my_logs`
+
+## `--replay` (Optional)
+
+Use a seed program instead of `hephaestus`'s generated programs. 
+
+NOTE: The input program should be pickled.
+
+* Example: `--replay bugs/idET7/generator/iter_1/Main.java.bin`
+
+## `--debug` (Debugging option)
+
+Print debug messages before every step (i.e. program generation, mutation, compilation).
+
+NOTE: Use this option only when `--workers` option is set to 1 and `-batch` is set to 1.
+
+* Example: `--debug`
+
+## `--examine` (Debugging option)
+
+Open a debugger session to inspect the IR of the generated program.
+
+NOTE: This option can only be used with `--replay` option.
+
+## `--print-stacktrace` (Debugging option)
+
+Print stacktaces for `hephaestus` internal errors. 
+
+* Example: `--print-stacktrace`
+
+## `--cast-numbers` (Optional)
+
+This option is used to cast numeric constants to their actual type in Groovy programs. This option is used to avoid the re-occurrence of a specific Groovy bug.
+
+NOTE: This option has an effect only when `--language` is set to `groovy`.
+
+* Example: `--cast-numbers`
+
+## `--disable-use-site-variance` (Optional)
+
+Generate programs that do not use use-site variance.
+
+* Example: `--disable-use-site-variance`
+
+## `--disable-contravariance-use-site`
+
+Generate programs that do not use contravariance in use-site variance.
 
 ## Run Tests
 
