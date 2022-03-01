@@ -17,6 +17,7 @@ def get_args():
     parser = argparse.ArgumentParser(
         description='Get stats about fixes.')
     parser.add_argument("db", help="Database with history")
+    parser.add_argument("figure", help="Path to save the figure")
     return parser.parse_args()
 
 

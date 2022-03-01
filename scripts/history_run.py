@@ -11,16 +11,20 @@ import subprocess as sp
 
 NOT_FOUND = []
 
+# NOTE the commented out versions have been removed from SDKMAN
 JAVA = [
-    '18.ea.21-open',
-    '18.ea.20-open',
-    '18.ea.18-open',
-    '18.ea.2.lm-open',
-    '17-open',
-    '17.ea.3.pma-open',
-    '17.0.1-open',
-    '16.0.2-open',
-    '16.0.1-open',
+    '18.ea.35-open',
+    '18-open',
+    #'18.ea.21-open',
+    #'18.ea.20-open',
+    #'18.ea.18-open',
+    #'18.ea.2.lm-open',
+    '17.0.2-open',
+    #'17-open',
+    #'17.ea.3.pma-open',
+    #'17.0.1-open',
+    #'16.0.2-open',
+    #'16.0.1-open',
     '11.0.12-open',
     '11.0.11-open',
     '11.0.10-open',
@@ -79,10 +83,13 @@ KOTLIN = [
 ]
 
 GROOVY = [
-    '4.0.0-beta-1',
-    '4.0.0-alpha-3',
-    '4.0.0-alpha-2',
-    '4.0.0-alpha-1',
+    '4.0.0',
+    '4.0.0-rc-2',
+    '4.0.0-rc-1',
+    #'4.0.0-beta-1',
+    #'4.0.0-alpha-3',
+    #'4.0.0-alpha-2',
+    #'4.0.0-alpha-1',
     '3.0.9',
     '3.0.8',
     '3.0.7',
