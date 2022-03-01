@@ -201,14 +201,6 @@ You should always specify one of those options. `--transformations` specify the 
 TypeErasure
 ```
 
-## `--max-type-params` (Optional)
-
-Specify the number maximum number of type parameters for a parameterized class.
-
-NOTE: the default value is `3`.
-
-Example: `--max-type-params 5`
-
 ## `--keep-all` (Optional)
 
 `hephaestus` only save programs that cause a compiler error.
@@ -272,9 +264,17 @@ Generate programs that do not use use-site variance.
 
 * Example: `--disable-use-site-variance`
 
-## `--disable-contravariance-use-site`
+## `--disable-contravariance-use-site` (Optional)
 
 Generate programs that do not use contravariance in use-site variance.
+
+## `--max-type-params` (Optional)
+
+Specify the number maximum number of type parameters for a parameterized class.
+
+NOTE: the default value is `3`.
+
+Example: `--max-type-params 5`
 
 ## Run Tests
 
