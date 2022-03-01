@@ -32,7 +32,8 @@ evaluation.
 * `database/bug_schema.sql`: This is the database schema that contains the bugs 
 discovered by our approach.
 * `database/bugdb.sqlite3`: This is the sqlite3 database file corresponding to 
-the schema defined in `bugs/bug_schema.sql`.
+* `database/bugs.json`: This is a JSON file that contains the bugs of 
+`database/bugdb.sqlite` into a JSON.
 * `example_bugs/`: Contains the test programs that trigger the two compiler 
 bugs demonstrated in Section II of our paper.
 * `hephaestus/`: Contains the source code of the tool 
@@ -399,7 +400,98 @@ hephaestus@e0456a9b520e:~$ exit
 
 # Step By Step Instructions
 
+To validate the main results presented in the paper, first create a new Docker container by running:
+
+```
+docker run -ti --rm \
+  -v $(pwd)/database:/home/hephaestus/database hephaestus-eval
+```
+
+Note that we mount two local volumes inside the newly-created container. The first volume (`database/`) contains the bug database that includes the bugs discovered by our approach, while the second volume (`scripts/`) includes some scripts to reproduce and validate the results of the paper.
+
 ## Bug Database
+
+We provide an SQLite database (see the file `bugs/bugdb.sqlite3`) that contains information about the bugs discovered by our approach during the evaluation. This database is initialized based on the SQL script stored into `bugs/bug_schema.sql`. The bug database consists of three tables, namely `CompilerBug`, `Characteristic`, and `CompilerBugCharacteristics`. 
+
+Each record of the `CompilerBug` table consists of the following columns.
+
+* `bid`: A serial number corresponding to the ID of the bug.
+* `bug_id`: The bug id as displayed in the corresponding issue tracker.
+* `language`: The name of the programming language of the test program.
+* `compiler`: The name of the compiler where the bug was found.
+* `title`: The title of the bug report.
+* `issue_tracker_link`: A URL pointing to the bug report opened by us.
+* `mutator`: The component that detected the bug. There are four possible values: generator, soundness (i.e., TOM), inference (i.e., TEM), and inference/soundness (i.e., TEM and then TOM).
+* `fix_link`: A URL pointing to the fix of the bug.
+* `severity`: The severity of the bugs given by the developers.
+* `status`: The status of the bug.
+* `resolution`: The resolution of the bug (e.g., Fixed, Duplicate).
+* `report_date`: The date that we reported the bug.
+* `resolution_date`: The date that the developers resolved the bug.
+* `symptom`: The symptom of the bug. There are three possible values: unexpected compile-time error (UCTE), unexpected runtime behavior (URB), and crash.
+* `resolved_in`: How long did it take to resolve this bug.
+* `test`: The test program that revealed the bug.
+* `error_msg`: The error message reported by the compiler, or the stacktrace of the crash, or the exception caused in the runtime.
+
+The `Characteristic` table contains the following three fields.
+
+* `cid`: A serial number corresponding to the ID of the characteristic.
+* `characteristic_name`: The name of the characteristic (e.g., Parameterized class).
+* `category`: The category of the characteristic (e.g. Parametric polymorphism).
+
+Finally, `CompilerBugCharacteristics` is a table implementing the many-to-many relationship between `CompilerBug` and `CompilerBugCharacteristics`, this table contains three fields: `bcid`, `cid`, `bid`.
+
+### Example Queries
+
+From inside the container, we can perform some basic queries on this bug database.
+
+Get the total number of the discovered bugs.
+
+```
+hephaestus@5021c7920e54:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug";
+153
+```
+
+Find the number of `groovyc` bugs.
+
+```
+sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug WHERE compiler = 'groovyc'";
+110
+```
+
+Find the number of `javac` bugs that have UCTE as their symptom.
+
+```
+hephaestus@5021c7920e54:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug WHERE compiler = 'javac' AND symptom = 'Unexpected Compile-Time Error'";
+7
+```
+
+For each Kotlin bug revealed by TEM (i.e., soundness mutator), dump the URLs pointing to our bug reports.
+
+```
+hephaestus@5021c7920e54:~$ sqlite3 database/bugdb.sqlite3 "SELECT issue_tracker_link FROM CompilerBug WHERE compiler = 'kotlinc' AND mutator = 'inference'";
+https://youtrack.jetbrains.com/issue/KT-45118
+https://youtrack.jetbrains.com/issue/KT-49092
+https://youtrack.jetbrains.com/issue/KT-48764
+https://youtrack.jetbrains.com/issue/KT-49024
+https://youtrack.jetbrains.com/issue/KT-43846
+https://youtrack.jetbrains.com/issue/KT-44082
+https://youtrack.jetbrains.com/issue/KT-44742
+https://youtrack.jetbrains.com/issue/KT-44595
+https://youtrack.jetbrains.com/issue/KT-44551
+https://youtrack.jetbrains.com/issue/KT-47184
+https://youtrack.jetbrains.com/issue/KT-46684
+https://youtrack.jetbrains.com/issue/KT-44651
+```
+
+Get the three most common characteristics in the test cases of the reported bugs.
+
+```
+sqlite3 database/bugdb.sqlite3 "SELECT c.characteristic_name, COUNT(*) as total FROM CompilerBugCharacteristics as cbc JOIN Characteristic as c ON c.cid = cbc.cid GROUP BY cbc.cid ORDER BY total DESC LIMIT 3";
+Parameterized class|96
+Parameterized type|77
+Bounded type parameter|50
+```
 
 ## RQ1: Bug-Finding Results (Section 4.2)
 

@@ -63,3 +63,6 @@ RUN cd ${HOME}/hephaestus/ && python setup.py test
 # Install hephaestus 
 RUN cd ${HOME}/hephaestus/ && python setup.py install --prefix /home/hephaestus/.local/
 RUN echo "export PATH=$PATH:/home/hephaestus/.local/bin" >> ${HOME}/.bash_profile
+
+# TODO move this in the begining 
+RUN sudo apt install sqlite3
