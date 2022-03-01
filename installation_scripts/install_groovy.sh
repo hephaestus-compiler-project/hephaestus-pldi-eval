@@ -3,7 +3,8 @@
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk install groovy 4.0.0-rc-2 < /dev/null
-sdk install groovy 3.0.9-rc-1 < /dev/null
+sdk install groovy 4.0.0-rc-1 < /dev/null
+sdk install groovy 3.0.9 < /dev/null
 sdk install groovy 3.0.8 < /dev/null
 sdk install groovy 3.0.7 < /dev/null
 sdk install groovy 3.0.6 < /dev/null
