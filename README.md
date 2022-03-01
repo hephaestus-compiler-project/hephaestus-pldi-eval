@@ -762,4 +762,179 @@ Declaration-site variance     OOP features                      1
 
 ## RQ3: Effectiveness of Mutations (Section 4.4)
 
+For the third research question, first we will use `database/bugs.json` to reproduce Figure 7c that shows how many bugs does each component revealed. To do so, run:
+
+```
+hephaestus@fe6883e92441:~$ python eval-scripts/process_bugs.py database/bugs.json rq3
+                         Figure 7c
+============================================================
+Component           groovyc   kotlinc   Java      Total
+------------------------------------------------------------
+Generator           54        16        7         77
+TEM                 35        12        3         50
+TOM                 20        3         1         24
+TEM & TOM           1         1         0         2
+```
+
+Next, we are going to compute the results of Figure 9 per compiler.
+In the `data/coverage/mutations/` directory we provide the results of JaCoCo on 5k random test programs per compiler saved at `data/test_programs/mutations`.
+
+* `groovyc`
+
+```
+# TEM
+hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/mutations/groovy/groovy-generator-inf.csv \
+    data/coverage/mutations/groovy/groovy-combination-inf.csv \
+    data/coverage/mutations/groovy/groovy_whitelist --increasepkg
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           42.68              41.77              42.07
+Combination                       43.14              42.14              42.52
+% change                           0.46               0.37               0.45
+Absolute change                     167                 27                752
+
+org.codehaus.groovy.control.messages: Branch -- 44 (66.67), Line -- 12 (70.59), Func -- 3 (75.00)
+org.codehaus.groovy.transform.stc: Branch -- 531 (4.58), Line -- 106 (4.25), Func -- 13 (3.58)
+total: Branch -- 752 (1.07), Line -- 167 (1.09), Func -- 27 (0.87)
+org.codehaus.groovy.transform.sc: Branch -- 8 (0.96), Line -- 1 (0.57), Func -- 0 (0.00)
+org.codehaus.groovy.ast: Branch -- 54 (0.76), Line -- 13 (0.79), Func -- 3 (0.61)
+org.codehaus.groovy.classgen.asm: Branch -- 48 (0.57), Line -- 15 (0.76), Func -- 3 (0.80)
+org.codehaus.groovy.control: Branch -- 32 (0.49), Line -- 10 (0.65), Func -- 3 (1.11)
+org.codehaus.groovy.transform.sc.transformers: Branch -- 2 (0.22), Line -- 0 (0.00), Func -- 0 (0.00)
+org.apache.groovy.parser.antlr4: Branch -- 30 (0.17), Line -- 9 (0.28), Func -- 1 (0.16)
+org.codehaus.groovy.ast.expr: Branch -- 3 (0.16), Line -- 1 (0.19), Func -- 1 (0.49)
+
+# TOM
+hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/groovy/groovy-generator-sound.csv data/coverage/mutations/groovy/groovy-combination-sound.csv data/coverage/mutations/groovy/groovy_whitelist
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           43.30              42.21              42.72
+Combination                       43.57              42.35              42.99
+% change                           0.27               0.14               0.27
+Absolute change                      99                 10                447
+```
+
+* `kotlinc`
+
+```
+# TEM
+hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py k \
+    data/coverage/mutations/kotlin/kotlin-generator-inf.csv \
+    data/coverage/mutations/kotlin/kotlin-combination-inf.csv \
+    data/coverage/mutations/kotlin/kotlin_whitelist --increasepkg
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           30.92              30.60              30.32
+Combination                       31.38              31.00              30.78
+% change                           0.46               0.39               0.46
+Absolute change                     787                217               5431
+
+org.jetbrains.kotlin.resolve.calls.inference.constraintPosition: Branch -- 83 (73.45), Line -- 6 (54.55), Func -- 5 (100.00)
+org.jetbrains.kotlin.resolve.calls.inference: Branch -- 1114 (72.72), Line -- 146 (71.57), Func -- 43 (52.44)
+org.jetbrains.kotlin.resolve.typeBinding: Branch -- 136 (60.44), Line -- 16 (50.00), Func -- 6 (54.55)
+org.jetbrains.kotlin.resolve.calls.tower: Branch -- 938 (10.98), Line -- 137 (10.69), Func -- 36 (10.98)
+org.jetbrains.kotlin.resolve.calls.inference.model: Branch -- 202 (9.36), Line -- 23 (6.97), Func -- 10 (7.35)
+org.jetbrains.kotlin.resolve.calls.inference.components: Branch -- 466 (8.50), Line -- 63 (7.91), Func -- 5 (2.50)
+org.jetbrains.kotlin.psi.psiUtil: Branch -- 59 (8.35), Line -- 10 (12.66), Func -- 2 (4.26)
+org.jetbrains.kotlin.types: Branch -- 666 (7.08), Line -- 103 (7.03), Func -- 56 (12.33)
+org.jetbrains.kotlin.resolve.calls: Branch -- 223 (5.23), Line -- 48 (7.35), Func -- 2 (1.71)
+org.jetbrains.kotlin.resolve.calls.tasks: Branch -- 14 (4.11), Line -- 3 (5.66), Func -- 1 (3.85)
+org.jetbrains.kotlin.resolve.constants.evaluate: Branch -- 125 (3.86), Line -- 22 (4.33), Func -- 0 (0.00)
+org.jetbrains.kotlin.resolve.calls.components: Branch -- 218 (3.53), Line -- 32 (3.88), Func -- 6 (2.27)
+org.jetbrains.kotlin.resolve.calls.model: Branch -- 80 (3.18), Line -- 11 (2.70), Func -- 9 (5.49)
+org.jetbrains.kotlin.types.checker: Branch -- 127 (2.95), Line -- 16 (3.54), Func -- 7 (2.73)
+org.jetbrains.kotlin.descriptors.annotations: Branch -- 33 (2.83), Line -- 6 (4.23), Func -- 2 (3.77)
+org.jetbrains.kotlin.types.expressions: Branch -- 164 (2.28), Line -- 28 (2.16), Func -- 6 (2.18)
+org.jetbrains.kotlin.resolve.descriptorUtil: Branch -- 15 (2.24), Line -- 1 (1.32), Func -- 1 (2.04)
+org.jetbrains.kotlin.diagnostics: Branch -- 87 (2.10), Line -- 14 (1.26), Func -- 3 (1.96)
+org.jetbrains.kotlin.resolve.calls.util: Branch -- 10 (1.90), Line -- 1 (1.06), Func -- 1 (1.72)
+org.jetbrains.kotlin.resolve.jvm: Branch -- 33 (1.80), Line -- 4 (1.23), Func -- 1 (1.12)
+org.jetbrains.kotlin.resolve.calls.smartcasts: Branch -- 46 (1.64), Line -- 5 (1.20), Func -- 1 (0.88)
+total: Branch -- 5431 (1.52), Line -- 787 (1.48), Func -- 217 (1.29)
+org.jetbrains.kotlin.cfg: Branch -- 74 (1.40), Line -- 13 (1.49), Func -- 0 (0.00)
+org.jetbrains.kotlin.resolve: Branch -- 358 (1.38), Line -- 52 (1.28), Func -- 7 (0.80)
+org.jetbrains.kotlin.resolve.constants: Branch -- 13 (0.85), Line -- 1 (0.46), Func -- 1 (0.97)
+org.jetbrains.kotlin.psi: Branch -- 45 (0.80), Line -- 7 (0.64), Func -- 4 (0.70)
+org.jetbrains.kotlin.cli.jvm.compiler: Branch -- 40 (0.76), Line -- 7 (0.90), Func -- 1 (0.70)
+org.jetbrains.kotlin.parsing: Branch -- 31 (0.52), Line -- 9 (0.77), Func -- 0 (0.00)
+org.jetbrains.kotlin.cli.common.messages: Branch -- 5 (0.40), Line -- 0 (0.00), Func -- 0 (0.00)
+org.jetbrains.kotlin.cli.jvm: Branch -- 4 (0.24), Line -- 1 (0.39), Func -- 0 (0.00)
+org.jetbrains.kotlin.resolve.calls.checkers: Branch -- 6 (0.20), Line -- 0 (0.00), Func -- 0 (0.00)
+org.jetbrains.kotlin.psi2ir.transformations: Branch -- 2 (0.14), Line -- 0 (0.00), Func -- 0 (0.00)
+org.jetbrains.kotlin.resolve.calls.results: Branch -- 2 (0.13), Line -- 1 (0.40), Func -- 0 (0.00)
+org.jetbrains.kotlin.diagnostics.rendering: Branch -- 5 (0.11), Line -- 1 (0.11), Func -- 1 (1.30)
+org.jetbrains.kotlin.renderer: Branch -- 3 (0.07), Line -- 0 (0.00), Func -- 0 (0.00)
+org.jetbrains.kotlin.resolve.jvm.checkers: Branch -- 2 (0.06), Line -- 0 (0.00), Func -- 0 (0.00)
+org.jetbrains.kotlin.resolve.checkers: Branch -- 2 (0.05), Line -- 0 (0.00), Func -- 0 (0.00)
+
+# TOM
+hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/kotlin/kotlin-generator-sound.csv data/coverage/mutations/kotlin/kotlin-combination-sound.csv data/coverage/mutations/kotlin/kotlin_whitelist
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           31.47              31.01              30.87
+Combination                       31.80              31.31              31.22
+% change                           0.33               0.30               0.35
+Absolute change                     572                166               4171
+```
+
+* `javac`
+
+```
+# TEM
+hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/java/java-generator-inf.csv data/coverage/mutations/java/java-combination-inf.csv data/coverage/mutations/java/java_whitelist --increasepkg
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           36.99              39.68              34.56
+Combination                       37.68              40.49              35.18
+% change                           0.68               0.81               0.62
+Absolute change                     396                 87               2150
+
+com.sun.tools.javac.code: Branch -- 636 (3.27), Line -- 131 (3.31), Func -- 31 (3.16)
+com.sun.tools.javac.comp: Branch -- 1200 (3.06), Line -- 204 (2.66), Func -- 47 (3.59)
+total: Branch -- 2150 (1.79), Line -- 396 (1.85), Func -- 87 (2.05)
+com.sun.tools.javac.util: Branch -- 129 (1.60), Line -- 29 (1.60), Func -- 5 (1.10)
+com.sun.tools.javac.parser: Branch -- 59 (0.86), Line -- 14 (0.93), Func -- 0 (0.00)
+com.sun.tools.javac.resources: Branch -- 109 (0.62), Line -- 13 (3.20), Func -- 2 (10.00)
+com.sun.tools.javac.tree: Branch -- 12 (0.23), Line -- 4 (0.33), Func -- 2 (0.53)
+com.sun.tools.javac.main: Branch -- 5 (0.11), Line -- 1 (0.12), Func -- 0 (0.00)
+
+# TOM
+hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/java/java-generator-sound.csv data/coverage/mutations/java/java-combination-sound.csv data/coverage/mutations/java/java_whitelist
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           37.63              40.46              35.18
+Combination                       38.26              41.19              35.76
+% change                           0.62               0.74               0.57
+Absolute change                     362                 79               1990
+```
+
+### Re-run JaCoCo to compute coverage data (Optional)
+
+### Re-run hephaestus to produce 5k test programs with and without the mutations per language (Optional)
+
 ## RQ4: Code Coverage (Section 4.5)
+
+For the fourth research question, we will use coverage data from `data/coverage/compilers/` to reproduce Figure 10 that shows the code coverage improvement when adding 10k programs produced by `hephaestus` to the test suites of the compiler. In the following, we compute the results per compiler.
+
+* `groovyc`
+
+```
+hephaestus@94771ee464b4:~$ python eval-scripts/compute_coverage.py g data/coverage/compilers/groovy/groovy-vanilla.csv data/coverage/compilers/groovy/groovy-hephaestus.csv data/coverage/compilers/groovy/groovy_whitelist
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           82.00              71.77              78.38
+Combination                       82.06              71.79              78.44
+% change                           0.06               0.02               0.05
+Absolute change                      24                  2                133
+```
+
+* `kotlinc`
+
+```
+
+```
+
+* `javac`
+
+```
+
+```
+
+### Re-run JaCoCo to compute coverage data (Optional)
+
+### Re-run hephaestus to produce 10k test programs per language (Optional)
+
