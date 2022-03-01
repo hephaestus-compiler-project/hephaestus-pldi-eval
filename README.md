@@ -41,6 +41,7 @@ bugs demonstrated in Section II of our paper.
 Java, Kotlin, and Groovy.
 * `installation_scripts/`: Contains helper scripts used to install all
 dependencies (e.g. compiler versions from SDKMAN).
+* `figures/`: This is the directory used to save figure 8 of the paper.
 
 Note that `Hephaestus` is available as open-source software under the
 GNU General Public License v3.0., and can also be reached through the following 
@@ -404,10 +405,14 @@ To validate the main results presented in the paper, first create a new Docker c
 
 ```
 docker run -ti --rm \
-  -v $(pwd)/database:/home/hephaestus/database hephaestus-eval
+  -v $(pwd)/database:/home/hephaestus/database \
+  -v $(pwd)/data:/home/hephaestus/data \
+  -v $(pwd)/scripts:/home/hephaestus/eval-scripts \
+  -v $(pwd)/figures:/home/hephaestus/eval-figures \
+  hephaestus-eval
 ```
 
-Note that we mount two local volumes inside the newly-created container. The first volume (`database/`) contains the bug database that includes the bugs discovered by our approach, while the second volume (`scripts/`) includes some scripts to reproduce and validate the results of the paper.
+Note that we mount four local volumes inside the newly-created container. The first volume (`database/`) contains the bug database that includes the bugs discovered by our approach, while the second volume (`data/`) provides the data collected during our evaluation. The third volume (`eval-scripts/`) includes some scripts to reproduce and validate the results of the paper. Finally, the fourth volume (`eval-figures/`) will be used to save Figure 8 of our paper.
 
 ## Bug Database
 
@@ -495,7 +500,265 @@ Bounded type parameter|50
 
 ## RQ1: Bug-Finding Results (Section 4.2)
 
+For the first research question, first we will use `database/bugs.json` to reproduce Figure 7a that shows how many bugs (and their status) were found in each tested compiler. To do so, run:
+
+```
+hephaestus@0f0e136c9699:~$ python eval-scripts/process_bugs.py database/bugs.json rq1
+                         Figure 7a
+============================================================
+Status              groovyc   kotlinc   Java      Total
+------------------------------------------------------------
+Reported            0         12        0         12
+Confirmed           46        8         3         57
+Fixed               60        9         2         71
+Wont fix            2         2         5         9
+Duplicate           2         1         1         4
+------------------------------------------------------------
+Total               110       32        11        153
+```
+
+Next to produce Figure 8 and compute the numbers of **"Affected compiler versions"** paragraph run the following script.
+
+```
+hephaestus@65dcb5e94149:~$ python eval-scripts/history_analysis.py data/history/history_19_11_21.json eval-figures/bug_versions.pdf
+groovyc
+All versions are buggy: 35
+The error exist only in master: 50
+Regressions: 25
+
+kotlinc
+All versions are buggy: 14
+The error exist only in master: 5
+Regressions: 13
+
+javac
+All versions are buggy: 6
+The error exist only in master: 2
+Regressions: 3
+
+Compiler Affected stable versions  Bugs
+0   kotlinc                    [1-3]     5
+1   kotlinc                     > 12     1
+2   kotlinc                    [7-9]     7
+3   kotlinc                      All    14
+4   kotlinc              master only     5
+5   groovyc                    [1-3]    15
+6   groovyc              master only    50
+7   groovyc                      All    35
+8   groovyc                    [4-6]     1
+9   groovyc                     > 12     3
+10  groovyc                  [10-12]     6
+11    javac              master only     2
+12    javac                      All     6
+13    javac                    [1-3]     2
+14    javac                    [4-6]     1
+```
+
+This script will also generate Figure 8 and save it at `figures/bug_versions.pdf` in your host machine.
+
+The statements that we want to check from paragraph **"Affected compiler versions"** are the following:
+
+* 35 `groovyc` and 14 `kotlinc` bugs occur in all stable compiler versions.
+* A large portion of `groovyc` bugs (50/110 -- 45%) are triggered only in the master branch of the compiler.
+
+### Re-run Affected Compiler Versions Experiments. (Optional)
+
+To re-compute which compiler versions are affected you can run the following command (it will take around 90 minutes):
+
+```
+python scripts/history_run.py database/bugs.json history.json
+```
+
+NOTE: The results might be slightly different because (1) SDKMAN does not support the same compiler version, (2) some bugs may have been fixed by the developers.
+
 ## RQ2: Bug and Test Case Characteristics (Section 4.3)
+
+For the second research question, we will use `database/bugs.json` to reproduce Figure 78 that shows the symptoms of the reported bugs. Furthermore, we will the most popular features used in the bug-revealing test programs. To do so, run:
+
+```
+hephaestus@9dfe76e26efa:~$ python eval-scripts/process_bugs.py database/bugs.json rq2
+                         Figure 7b
+============================================================
+Symptoms            groovyc   kotlinc   Java      Total
+------------------------------------------------------------
+UCTE                77        17        7         101
+URB                 19        3         0         22
+Crash               14        12        4         30
+
+
+
+================================================================================
+Characteristics
+--------------------------------------------------------------------------------
+Parameterized class          96   Parametric polymorphism
+Parameterized type           77   Parametric polymorphism
+Bounded type parameter       50   Parametric polymorphism
+Type argument inference      35   Type inference
+Lambda                       34   Functional programming
+Conditionals                 32   Standard language features
+Inheritance                  31   OOP features
+Subtyping                    30   Type system-related features
+Function type                27   Functional programming
+Variable type inference      24   Type inference
+Use-site variance            23   Parametric polymorphism
+Parameterized function       23   Parametric polymorphism
+Flow typing                  12   Type inference
+Array                        11   Standard language features
+Primitive type               10   Type system-related features
+Function reference           9    Functional programming
+Overriding                   8    OOP features
+SAM type                     5    Functional programming
+Variable arguments           4    Standard language features
+Return type inference        4    Type inference
+Declaration-site variance    2    Parametric polymorphism
+Named arguments              1    Other
+Cast                         1    Standard language features
+================================================================================
+
+================================================================================
+Categories
+--------------------------------------------------------------------------------
+Parametric polymorphism      104
+Type inference               61
+Standard language features   44
+Type system-related features 38
+Functional programming       38
+OOP features                 31
+Other                        1
+================================================================================
+```
+
+Beyond Figure 7b, this script produces the number used in Section 4.3.
+Specifically, Section 4.3 contains the following statements:
+
+* Features related to parametric polymorphism (e.g., parameterized class) are in the list of features with the most bug-revealing capability. 
+* In total, 104/153 bugs are caused by programs containing at least one such feature (parametric polymorphism).
+* In 47% of test cases that use conditionals, type inference features are also included.
+
+To see the results for how features are used with other features you can use the option `--combinations` in the previous script, and it will print the following.
+
+```
+Combinations
+==============================================================================
+Parameterized class           Parametric polymorphism          93
+Parameterized class           OOP features                     24
+Parameterized class           Type inference                   42
+Parameterized class           Type system-related features     18
+Parameterized class           Standard language features       23
+Parameterized class           Functional programming           13
+Parameterized type            Parametric polymorphism          77
+Parameterized type            OOP features                     23
+Parameterized type            Type system-related features     17
+Parameterized type            Standard language features       22
+Parameterized type            Type inference                   34
+Parameterized type            Functional programming            6
+Use-site variance             Parametric polymorphism          22
+Use-site variance             OOP features                      6
+Use-site variance             Type system-related features      5
+Use-site variance             Standard language features        3
+Use-site variance             Type inference                    7
+Use-site variance             Functional programming            1
+Bounded type parameter        Parametric polymorphism          50
+Bounded type parameter        Type inference                   20
+Bounded type parameter        Type system-related features      9
+Bounded type parameter        OOP features                     12
+Bounded type parameter        Standard language features       13
+Bounded type parameter        Functional programming            6
+Inheritance                   Parametric polymorphism          24
+Inheritance                   OOP features                      8
+Inheritance                   Type system-related features     18
+Inheritance                   Standard language features       11
+Inheritance                   Type inference                   13
+Inheritance                   Functional programming            3
+Type argument inference       Parametric polymorphism          35
+Type argument inference       Type inference                    9
+Type argument inference       Functional programming            4
+Type argument inference       Standard language features        9
+Type argument inference       Type system-related features      7
+Type argument inference       OOP features                      7
+Primitive type                Parametric polymorphism           2
+Primitive type                OOP features                      2
+Primitive type                Standard language features        3
+Primitive type                Functional programming            2
+Primitive type                Type system-related features      2
+Overriding                    Type system-related features      4
+Overriding                    Parametric polymorphism           8
+Overriding                    OOP features                      8
+Overriding                    Standard language features        4
+Overriding                    Type inference                    2
+Parameterized function        Parametric polymorphism          18
+Parameterized function        Standard language features        6
+Parameterized function        Type inference                   10
+Parameterized function        Type system-related features      3
+Parameterized function        OOP features                      2
+Parameterized function        Functional programming            4
+Conditionals                  Parametric polymorphism          18
+Conditionals                  Type system-related features     13
+Conditionals                  OOP features                      9
+Conditionals                  Functional programming            5
+Conditionals                  Type inference                   15
+Conditionals                  Standard language features        2
+Subtyping                     Parametric polymorphism          17
+Subtyping                     OOP features                     16
+Subtyping                     Functional programming            7
+Subtyping                     Type system-related features      2
+Subtyping                     Type inference                   14
+Subtyping                     Standard language features       14
+Lambda                        Functional programming           25
+Lambda                        Standard language features        6
+Lambda                        Type inference                   15
+Lambda                        Parametric polymorphism          14
+Lambda                        Type system-related features      7
+Lambda                        OOP features                      2
+Function type                 Functional programming           26
+Function type                 Standard language features        5
+Function type                 Parametric polymorphism          10
+Function type                 Type system-related features      6
+Function type                 Type inference                    7
+Function type                 OOP features                      3
+Variable type inference       Type inference                   12
+Variable type inference       Functional programming            9
+Variable type inference       Parametric polymorphism          15
+Variable type inference       Type system-related features      3
+Variable type inference       OOP features                      3
+Variable type inference       Standard language features        6
+Flow typing                   Type inference                    6
+Flow typing                   Functional programming            5
+Flow typing                   Type system-related features      3
+Flow typing                   OOP features                      4
+Flow typing                   Standard language features        4
+Flow typing                   Parametric polymorphism           1
+Function reference            Functional programming            9
+Function reference            Parametric polymorphism           4
+Function reference            Type inference                    1
+Function reference            Standard language features        1
+Function reference            OOP features                      1
+Function reference            Type system-related features      1
+Array                         Type system-related features      5
+Array                         Type inference                    3
+Array                         OOP features                      2
+Array                         Standard language features        4
+Array                         Parametric polymorphism           4
+Array                         Functional programming            2
+Variable arguments            Parametric polymorphism           4
+Variable arguments            Functional programming            1
+Variable arguments            Standard language features        1
+Variable arguments            Type inference                    2
+Variable arguments            OOP features                      1
+Cast                          Standard language features        1
+SAM type                      Functional programming            5
+SAM type                      Parametric polymorphism           3
+SAM type                      Type system-related features      1
+Return type inference         Type system-related features      3
+Return type inference         OOP features                      3
+Return type inference         Standard language features        2
+Return type inference         Functional programming            1
+Return type inference         Parametric polymorphism           2
+Return type inference         Type inference                    1
+Declaration-site variance     Type inference                    1
+Declaration-site variance     Parametric polymorphism           2
+Declaration-site variance     OOP features                      1
+```
 
 ## RQ3: Effectiveness of Mutations (Section 4.4)
 

@@ -55,31 +55,12 @@ def get_args():
         description='Process bugs.json to answer RQs')
     parser.add_argument("input", help="JSON File with bugs.")
     parser.add_argument("rq", choices=['rq1', 'rq2', 'rq3'], help="Select RQ.")
+    parser.add_argument(
+        "--combinations", 
+        action='store_true',
+        help="Print characteristics combinations"
+    )
     return parser.parse_args()
-
-
-def print_stats(lang, stats):
-    print(80*"=")
-    total = sum(v for v in stats['status'].values())
-    print(lang + ' (total:' + str(total) + ')')
-    print(80*"-")
-    for category, value in stats.items():
-        value = {k if k else "None": v for k, v in value.items()}
-        res = [k + " (" + str(v) + ")" for k,v in value.items()]
-        print("{}: {}".format(category, ", ".join(res)))
-        print(80*"=")
-
-def print_chars(chars_view, title):
-    print()
-    print(80*"=")
-    print(title)
-    print(80*"-")
-    for count, char in chars_view:
-        print("{:<29}{:<5}{:<50}".format(
-            char, count,
-            features_lookup[char] if title == "Characteristics" else ""))
-    print(80*"=")
-
 
 
 def process(bug, res, chars, combinations, categories):
@@ -187,6 +168,18 @@ def print_table(title, column_name, res, extra_line=True, first_col=20):
     print()
 
 
+def print_chars(chars_view, title):
+    print()
+    print(80*"=")
+    print(title)
+    print(80*"-")
+    for count, char in chars_view:
+        print("{:<29}{:<5}{:<50}".format(
+            char, count,
+            features_lookup[char] if title == "Characteristics" else ""))
+    print(80*"=")
+
+
 def main():
     args = get_args()
     with open(args.input, 'r') as f:
@@ -231,7 +224,6 @@ def main():
 
     if args.rq == 'rq1':
         status_cat = res['total']['status'].keys()
-        print(status_cat)
         status = per_attribute(status_cat, 'status', total=True)
         print_table('Figure 7a', 'Status', status)
 
@@ -240,38 +232,27 @@ def main():
         symptoms = per_attribute(symtoms_cat, 'symptom', total=False)
         print_table('Figure 7b', 'Symptoms', symptoms, extra_line=False)
 
+        print()
+        chars_view = [ (v,k) for k,v in chars.items() ]
+        chars_view.sort(reverse=True)
+        categories_view = [ (v,k) for k,v in categories.items() ]
+        categories_view.sort(reverse=True)
+        print_chars(chars_view, "Characteristics")
+        print_chars(categories_view, "Categories")
+
+        if args.combinations:
+            print()
+            print("Combinations")
+            print(80*"=")
+            for char, combs in combinations.items():
+                for comb, value in combs.items():
+                    print("{:<29} {:<29} {:>5}".format(char, comb, value))
+
     if args.rq == 'rq3':
         mutators_cat = res['total']['mutator'].keys()
         mutators = per_attribute(mutators_cat, 'mutator', total=False)
         print_table('Figure 7c', 'Component', mutators, extra_line=False)
 
-    #total = None
-    #for lang, values in res.items():
-    #    if lang == "total":
-    #        total = values
-    #    else:
-    #        print_stats(lang, values)
-    #print_stats("total", total)
-
-    #chars_view = [ (v,k) for k,v in chars.items() ]
-    #chars_view.sort(reverse=True)
-    #categories_view = [ (v,k) for k,v in categories.items() ]
-    #categories_view.sort(reverse=True)
-    #print_chars(chars_view, "Characteristics")
-    #print_chars(categories_view, "Categories")
-    #if args.latex:
-    #    total = None
-    #    for lang, values in res.items():
-    #        if lang == "total":
-    #            total = values
-    #        else:
-    #            print_latex_commands(lang, values, [], [])
-    #    print_latex_commands("Total", total, chars_view, categories_view)
-
-    #if args.combinations:
-    #    for char, combs in combinations.items():
-    #        for comb, value in combs.items():
-    #            print("{:<29} {:<29} {:>5}".format(char, comb, value))
 
 if __name__ == "__main__":
     main()

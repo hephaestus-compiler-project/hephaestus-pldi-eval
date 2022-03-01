@@ -66,3 +66,7 @@ RUN echo "export PATH=$PATH:/home/hephaestus/.local/bin" >> ${HOME}/.bash_profil
 
 # TODO move this in the begining 
 RUN sudo apt install sqlite3
+RUN pip3 install --upgrade setuptools
+RUN pip3 install --upgrade distlib
+RUN pip3 install --upgrade pip
+RUN pip3 install seaborn pandas matplotlib

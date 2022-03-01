@@ -3,6 +3,7 @@
 from collections import defaultdict
 import argparse
 import json
+import os
 
 import seaborn as sns
 import pandas as pd
@@ -77,15 +78,14 @@ def main():
                 #    print(bugid)
                 # Check if fixed and then again bug
             else:
-                fixed[key] += 1
-                fixed['total'] += 1
+                regressions[key] += 1
+                regressions['total'] += 1
 
     for comp in ['groovyc', 'kotlinc', 'javac']:
         print(comp)
         print(f"All versions are buggy: {all_versions[comp]}")
         print(f"The error exist only in master: {only_master[comp]}")
         print(f"Regressions: {regressions[comp]}")
-        print(f"Fixed: {fixed[comp]}")
         print()
 
     framedata = []
@@ -122,7 +122,7 @@ def main():
                      hue='Compiler', data=df_l, order=categories,
                      palette='Greys')
     ax.legend(loc='upper left')
-    plt.savefig('bug_versions.pdf', format='pdf', bbox_inches='tight',
+    plt.savefig(args.figure, format='pdf', bbox_inches='tight',
                 pad_inches=0)
 
 
