@@ -299,6 +299,99 @@ tests/test_use_analysis.py::test_program8 PASSED                        [100%]
 
 ## Example
 
+Here, we will test the Kotlin compiler by employing hephaestus' program generator . Specifically with the following command we are going to produce 30 test programs in batches of 10 test programs using 2 workers.
+
+```
+hephaestus.py --language kotlin --transformations 0 \
+    --batch 10 --iterations 30 --workers 2
+```
+
+The expected outcome is:
+
+```
+stop_cond             iterations (30)
+transformations       0
+transformation_types
+bugs                  /home/hephaestus/bugs
+name                  gWYHl
+language              kotlin
+compiler              info: kotlinc-jvm 1.5.31 (JRE 18-ea+35-2085)
+===============================================================================
+Test Programs Passed 30 / 30 ✔          Test Programs Failed 0 / 30 ✘
+```
+
+Two files are generated inside `/home/hephaestus/bugs/gWYH`: 
+`stats.json` and `faults.json`.
+
+`stats.json` contains the following details about the testing session.
+
+```
+{
+  "Info": {
+    "stop_cond": "iterations",
+    "stop_cond_value": 30,
+    "transformations": 0,
+    "transformation_types": "",
+    "bugs": "/home/hephaestus/bugs",
+    "name": "gWYHl",
+    "language": "kotlin",
+    "compiler": "info: kotlinc-jvm 1.5.31 (JRE 18-ea+35-2085)"
+  },
+  "totals": {
+    "passed": 30,
+    "failed": 0
+  }
+}
+```
+
+In this example, `faults.json` is empty. If there were some bugs detected,
+`faults.json` would look like the following JSON file.
+
+```
+"326": {
+    "transformations": [
+      "TypeErasure"
+    ],
+    "error": "type argument is not within its bounds: should be subtype of 'CapturedType(out Int)'",
+    "programs": {
+      "/tmp/tmpesvj9j_f/src/apologias/program.kt": true,
+      "/tmp/tmpesvj9j_f/src/trims/program.kt": false
+    }
+},
+"414": {
+    "transformations": [
+      "TypeOverwriting"
+    ],
+    "error": "SHOULD NOT BE COMPILED: Array<Boolean(kotlin-builtin)> expected but String(kotlin-builtin) found in node global/jerseys/fandom/Critiqued/beatify/Yearling",
+    "programs": {
+      "/tmp/tmpru0kfhkr/src/polyamory/program.kt": true,
+      "/tmp/tmpru0kfhkr/src/giddier/program.kt": false
+    }
+"502": {
+    "transformations": [],
+    "error": "maximum recursion depth exceeded in comparison",
+    "program": null
+  },
+
+```
+
+The first error is an unexpected compile-time error detected using the Type Erasure mutation. The second is a compiler bug where the compiler accepts an ill-typed program. Finally, the third one is an internal error of `hephaestus`. 
+
+In the above scenario, the testing session directory would be like the following:
+
+```
+|-- 326
+|   |-- program.kt
+|   `-- program.kt.bin
+|-- 414
+|   |-- incorrect.kt
+|   |-- incorrect.kt.bin
+|   |-- program.kt
+|   `-- program.kt.bin
+|-- faults.json
+`-- stats.json
+```
+
 ## Reproducing the Two Motivating Examples
 
 ### Reproducing the Groovy Bug
