@@ -13,8 +13,6 @@ An archived version of the artifact is also available on Zenodo. See <https://do
   * [Usage](#usage)
   * [Run Tests](#run-tests)
   * [Example](#example)
-  * [Reproducing the Two Motivating Examples](#reproducing-the-two-motivating-examples)
-  * [Simple Query of the Reported Bugs](#simply-query-of-the-reported-bugs)
 - [Step by Step Instructions](#step-by-step-instructions)
   * [Bug Database](#bug-database)
   * [RQ1: Bug-Finding Results (Section 4.2)](#rq1-bug-finding-results-section-42)
@@ -398,14 +396,6 @@ Now, you can exit the Docker container by running:
 ```
 hephaestus@e0456a9b520e:~$ exit
 ```
-
-## Reproducing the Two Motivating Examples
-
-### Reproducing the Groovy Bug
-
-### Reproducing the Kotlin Bug
-
-## Simple Query of the Reported Bugs
 
 # Step By Step Instructions
 
