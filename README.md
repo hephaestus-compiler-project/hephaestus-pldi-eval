@@ -909,9 +909,68 @@ Combination                       38.26              41.19              35.76
 Absolute change                     362                 79               1990
 ```
 
-### Re-run JaCoCo to compute coverage data (Optional)
+### Reproducing RQ3's Coverage Experiment
 
-### Re-run hephaestus to produce 5k test programs with and without the mutations per language (Optional)
+To re-run the complete experiment, depending on your machine(s), could take up to 5 days. Here, we will provide a complete example of how you get the coverage of a total of 10 Groovy test programs for both TEM and TOM, using JaCoCo. To reproduce the full results, you should (1) produce 5k programs for both TOM and TEM, and (2) run the same experiments for the other compilers by replacing `groovy` with `java` and `kotlin` in the following commands.
+
+#### Minimized Groovy Coverage Example
+
+* Step 1: Generate the test programs.
+
+```
+hephaestus.py --bugs coverage_programs --name groovy_tem_10 --language groovy \
+    --iterations 10 --batch 10 --workers 2 --transformations 1 \
+    --keep-all --dry-run --only-preserve-correctness-substitutions
+hephaestus.py --bugs coverage_programs --name groovy_tom_10 --language groovy \
+    --iterations 10 --batch 10 --workers 2 --transformations 0 \
+    --keep-all --dry-run 
+```
+
+* Step 2: Produce coverage reports for generator and TEM.
+
+```
+./eval-scripts/coverage/groovy_mutations.sh $HOME/coverage \
+    $HOME/coverage_programs/groovy_tem_10/ 10 inference 2> /dev/null
+```
+
+* Step 3: Compute the results for generator and TEM.
+
+```
+python eval-scripts/compute_coverage.py g \
+    results/groovy/groovy-generator-inference.csv \
+    results/groovy/groovy-comb-inference.csv \
+    data/coverage/mutations/groovy/groovy_whitelist
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           38.79              39.87              37.75
+Combination                       38.82              39.88              37.78
+% change                           0.04               0.01               0.03
+Absolute change                      13                  1                 50
+```
+
+* Step 4: Produce coverage reports for generator and TOM.
+
+```
+./eval-scripts/coverage/groovy_mutations.sh $HOME/coverage \
+    $HOME/coverage_programs/groovy_tem_10/ 10 2> /dev/null
+```
+
+* Step 5: Compute the results for generator and TOM.
+
+```
+python eval-scripts/compute_coverage.py g \
+    results/groovy/groovy-generator-soundness.csv \
+    results/groovy/groovy-comb-soundness.csv \
+    data/coverage/mutations/groovy/groovy_whitelist
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           38.79              39.87              37.75
+Combination                       38.84              39.95              37.79
+% change                           0.06               0.08               0.04
+Absolute change                      20                  6                 68
+```
+
+#### Complete Experiment
+
+
 
 ## RQ4: Code Coverage (Section 4.5)
 
