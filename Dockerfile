@@ -74,8 +74,33 @@ RUN pip3 install seaborn pandas matplotlib
 # Coverage dependencies: Install JaCoCo and all compilers
 RUN mkdir ${HOME}/coverage
 WORKDIR ${HOME}/coverage
+# Install Groovy
+RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
+    sdk use java 11.0.2-open && \
+    git clone https://github.com/apache/groovy.git && \
+    cd groovy && \
+    git checkout 538374a1799947912496bf3a9aa8590cf5e38a75 && \
+    ./gradlew -p bootstrap && ./gradlew clean dist
+
+# Install Kotlin
+RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
+    sdk install java 8.0.265-open && \
+    sdk use java 8.0.265-open && \
+    echo "JAVA_HOME=${HOME}/.sdkman/candidates/java/8.0.265-open/" >> ${HOME}/.bash_profile  && \
+    echo "JDK_16=$HOME/.sdkman/candidates/java/8.0.265-open/" >> $HOME/.bash_profile && \
+    echo "JDK_17=$HOME/.sdkman/candidates/java/8.0.265-open/" >> $HOME/.bash_profile && \
+    echo "JDK_18=$HOME/.sdkman/candidates/java/8.0.265-open/" >> $HOME/.bash_profile && \
+    source $HOME/.bash_profile && \
+    git clone https://github.com/JetBrains/kotlin.git && \
+    cd kotlin && \
+    git checkout 3ccbd25856ccfc3942a563e4833d87c7d5865c7f && \
+    ./gradlew -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000 dist
+
 # Install Java
-RUN git clone https://github.com/openjdk/jdk.git
+RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
+    sdk use java 18.ea.35-open 
+RUN git clone https://github.com/openjdk/jdk.git 
+RUN git checkout c79a485f1c3f9c0c3a79b8847fdcd50a141cd529
 WORKDIR ${HOME}/coverage/jdk
 RUN bash configure
 RUN make jdk
