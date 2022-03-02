@@ -919,20 +919,32 @@ hephaestus@94771ee464b4:~$ python eval-scripts/compute_coverage.py g data/covera
 Initial                           82.00              71.77              78.38
 Combination                       82.06              71.79              78.44
 % change                           0.06               0.02               0.05
-Absolute change                      24                  2                133
 ```
 
 * `kotlinc`
 
 ```
-
+python eval-scripts/compute_coverage.py g data/coverage/compilers/kotlin/kotlin-vanilla.csv data/coverage/compilers/kotlin/kotlin-hephaestus.csv data/coverage/compilers/kotlin/kotlin_whitelist --compiler
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           80.80              72.99              74.08
+Combination                       80.83              73.05              74.11
+% change                           0.03               0.06               0.04
 ```
+
+NOTE: Our results are slightly different from the submitted paper. We will update Figure 10 on the camera-ready paper to match the results of our artifact.
+
 
 * `javac`
 
 ```
-
+python eval-scripts/compute_coverage.py g data/coverage/compilers/java/java-vanilla.csv data/coverage/compilers/java/java-hephaestus.csv data/coverage/compilers/java/java_whitelist --compiler
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           83.76              83.95              83.90
+Combination                       83.94              83.99              84.12
+% change                           0.18               0.03               0.22
 ```
+
+NOTE: Our results are slightly different from the submitted paper. We will update Figure 10 on the camera-ready paper to match the results of our artifact.
 
 ### Re-run JaCoCo to compute coverage data (Optional)
 
