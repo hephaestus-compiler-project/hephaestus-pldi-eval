@@ -181,15 +181,21 @@ NOTE: The default option is 1.
 
 * Example: `--workers 4` -- Use four workers to generate and mutate test programs.
 
-## `--transformation-types` (Optional)
+## `--transformation-types` and `--only-preserve-correctness-substitutions` 
 
-This option specifies which mutations can be used during a testing session. There are two option: `TypeErasure` and `TypeOverwriting`. If this option is not specified, `hephaestus` will run only the program generator. Although you can use the mutators in combination, they have not been rigorously tested.
+Hephaestus supports two transformations, those that produce well-typed test programs and those that produce ill-typed test programs. Currently, `hephaestus` implements two mutators: Type Erasure Mutator (TEM) and Type Overwriting Mutator (TOM). The former produces well-typed programs, whereas the latter produces ill-typed. 
+
+By default TOM is running always after generating a test program and perform correctness-preserving mutations on it. To disable TOM you should use the option `--only-preserve-correctness-substitutions`.
+
+`--transformation-types` option specifies which mutations, that produce well-typed programs, can be used during a testing session. Currently, `hephaestus` implements only one mutator that produces well-typed programs (i.e., TEM).
+
+WARNING: Although you can use the mutators in combination, they have not been rigorously tested.
 
 * Example: `--transformation-types TypeErasure` -- enable TypeErasure mutation.
 
 ## `--transformations` and `--transformation-schedule`
 
-You should always specify one of those options. `--transformations` specify the number of mutations that should be applied per test program. If the value is `0`, `hephaestus` will run only the generator. Note that the expected value of this option is between `0`, `1`, or `2`. 
+You should always specify one of those options. `--transformations` specify the number of mutations that should be applied per test program. If the value is `0`, `hephaestus` will run only the generator. Note that this option only specifies how many correctness-preserving mutations should be run.
 
 `--transformation-schedule` expects a path for a file containing the schedule of transformations. This file should specify a transformation per line.
 
