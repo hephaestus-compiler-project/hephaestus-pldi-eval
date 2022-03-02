@@ -18,6 +18,7 @@ def get_args():
     parser.add_argument("--sound", action="store_true")
     parser.add_argument("--increasepkg", action="store_true")
     parser.add_argument("--increasecls", action="store_true")
+    parser.add_argument("--compiler", action="store_true")
     return parser.parse_args()
 
 
@@ -122,7 +123,7 @@ def print_dict(name, d, template):
     print(template.format(name, d['line'], d['function'], d['branch']))
 
 
-def print_res(lang, initial, comb, latex, mut):
+def print_res(lang, initial, comb, latex, mut, compiler):
     template = "{:<20} {:>18} {:>18} {:>18}"
     template_f = "{:<20} {:>18.2f} {:>18.2f} {:>18.2f}"
     print(template.format(
@@ -147,7 +148,8 @@ def print_res(lang, initial, comb, latex, mut):
     print_dict("Initial", initial_dict, template_f)
     print_dict("Combination", comb_dict, template_f)
     print_dict("% change", change_dict, template_f)
-    print_dict("Absolute change", abs_dict, template)
+    if not compiler:
+        print_dict("Absolute change", abs_dict, template)
     if latex:
         categories = [
             ('test', initial_dict),
@@ -200,7 +202,7 @@ def main():
     mut = ""
     mut = "inf" if args.inf else mut
     mut = "sound" if args.sound else mut
-    print_res(args.lang, initial, comb, args.latex, mut)
+    print_res(args.lang, initial, comb, args.latex, mut, args.compiler)
 
     if args.increasepkg or args.increasecls:
         print()
