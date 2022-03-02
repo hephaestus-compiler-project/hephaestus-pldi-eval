@@ -913,8 +913,6 @@ Absolute change                     362                 79               1990
 
 To re-run the complete experiment, depending on your machine(s), could take up to 5 days. Here, we will provide a complete example of how you get the coverage of a total of 10 Groovy test programs for both TEM and TOM, using JaCoCo. To reproduce the full results, you should (1) produce 5k programs for both TOM and TEM, and (2) run the same experiments for the other compilers by replacing `groovy` with `java` and `kotlin` in the following commands.
 
-#### Minimized Groovy Coverage Example
-
 * Step 1: Generate the test programs.
 
 ```
