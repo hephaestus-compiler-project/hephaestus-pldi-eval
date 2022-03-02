@@ -22,7 +22,7 @@ ENV HOME /home/hephaestus
 WORKDIR ${HOME}
 
 # Install missing python packages
-RUn pip3 install --upgrade setuptools
+RUN pip3 install --upgrade setuptools
 
 USER hephaestus
 
@@ -70,3 +70,14 @@ RUN pip3 install --upgrade setuptools
 RUN pip3 install --upgrade distlib
 RUN pip3 install --upgrade pip
 RUN pip3 install seaborn pandas matplotlib
+
+# Coverage dependencies: Install JaCoCo and all compilers
+RUN mkdir ${HOME}/coverage
+WORKDIR ${HOME}/coverage
+# Install Java
+RUN git clone https://github.com/openjdk/jdk.git
+WORKDIR ${HOME}/coverage/jdk
+RUN bash configure
+RUN make jdk
+
+WORKDIR ${HOME}
