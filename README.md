@@ -909,7 +909,7 @@ Combination                       38.26              41.19              35.76
 Absolute change                     362                 79               1990
 ```
 
-### Reproducing RQ3's Coverage Experiment
+### Reproducing RQ3's Coverage Experiment (Optional)
 
 To re-run the complete experiment, depending on your machine(s), could take up to 5 days. Here, we will provide a complete example of how you get the coverage of 10 Java test programs for both TEM and TOM, using JaCoCo. To reproduce the full results, you should (1) produce 5k programs for both TOM and TEM, and (2) run the same experiments for the other compilers by replacing `java` with `groovy` and `kotlin` in the following commands.
 
@@ -971,10 +971,6 @@ Combination                       37.38              40.55              34.81
 Absolute change                     670                162               5225
 ```
 
-#### Complete Experiment
-
-
-
 ## RQ4: Code Coverage (Section 4.5)
 
 For the fourth research question, we will use coverage data from `data/coverage/compilers/` to reproduce Figure 10 that shows the code coverage improvement when adding 10k programs produced by `hephaestus` to the test suites of the compiler. In the following, we compute the results per compiler.
@@ -1014,7 +1010,101 @@ Combination                       83.94              83.99              84.12
 
 NOTE: Our results are slightly different from the submitted paper. We will update Figure 10 on the camera-ready paper to match the results of our artifact.
 
-### Re-run JaCoCo to compute coverage data (Optional)
+### Reproducing RQ3's Coverage Experiment (Optional)
 
-### Re-run hephaestus to produce 10k test programs per language (Optional)
+Similar to RQ3, to re-run the full experiments for this RQ would take days.
+Hence, you can use the generated programs from RQ3 to test our tools.
+Note that these experiments would also take much time because you will have to run the test-suites of the compilers to produce their code coverage.
+We should also mention that if you run the experiments with a small number of generated test programs, then the code coverage increase should be minimal.
 
+* Java, Kotlin
+
+`javac` does not provide any script to generate code coverage metrics for its test-suite. Hence, we are going to compile the test-suite itself by an instrumented version of `javac` to compute the code coverage of its test-suite.
+
+```
+# This will generate a code coverage report for the test-suite in
+# results/java_test_suite/java-test-suite.csv
+# It will take around XXX minutes
+./eval-scripts/coverage/java_test_suite.sh
+
+# You can skip this setp if you have already generate some programs
+# and their reports
+hephaestus.py --bugs coverage_programs --name java_tem_10 --language java \
+    --iterations 10 --batch 10 --workers 2 --transformations 1 \
+    --keep-all --dry-run --only-preserve-correctness-substitutions
+hephaestus.py --bugs coverage_programs --name java_tom_10 --language java \
+    --iterations 10 --batch 10 --workers 2 --transformations 0 \
+    --keep-all --dry-run 
+./eval-scripts/coverage/java_mutations.sh $HOME/coverage \
+    $HOME/coverage_programs/java_tom_10/ 10 2> /dev/null
+./eval-scripts/coverage/java_mutations.sh $HOME/coverage \
+    $HOME/coverage_programs/java_tem_10/ 10 inference 2> /dev/null
+
+# Combine the reports
+./eval-scripts/coverage/combine.sh java \
+    results/java/jacoco-comb-inference.exec \
+    results/java/jacoco-comb-soundness.exec \
+    results/java java-comb
+./eval-scripts/coverage/combine.sh java \
+    results/java-test-suite/jacoco.exec \
+    results/java/java-comb.exec \
+    results/java java-hephaestus
+
+# Print results
+python ~/eval-scripts/compute_coverage.py g \
+    results/java-test-suite/java-test-suite.csv
+    results/java/java-hephaestus.csv
+    ~/data/coverage/compilers/java/java_whitelist
+```
+
+`kotlinc` does not provide any script to generate code coverage metrics for its test-suite. Hence, we are going to compile the test-suite itself by an instrumented version of `kotlinc` to compute the code coverage of its test-suite.
+
+You can perform the experiments by changing `java` to `kotlin` in the previous commands. Note that it would take XXX minutes to compute the code coverage for Kotlin's test-suite.
+
+* Groovy
+
+The build scripts of `groovyc` provide a command to generate code coverage reports; thus, we are going to use it instead of compiling the test-suite with an instrumented compiler (This will take ~60 minutes).
+
+```bash
+# You can skip this setp if you have already generate some programs
+hephaestus.py --bugs coverage_programs --name groovy_tem_10 --language groovy \
+    --iterations 10 --batch 10 --workers 2 --transformations 1 \
+    --keep-all --dry-run --only-preserve-correctness-substitutions
+hephaestus.py --bugs coverage_programs --name groovy_tom_10 --language groovy \
+    --iterations 10 --batch 10 --workers 2 --transformations 0 \
+    --keep-all --dry-run 
+
+source eval-scripts/coverage/config.sh $(uname -s) $HOME/coverage
+sdk use java 11.0.2-open
+
+# Produce code coverage report for the test-suite of groovyc
+# This will take around X minutes
+cd ~/coverage/groovy
+./gradlew clean jacocoAllReport
+cp build/jacoco/test.exec vanilla.exec
+$JAVA_11 -jar $JACOCO/lib/jacococli.jar report vanilla.exec \
+    --classfiles $GROOVY_SRC/build/classes \
+    --html vanilla --csv groovy-vanilla.csv
+cd $HOME
+
+# Replace bug directories
+./eval-scripts/coverage/groovy-create-test-class.sh $coverage \
+    coverage_programs/groovy_tom_10/generator/ GeneratorSTCTest
+./eval-scripts/coverage/groovy-create-test-class.sh $coverage \
+    coverage_programs/groovy_tem_10/transformations/ InferenceSTCTest 0
+
+# Produce code coverage report for the test-suite of groovyc + generated
+# test cases
+cd ~/coverage/groovy
+./gradlew clean jacocoAllReport
+cp build/jacoco/test.exec hephaestus.exec
+$JAVA_11 -jar $JACOCO/lib/jacococli.jar report hephaestus.exec \
+    --classfiles $GROOVY_SRC/build/classes \
+    --html hephaestus --csv groovy-hephaestus.csv
+
+# Print results
+python ~/eval-scripts/compute_coverage.py g \
+    groovy-vanilla.csv
+    groovy-hephaestus.csv
+    ~/data/coverage/compilers/groovy/groovy_whitelist
+```
