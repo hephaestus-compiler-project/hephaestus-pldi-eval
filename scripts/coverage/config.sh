@@ -5,7 +5,7 @@ coverage=$2
 
 MAC_BUILD=macosx-x86_64-server-release
 LINUX_BUILD=linux-x86_64-server-release
-JAVA_17_LINUX=$HOME/.sdkman/candidates/java/17-open/bin/java
+JAVA_17_LINUX=$HOME/.sdkman/candidates/java/17.0.2-open/bin/java
 JAVA_17_MAC=${HOME}/.sdkman/candidates/java/17.ea.27-open/bin/java
 JAVA_8_LINUX=${HOME}/.sdkman/candidates/java/8.0.265-open/bin/java
 JAVA_8_MAC=${HOME}/.sdkman/candidates/java/8.0.282.j9-adpt/bin/java
