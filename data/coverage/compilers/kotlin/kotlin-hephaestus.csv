@@ -692,29 +692,29 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,P
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.PrimitiveTypeName,0,12,0,0,0,2,0,2,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,PropertyAccessorInlineLowering.AccessorInliner,589,0,102,0,66,0,57,0,6,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLoweringKt,0,16,0,0,0,3,0,2,0,2
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},9,0,2,0,1,0,2,0,1,0
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,8,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},9,0,2,0,1,0,2,0,1,0
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,8,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,8,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,8,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,8,0,2,0,1,0,2,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},1,8,1,1,0,1,1,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},1,8,1,1,0,1,1,1,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.lower.new IrElementTransformerVoid() {...},14,218,1,27,1,25,1,17,0,4
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering,177,779,32,65,20,101,21,45,0,14
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLoweringKt.foldConstantLoweringPhase.new Function1() {...},0,12,0,0,0,1,0,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},2,7,1,1,0,1,1,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},9,0,2,0,1,0,2,0,1,0
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},2,7,1,1,0,1,1,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},2,7,1,1,0,1,1,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},2,7,1,1,0,1,1,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},1,8,1,1,0,1,1,1,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.Companion.new Function2() {...},0,9,0,2,0,1,0,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.lower.optimizations,FoldConstantLowering.BinaryOp,9,21,0,0,0,4,3,1,3,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.platform.js,JsPlatform,6,0,0,0,2,0,2,0,2,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.platform.js,JsPlatforms.CompatJsPlatform,7,0,0,0,3,0,2,0,2,0
@@ -883,7 +883,7 @@ JaCoCo Coverage Report,com.intellij.lang.folding,LanguageFolding,67,15,18,0,12,5
 JaCoCo Coverage Report,com.intellij.lang.folding,FoldingBuilderEx,0,3,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,com.intellij.lang.folding,CustomFoldingBuilder,2,11,0,0,1,3,1,2,1,2
 JaCoCo Coverage Report,com.intellij.lang.folding,CompositeFoldingBuilder,37,0,4,0,9,0,5,0,3,0
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.ir,IrUtilsKt,344,1297,70,150,23,134,60,89,4,35
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.ir,IrUtilsKt,344,1297,69,151,23,134,59,90,4,35
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.ir,IrInlineReferenceLocator.Companion,0,34,0,0,0,4,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.ir,IrUtilsKt.collectVisibleTypeParameters.new Function1() {...},0,44,0,12,0,2,0,7,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.ir,IrArrayBuilderKt,30,37,0,0,1,2,1,2,1,2
@@ -908,7 +908,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,IrInlinableLambda,
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,IrInlineUtilsKt,72,426,25,29,8,35,21,15,1,8
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,IrInvokable,0,13,0,0,0,1,0,2,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,IrInlineUtilsKt.move.new VariableRemapper() {...},0,106,0,14,0,13,0,11,0,4
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,IrUtilsKt,803,2282,145,131,85,310,102,97,14,46
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,IrUtilsKt,799,2286,143,133,85,310,100,99,14,46
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,Symbols.Companion,68,97,23,15,5,8,17,4,1,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,SetDeclarationsParentVisitor,168,325,0,2,0,7,28,52,28,51
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.ir,Ir,10,37,0,0,2,3,3,4,3,4
@@ -1580,7 +1580,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.inline.coroutines,CoroutineT
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.inline.coroutines,CoroutineTransformer.newStateMachineForNamedFunction.new Function0() {...},10,226,8,10,0,18,8,2,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.inline.coroutines,CoroutineTransformer,83,496,22,56,2,51,18,39,0,18
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm.compiler,MockExternalAnnotationsManager,98,8,0,0,13,2,13,2,13,2
-JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm.compiler,CoreEnvironmentUtilsKt,143,179,22,14,18,25,19,6,3,4
+JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm.compiler,CoreEnvironmentUtilsKt,103,219,19,17,11,32,17,8,2,5
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm.compiler,KotlinCoreEnvironment.ProjectEnvironment,0,100,1,1,0,18,1,4,0,4
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm.compiler,KotlinCoreEnvironment.new Function1() {...},24,0,0,0,2,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm.compiler,JavaLanguageLevelKt,0,8,0,0,0,2,0,1,0,1
@@ -3534,7 +3534,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,LocalClassDescript
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,AssignedVariablesSearcher,0,117,0,12,0,21,0,12,0,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,FakeCallResolver.makeAndResolveFakeCallInContext.new Function1() {...},0,4,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,ControlStructureTypingUtils,100,514,49,67,0,83,47,24,0,13
-JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,BasicExpressionTypingVisitor,762,3985,259,609,58,762,237,280,2,79
+JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,BasicExpressionTypingVisitor,759,3988,258,610,58,762,236,281,2,79
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,ValueParameterResolver,1,195,2,12,0,29,2,8,0,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,ExpressionTypingVisitorDispatcher,148,639,57,71,10,106,57,55,0,48
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,FunctionWithBigAritySupport.LanguageVersionDependent,0,9,0,0,0,1,0,2,0,2
@@ -3562,7 +3562,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,DoubleColonLHS.Typ
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,FakeCallResolver,4,262,3,15,2,38,3,11,0,4
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,ExpressionTypingUtils.new ObservableBindingTrace() {...},51,0,10,0,9,0,7,0,2,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,LocalLazyDeclarationResolver,0,73,0,4,0,9,0,5,0,3
-JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,DataFlowAnalyzer,132,701,73,137,0,112,73,51,0,19
+JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,DataFlowAnalyzer,131,702,72,138,0,112,72,52,0,19
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,PatternMatchingTypingVisitor.Subject.Variable,5,120,1,1,0,18,2,6,1,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,ControlStructureTypingUtils.ThrowingOnErrorTracingStrategy,214,6,68,0,41,3,53,1,19,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.expressions,DoubleColonExpressionResolver.ResolutionResultsAndTraceCommitCallback,0,21,0,0,0,3,0,3,0,3
@@ -4532,7 +4532,7 @@ JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,Handle,77,53,17,1,10,14,1
 JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,Attribute,164,61,8,14,47,20,14,8,9,2
 JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,Context,0,3,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,MethodVisitor,226,279,57,57,43,85,40,51,8,26
-JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,Frame,388,1763,52,282,103,462,43,189,3,20
+JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,Frame,388,1763,51,283,103,462,42,190,3,20
 JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,ClassTooLargeException,17,0,0,0,4,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,Constants,123,0,18,0,22,0,12,0,3,0
 JaCoCo Coverage Report,org.jetbrains.org.objectweb.asm,Edge,0,12,0,0,0,5,0,1,0,1
@@ -5778,7 +5778,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,PackageFragmentWithCustomSou
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,OverloadChecker,16,141,1,31,1,29,2,19,1,4
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,VarianceCheckerCore.Companion,9,45,1,7,1,8,1,5,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,BindingTraceContext.new CleanableBindingContext() {...},37,42,10,4,3,7,9,6,2,6
-JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,OverridingUtilTypeSystemContext,527,321,2,18,0,18,118,57,116,49
+JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,OverridingUtilTypeSystemContext,501,347,2,18,0,18,112,63,110,55
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,AnnotationResolverImpl,71,261,30,50,2,49,29,19,0,8
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,FiniteBoundRestrictionChecker,52,132,4,14,3,17,4,7,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve,ModifierCheckerCore,217,2503,42,97,28,226,33,55,2,13
@@ -6779,7 +6779,7 @@ JaCoCo Coverage Report,com.intellij.pom,PomIconProvider,3,0,0,0,1,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,NewKotlinTypeCheckerKt,175,76,22,6,10,4,17,3,5,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,SubtypePathNode,0,18,0,0,0,1,0,3,0,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,NewCapturedTypeKt,103,454,11,51,10,55,9,32,1,9
-JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,TypeCheckingProcedure,180,460,72,108,17,86,59,45,1,13
+JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,TypeCheckingProcedure,167,473,69,111,15,88,57,47,1,13
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,KotlinTypeRefiner.Default,25,22,0,0,4,3,4,3,4,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,TypeIntersector.intersectTypesWithoutIntersectionType.errorMessage.new Function0() {...},15,0,0,0,1,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,KotlinTypeRefinerKt,19,8,0,0,1,1,1,2,1,2
@@ -6804,7 +6804,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,ClassicTypeCheckerCont
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,TypeIntersector.ResultNullability.ACCEPT_NULL,0,13,0,0,0,2,0,2,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,ClassicTypeCheckerContext.Companion,10,28,1,1,0,3,1,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,SimpleClassicTypeSystemContext,337,370,0,0,0,1,77,84,77,84
-JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,KotlinTypePreparator,71,187,10,18,9,26,9,8,0,3
+JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,KotlinTypePreparator,60,198,6,22,9,26,6,11,0,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,TypeIntersector.ResultNullability.START,0,13,0,0,0,2,0,2,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,Ref,4,9,0,0,0,1,1,2,1,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.checker,TypeIntersector.ResultNullability,0,59,0,10,0,11,0,7,0,2
@@ -6984,12 +6984,12 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,Redundan
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,PopBackwardPropagationTransformer.Transformer.REPLACE_WITH_NOP.new Function1() {...},0,14,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,BoxedValueDescriptor,3,154,0,4,0,28,1,19,1,17
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,BoxedBasicValue,3,14,0,2,1,2,1,3,1,2
-JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,PopBackwardPropagationTransformer.Transformer,153,483,22,47,8,54,19,26,1,6
+JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,PopBackwardPropagationTransformer.Transformer,150,486,21,48,7,55,18,27,1,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,RedundantBoxedValuesCollection,13,82,6,16,1,19,6,11,0,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,PopBackwardPropagationTransformer.Transformer.HazardsTrackingInterpreter,0,201,0,2,0,15,0,7,0,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,ProgressionIteratorBasicValue,24,172,4,4,4,20,4,9,1,8
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,TaintedBoxedValue,0,23,0,0,0,3,0,3,0,3
-JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,PopBackwardPropagationTransformer.Transformer.REPLACE_WITH_POP2.new Function1() {...},14,0,0,0,1,0,1,0,1,0
+JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,PopBackwardPropagationTransformer.Transformer.REPLACE_WITH_POP2.new Function1() {...},0,14,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,CleanBoxedValue,3,54,0,2,0,5,1,4,1,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,BoxingInterpreter,55,374,4,54,8,65,11,33,7,8
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization.boxing,PopBackwardPropagationTransformer.Transformer.REPLACE_WITH_POP1.new Function1() {...},0,14,0,0,0,1,0,1,0,1
@@ -7847,7 +7847,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls,ValueArgumentsToParame
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls,CandidateResolver.check.new Function0() {...},7,0,0,0,1,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls,GenericCandidateResolverKt.makeConstantSubstitutor.new TypeConstructorSubstitution() {...},0,24,0,2,0,3,0,4,0,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls,KotlinCallResolver,68,366,13,33,11,59,10,18,0,4
-JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls,DiagnosticReporterByTrackingStrategy,492,2171,98,258,46,305,89,116,7,20
+JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls,DiagnosticReporterByTrackingStrategy,490,2173,97,259,46,305,88,117,7,20
 JaCoCo Coverage Report,com.intellij.psi.scope.processor,MethodResolverProcessor,137,0,30,0,19,0,21,0,6,0
 JaCoCo Coverage Report,com.intellij.psi.scope.processor,VariablesProcessor,102,0,30,0,21,0,23,0,8,0
 JaCoCo Coverage Report,com.intellij.psi.scope.processor,FilterScopeProcessor,153,0,40,0,27,0,29,0,9,0
@@ -8096,7 +8096,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,DefaultMapping,9,63,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,DeepCopyIrTreeWithDeclarationsKt,0,29,0,0,0,6,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,ScopeWithIr,0,21,0,0,0,1,0,3,0,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,Mapping.Delegate,21,3,0,0,3,1,2,1,2,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,IrElementTransformerVoidWithContext,114,280,15,7,11,43,17,23,8,21
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,IrElementTransformerVoidWithContext,114,280,14,8,11,43,16,24,8,21
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,DeclarationContainerLoweringPass.DefaultImpls,10,0,0,0,1,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,FunctionsFromAnyGenerator,9,175,6,12,0,30,7,12,1,9
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common,ScopeValidator,32,0,0,0,4,0,2,0,2,0
@@ -9041,7 +9041,7 @@ JaCoCo Coverage Report,com.intellij.util.containers,BidirectionalMap,108,69,15,5
 JaCoCo Coverage Report,com.intellij.util.containers,TreeTraversal.TraversalArgs,17,0,4,0,4,0,3,0,1,0
 JaCoCo Coverage Report,com.intellij.util.containers,ConcurrentLongObjectHashMap.TreeBin,1271,0,314,0,316,0,171,0,14,0
 JaCoCo Coverage Report,com.intellij.util.containers,TreeTraversal.P.new Function.Mono() {...},6,0,0,0,2,0,2,0,2,0
-JaCoCo Coverage Report,com.intellij.util.containers,SLRUMap,146,178,28,16,34,40,24,12,6,8
+JaCoCo Coverage Report,com.intellij.util.containers,SLRUMap,146,178,27,17,34,40,23,13,6,8
 JaCoCo Coverage Report,com.intellij.util.containers,ThreadLocalRandom,94,0,2,0,19,0,7,0,6,0
 JaCoCo Coverage Report,com.intellij.util.containers,JBIterator.FilterMapOp,21,0,2,0,5,0,3,0,2,0
 JaCoCo Coverage Report,com.intellij.util.containers,ConcurrentSoftKeySoftValueHashMap.SoftKey,53,32,19,5,7,7,13,3,1,3
@@ -9576,7 +9576,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.extensions,IrPluginCo
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.extensions,IrPluginContext.DefaultImpls,14,0,0,0,2,0,2,0,2,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.common.extensions,IrGenerationExtension.DefaultImpls,15,0,0,0,2,0,1,0,1,0
 JaCoCo Coverage Report,com.intellij.openapi.vfs.local,CoreLocalVirtualFile,85,119,17,15,16,24,20,15,7,12
-JaCoCo Coverage Report,com.intellij.openapi.vfs.local,CoreLocalFileSystem,14,26,5,3,2,4,6,4,2,4
+JaCoCo Coverage Report,com.intellij.openapi.vfs.local,CoreLocalFileSystem,13,27,4,4,2,4,5,5,2,4
 JaCoCo Coverage Report,com.intellij.openapi.editor.impl.event,DocumentEventImpl,259,0,50,0,45,0,41,0,16,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.js.inline.context,FunctionDefinitionLoader.FragmentInfo,30,0,0,0,4,0,4,0,4,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.js.inline.context,NamingContext,125,0,8,0,16,0,9,0,5,0
@@ -13103,7 +13103,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.types.typeUtil,TypeUtilsKt.containsT
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.typeUtil,TypeUtilsKt.containsTypeAliasParameters.new Function1() {...},2,13,1,1,0,1,1,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.typeUtil,TypeUtilsKt.requiresTypeAliasExpansion.new Function1() {...},2,33,1,5,1,2,1,3,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.typeUtil,TypeUtilsKt.boundClosure.new Function1() {...},0,21,0,4,0,1,0,3,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.types.typeUtil,TypeUtilsKt,629,1346,124,152,43,145,93,121,11,65
+JaCoCo Coverage Report,org.jetbrains.kotlin.types.typeUtil,TypeUtilsKt,627,1348,123,153,43,145,92,122,11,65
 JaCoCo Coverage Report,org.jetbrains.kotlin.types.typeUtil,TypeNullability,21,0,0,0,3,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.fir.resolve.providers,FirSymbolProvider,96,0,0,0,4,0,5,0,5,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.fir.resolve.providers,FirSymbolProviderKt,118,0,16,0,8,0,12,0,4,0
@@ -13777,7 +13777,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeApproximatorConfiguration.
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeApproximatorConfiguration.PublicDeclaration,0,10,0,0,0,5,0,5,0,5
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,FlexibleTypeWithEnhancement,89,0,2,0,14,0,9,0,8,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeApproximatorConfiguration.IntegerLiteralsTypesApproximation.typeVariable.new Function1() {...},0,6,0,0,0,1,0,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeSubstitutor,270,706,75,137,20,123,63,68,1,23
+JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeSubstitutor,243,733,73,139,17,126,62,69,1,23
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,LazyWrappedType,19,27,0,0,3,6,2,2,2,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,StubTypeForBuilderInference,17,49,2,0,1,6,2,5,1,5
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeIntersector.TypeUnifier.TypeParameterUsage,0,9,0,0,0,4,0,1,0,1
@@ -13821,7 +13821,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.types,ConstantValueKind.Short,5,0,0,
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,IntersectionTypeConstructorKt,172,0,16,0,12,0,10,0,2,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,SubstitutionUtils,44,104,16,14,5,22,14,5,1,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,AbstractTypeCheckerContext.SupertypesPolicy.DoCustomTransform,0,4,0,0,0,1,0,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeUtils,409,862,137,203,53,159,111,102,8,33
+JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeUtils,409,862,135,205,53,159,109,104,8,33
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeApproximatorConfiguration.SubtypeCapturedTypesApproximation,0,4,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,EnumCompatibilityCheckerKt,7,120,5,25,1,15,5,13,0,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.types,TypeApproximator,3,77,1,7,0,8,1,7,0,4
@@ -13924,7 +13924,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,ContractParsingDia
 JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,TraceBasedCollector,50,126,1,9,6,12,3,10,2,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,PsiConditionParser,107,468,35,57,11,52,34,22,1,9
 JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,PsiConstantParser,10,66,3,7,3,8,4,4,1,2
-JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,PsiContractsUtilsKt,19,182,9,29,1,14,10,21,1,11
+JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,PsiContractsUtilsKt,18,183,7,31,1,14,8,23,1,11
 JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,PsiContractParserDispatcher,42,495,12,58,6,65,12,32,0,9
 JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,ContractCallContext,6,62,0,0,0,8,2,6,2,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.contracts.parsing,ContractParsingServices,12,188,5,23,1,25,6,15,1,6
@@ -15066,7 +15066,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,JvmDefaultArgument
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,FunctionNVarargBridgeLoweringKt,0,16,0,0,0,4,0,2,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,ParameterInfo,0,38,0,2,0,2,0,6,0,5
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,MappedEnumWhenLowering.EnumMappingState.mappingsClass.new Function0() {...},0,34,0,0,0,6,0,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,JvmOptimizationLowering,23,271,18,34,0,41,18,15,0,7
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,JvmOptimizationLowering,23,271,17,35,0,41,17,16,0,7
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,SuspendLambdaLoweringKt.capturesCrossinline..inlined.hasChild.new IrElementVisitorVoid() {...},327,408,0,2,0,6,71,89,71,88
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,AssertionScope,0,15,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,CollectionStubMethodLowering,150,1161,26,77,9,146,22,56,0,25
@@ -15097,7 +15097,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,AnnotationLowering
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,AddContinuationLoweringKt.isOrOverridesDefaultParameterStub.new Function1() {...},0,6,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,JvmStaticInObjectLowering,3,22,0,0,0,2,1,2,1,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,MainMethodGenerationLoweringKt,0,17,0,0,0,5,0,2,0,2
-JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,InterfaceDefaultCallsLowering,9,77,3,7,0,12,4,5,1,3
+JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,InterfaceDefaultCallsLowering,7,79,2,8,0,12,3,6,1,3
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,ScriptsToClassesLowering,1208,70,40,6,179,11,31,4,10,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,AssertionLowering,731,19,35,1,37,3,100,2,82,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.backend.jvm.lower,PropertyReferenceLowering.ClassData,17,250,5,19,0,20,6,17,1,10
@@ -15365,7 +15365,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.incremental.util,BufferingMessageCol
 JaCoCo Coverage Report,com.intellij.psi.impl.file.impl,FileManagerImpl.new VirtualFileVisitor() {...},29,0,6,0,6,0,4,0,1,0
 JaCoCo Coverage Report,com.intellij.psi.impl.file.impl,FileManagerImpl.new DumbService.DumbModeListener() {...},10,6,0,0,4,1,2,1,2,1
 JaCoCo Coverage Report,com.intellij.psi.impl.file.impl,JavaFileManager,2,7,1,1,0,1,1,1,0,1
-JaCoCo Coverage Report,com.intellij.psi.impl.file.impl,FileManagerImpl,852,421,170,58,157,96,130,27,25,18
+JaCoCo Coverage Report,com.intellij.psi.impl.file.impl,FileManagerImpl,852,421,169,59,157,96,129,28,25,18
 JaCoCo Coverage Report,org.jetbrains.kotlin.fir.symbols.impl,FirIntersectionOverrideFunctionSymbol,16,0,0,0,3,0,2,0,2,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.fir.symbols.impl,FirErrorPropertySymbol,40,0,0,0,4,0,3,0,3,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.fir.symbols.impl,FirBackingFieldSymbol,7,0,0,0,1,0,1,0,1,0
@@ -15750,7 +15750,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,BuilderInfer
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,BuilderInferenceSession,126,1746,30,166,6,259,29,112,0,42
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,ConstraintSystemBuilderImpl.isProper.new Function1() {...},0,27,0,4,0,1,0,3,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,CoroutineInferenceUtilKt.containsTypeTemplate.new Function1() {...},0,14,1,3,0,1,1,2,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,CapturedTypeConstructorImpl,54,67,5,3,6,12,8,8,4,8
+JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,CapturedTypeConstructorImpl,46,75,4,4,4,14,6,10,3,9
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,ConstraintIncorporationKt,7,467,4,49,0,55,4,28,0,5
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,ComposedSubstitutor,14,59,4,6,0,4,5,7,2,5
 JaCoCo Coverage Report,org.jetbrains.kotlin.resolve.calls.inference,CannotCapture,16,0,0,0,1,0,2,0,2,0
@@ -16078,7 +16078,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization,CapturedVarsOpt
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization,LabelNormalizationMethodTransformerKt,0,33,0,0,0,6,0,2,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization,CapturedVarsOptimizationMethodTransformerKt,0,39,0,0,0,6,0,2,0,2
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization,RedundantCheckCastEliminationMethodTransformer,0,172,1,31,0,21,1,19,0,4
-JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization,CapturedVarsOptimizationMethodTransformer.Transformer,109,578,29,58,6,74,23,31,0,10
+JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization,CapturedVarsOptimizationMethodTransformer.Transformer,107,580,27,60,6,74,21,33,0,10
 JaCoCo Coverage Report,org.jetbrains.kotlin.codegen.optimization,ConstantConditionEliminationMethodTransformer.ConstantConditionsOptimization.collectRewriteActions.1.new Function0() {...},0,14,0,0,0,2,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.fir.resolve.diagnostics,ConeUnresolvedReferenceError,42,0,4,0,4,0,7,0,5,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.fir.resolve.diagnostics,ConeInapplicableCandidateError,38,0,0,0,5,0,4,0,4,0
@@ -16124,7 +16124,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,JvmArgumentsKt.setupJvmSpeci
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,JvmRuntimeVersionsConsistencyChecker.FileKind.LibraryWithBundledRuntime,4,0,0,0,1,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,JvmRuntimeVersionsConsistencyChecker.RuntimeJarsInfo,0,48,0,0,0,6,0,6,0,6
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,JvmRuntimeVersionsConsistencyChecker.ClasspathConsistency.Consistent,0,4,0,0,0,1,0,1,0,1
-JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,K2JVMCompiler,530,470,88,40,57,73,67,9,4,8
+JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,K2JVMCompiler,526,474,86,42,56,74,65,11,4,8
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,JvmRuntimeVersionsConsistencyChecker.new Function0() {...},2,0,0,0,1,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,JvmRuntimeVersionsConsistencyChecker.new Function0() {...},2,0,0,0,1,0,1,0,1,0
 JaCoCo Coverage Report,org.jetbrains.kotlin.cli.jvm,JvmRuntimeVersionsConsistencyChecker.new Function0() {...},2,0,0,0,1,0,1,0,1,0
@@ -16988,7 +16988,7 @@ JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrGetObjectValue
 JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrTypeOperatorCallImpl,4,102,0,0,1,13,1,13,1,13
 JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrRawFunctionReferenceImpl,0,49,0,0,0,7,0,7,0,7
 JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrCompositeImpl,0,77,0,0,0,11,0,9,0,9
-JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrWhenImpl,19,58,0,0,1,10,2,7,2,7
+JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrWhenImpl,12,65,0,0,1,10,1,8,1,8
 JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrEnumConstructorCallImpl.Companion,0,20,0,0,0,1,0,1,0,1
 JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrBreakImpl,7,49,0,0,0,7,1,7,1,7
 JaCoCo Coverage Report,org.jetbrains.kotlin.ir.expressions.impl,IrIfThenElseImpl,0,58,0,0,0,8,0,8,0,8
@@ -18310,7 +18310,7 @@ JaCoCo Coverage Report,com.intellij.util.containers.hash,EqualityPolicy.new Equa
 JaCoCo Coverage Report,com.intellij.util.containers.hash,EqualityPolicy.new EqualityPolicy() {...},6,16,4,2,0,3,3,3,0,3
 JaCoCo Coverage Report,com.intellij.util.containers.hash,LinkedHashMap.LinkedHashIterator,18,30,2,2,5,6,2,4,1,3
 JaCoCo Coverage Report,com.intellij.util.containers.hash,LinkedHashMap.Values,24,0,0,0,6,0,5,0,5,0
-JaCoCo Coverage Report,com.intellij.util.containers.hash,LinkedHashMap,137,445,27,49,25,106,33,34,14,15
+JaCoCo Coverage Report,com.intellij.util.containers.hash,LinkedHashMap,134,448,25,51,24,107,31,36,14,15
 JaCoCo Coverage Report,com.intellij.util.containers.hash,EqualityPolicy,0,9,0,0,0,2,0,1,0,1
 JaCoCo Coverage Report,com.intellij.util.containers.hash,LinkedHashMap.KeySet.new LinkedHashMap.LinkedHashIterator() {...},13,0,0,0,2,0,2,0,2,0
 JaCoCo Coverage Report,com.intellij.util.containers.hash,LinkedHashMap.Values.new LinkedHashMap.LinkedHashIterator() {...},13,0,0,0,2,0,2,0,2,0
