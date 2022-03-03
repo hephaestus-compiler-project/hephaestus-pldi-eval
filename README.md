@@ -1065,7 +1065,7 @@ hephaestus@d4246b0fecb5:~$
 
 `kotlinc` does not provide any script to generate code coverage metrics for its test-suite. Hence, we are going to compile the test-suite itself by an instrumented version of `kotlinc` to compute the code coverage of its test-suite.
 
-You can perform the experiments by changing `java` to `kotlin` in the previous commands. Note that it would take XXX minutes to compute the code coverage for Kotlin's test-suite.
+You can perform the experiments by changing `java` to `kotlin` in the previous commands. Note that it would take up to 30 hours to compute the code coverage for Kotlin's test-suite.
 
 * Groovy
 
