@@ -1024,7 +1024,7 @@ We should also mention that if you run the experiments with a small number of ge
 ```
 # This will generate a code coverage report for the test-suite in
 # results/java_test_suite/java-test-suite.csv
-# It will take around XXX minutes
+# It will take around 4 hours.
 ./eval-scripts/coverage/java_test_suite.sh
 
 # You can skip this setp if you have already generate some programs
@@ -1052,9 +1052,15 @@ hephaestus.py --bugs coverage_programs --name java_tom_10 --language java \
 
 # Print results
 python ~/eval-scripts/compute_coverage.py g \
-    results/java-test-suite/java-test-suite.csv
-    results/java/java-hephaestus.csv
+    results/java-test-suite/java-test-suite.csv \
+    results/java/java-hephaestus.csv \
     ~/data/coverage/compilers/java/java_whitelist
+                          Line Coverage  Function Coverage    Branch Coverage
+Initial                           82.84              83.09              83.07
+Combination                       82.89              83.09              83.13
+% change                           0.06               0.00               0.06
+Absolute change                      13                  0                 75
+hephaestus@d4246b0fecb5:~$
 ```
 
 `kotlinc` does not provide any script to generate code coverage metrics for its test-suite. Hence, we are going to compile the test-suite itself by an instrumented version of `kotlinc` to compute the code coverage of its test-suite.
