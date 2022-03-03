@@ -1,8 +1,10 @@
 # Artifact for "Finding Typing Compiler Bugs" (PLDI'22)
 
-This is the artifact for the conditionally accepted PLDI'22 paper titled "Finding Typing Compiler Bugs".
+This artifact is for the conditionally accepted PLDI'22 paper titled 
+"Finding Typing Compiler Bugs".
 
-An archived version of the artifact is also available on Zenodo. See <https://doi.org/XXX>.
+An archived version of the artifact is also available on Zenodo. 
+See https://doi.org/XXX.
 
 # Table of Contents
 
@@ -25,31 +27,33 @@ An archived version of the artifact is also available on Zenodo. See <https://do
 The artifact contains the instructions and scripts to re-run the evaluation 
 described in our paper. The artifact has the following structure:
 
-* `scripts/`: This is the directory that contains the scripts needed to 
-re-run the experiments presented in our paper.
+* `scripts/`: This directory contains the scripts needed to re-run the 
+experiments presented in our paper.
 * `data/`: This is the directory that contains the precomputed results of our 
 evaluation.
 * `database/bug_schema.sql`: This is the database schema that contains the bugs 
 discovered by our approach.
 * `database/bugdb.sqlite3`: This is the sqlite3 database file corresponding to 
-* `database/bugs.json`: This is a JSON file that contains the bugs of 
-`database/bugdb.sqlite` into a JSON.
+* `database/bugs.json`: This JSON file contains the bugs 
+of `database/bugdb.sqlite`.
 * `example_bugs/`: Contains the test programs that trigger the two compiler 
 bugs demonstrated in Section II of our paper.
 * `hephaestus/`: Contains the source code of the tool 
 (provided as a git submodule) used in our paper for testing the compilers of 
 Java, Kotlin, and Groovy.
 * `installation_scripts/`: Contains helper scripts used to install all
-dependencies (e.g. compiler versions from SDKMAN).
-* `figures/`: This is the directory used to save figure 8 of the paper.
+dependencies (e.g., compiler versions from SDKMAN).
+* `figures/`: This directory will be used to save figure 8 of the paper.
+* `Dockerfile`: The Dockerfile used to create the Docker image of this artifact 
+that contains all data and dependencies.
 
-Note that `Hephaestus` is available as open-source software under the
-GNU General Public License v3.0., and can also be reached through the following 
-repository : <https://github.com/ hephaestus-compiler-project /hephaestus>.
+`Hephaestus` is available as open-source software under the
+GNU General Public License v3.0, and can also be reached through the following 
+repository: https://github.com/hephaestus-compiler-project/hephaestus.
 
 Inside the `hephaestus` directory, there are the following directories:
 
-* `src/`: The source code of `Hephaestus` written in Python.
+* `src/`: The source code of `Hephaestus`, which is written in Python.
 * `scripts/`: Some helper scripts for trying to reproduce detected bugs.
 * `tests/`: Contains the tests of `Hephaestus`.
 * `deployment/`: Contains configuration and scripts to install and run
@@ -65,7 +69,11 @@ See [INSTALL.md](./INSTALL.md)
 
 # Getting Started
 
-We will use the Docker image from **Setup** (namely, `hephaestus`) to get started with `Hephaestus`. Recall that this image contains all the required environments for testing the three compilers (i.e., it includes installations of the corresponding compilers, as well as any other tool needed for processing the results).
+We will use the Docker image from **Setup** (namely, `hephaestus-eval`) 
+to get started with `Hephaestus`. Recall that this image contains all the 
+required environments for testing the three compilers (i.e., it includes 
+installations of the corresponding compilers, as well as any other tool 
+needed for processing the results).
 
 You can enter a new container by using the following command:
 
@@ -75,14 +83,17 @@ docker run -ti --rm hephaestus-eval
 
 ## Usage
 
-`hephaestus` provide a rich CLI with many available options. Below, we explain the most important parameters you should specify when running `hephaestus`.
+`hephaestus` provides a rich CLI with many available options. Below, we explain 
+the most important parameters you should specify when running `hephaestus`.
 
 ```
-hephaestus@e0456a9b520e:~$ hephaestus.py -h
-usage: hephaestus.py [-h] [-s SECONDS] [-i ITERATIONS] [-t TRANSFORMATIONS] [--batch BATCH] [-b BUGS] [-n NAME] [-T [{TypeErasure} ...]] [--transformation-schedule TRANSFORMATION_SCHEDULE] [-R REPLAY]
-                     [-e] [-k] [-S] [-w WORKERS] [-d] [-r] [-F LOG_FILE] [-L] [-N] [--language {kotlin,groovy,java}] [--disable-params-type-widening] [--disable-inverted-smart-cast]
-                     [--find-classes-blacklist] [--max-type-params MAX_TYPE_PARAMS] [--min-expr-depth MIN_EXPR_DEPTH] [-P] [--timeout TIMEOUT] [--cast-numbers] [--disable-use-site-variance]
-                     [--disable-contravariance-use-site]
+hephaestus@e0456a9b520e:~$ hephaestus.py --help
+usage: hephaestus.py [-h] [-s SECONDS] [-i ITERATIONS] [-t TRANSFORMATIONS] [--batch BATCH] [-b BUGS] [-n NAME]
+                     [-T [{TypeErasure} ...]] [--transformation-schedule TRANSFORMATION_SCHEDULE] [-R REPLAY] [-e] [-k] [-S]
+                     [-w WORKERS] [-d] [-r] [-F LOG_FILE] [-L] [-N] [--language {kotlin,groovy,java}]
+                     [--disable-params-type-widening] [--disable-inverted-smart-cast] [--find-classes-blacklist]
+                     [--max-type-params MAX_TYPE_PARAMS] [--min-expr-depth MIN_EXPR_DEPTH] [-P] [--timeout TIMEOUT]
+                     [--cast-numbers] [--disable-use-site-variance] [--disable-contravariance-use-site]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -93,7 +104,7 @@ optional arguments:
   -t TRANSFORMATIONS, --transformations TRANSFORMATIONS
                         Number of transformations in each round
   --batch BATCH         Number of programs to generate before invoking the compiler
-  -b BUGS, --bugs BUGS  Set bug directory (default: /home/hephaestus/hephaestus/bugs)
+  -b BUGS, --bugs BUGS  Set bug directory (default: /home/hephaestus/bugs)
   -n NAME, --name NAME  Set name of this testing instance (default: random string)
   -T [{TypeErasure} ...], --transformation-types [{TypeErasure} ...]
                         Select specific transformations to perform
@@ -108,9 +119,10 @@ optional arguments:
   -w WORKERS, --workers WORKERS
                         Number of workers for processing test programs
   -d, --debug
-  -r, --rerun           Run only the last transformation. If failed, start from the last and go back until the transformation introduces the error
+  -r, --rerun           Run only the last transformation. If failed, start from the last and go back until the transformation
+                        introduces the error
   -F LOG_FILE, --log-file LOG_FILE
-                        Set log file (default: /home/hephaestus/hephaestus/logs)
+                        Set log file (default: /home/hephaestus/logs)
   -L, --log             Keep logs for each transformation (bugs/session/logs)
   -N, --dry-run         Do not compile the programs
   --language {kotlin,groovy,java}
@@ -128,155 +140,195 @@ optional arguments:
   -P, --only-preserve-correctness-substitutions
                         Use only preserve correctness substitution
   --timeout TIMEOUT     Timeout for transformations (in seconds)
-  --cast-numbers        Cast numeric constants to their actual type (this option is used to avoid re-occrrence of a specific Groovy bug)
+  --cast-numbers        Cast numeric constants to their actual type (this option is used to avoid re-occrrence of a specific Groovy
+                        bug)
   --disable-use-site-variance
                         Disable use-site variance
   --disable-contravariance-use-site
                         Disable contravariance in use-site variance
 ```
 
-### `--bugs` (Optional)
+* `--bugs` (Optional)
 
 Set the directory to save the results of the testing session.
 
-NOTE: The defaults directory is `$(pwd)/bugs`.
+NOTE: The default directory is `$(pwd)/bugs`.
 
-* Example: `--bugs hephaestus-results`
+Example: `--bugs hephaestus-results`
 
-### `--name` (Optional)
+* `--name` (Optional)
 
 Name of the current testing session.
 
-NOTE: The default name is a randomly generated 5-character long string (e.g., hl43S).
+NOTE: The default name is a randomly generated 5-character long string 
+(e.g., `hl43S`).
 
-* Example: `--name test-javac-1`
+Example: `--name test-javac-1`
 
-### `--language` 
+* `--language` 
 
-When running `hephaestus`, you should specify which language's the compiler you want to test. The available options are `kotlin`, `groovy`, and `java`. Hephaestus will use the selected language's compiler that is on the `PATH`. If you want to test a specific compiler version, you should configure it as the current session's default compiler.
+When running `hephaestus`, you should specify which language's the compiler you 
+want to test. The available options are `kotlin`, `groovy`, and `java`. 
+Hephaestus will use the selected language's compiler that is on the `PATH`. 
+If you want to test a specific compiler version, you should configure it as 
+the current session's default compiler.
 
-* Example: `--language kotlin` -- `hephaestus` will test Kotlin's compiler (i.e., `kotlinc`)
+* Example: `--language kotlin` -- `hephaestus` will test Kotlin's compiler 
+(i.e., `kotlinc`)
 
-## `--seconds` and `--iterations`
+* `--seconds` and `--iterations`
 
-You should always specify either `--seconds` or `--iterations` option. The former specifies how much time `hephaestus` should test a compiler in seconds, whereas the second specifies how many test cases should `hephaestus` generate and run.
+You should always specify either `--seconds` or `--iterations` option. 
+The former specifies how much time `hephaestus` should test a compiler in 
+seconds, whereas the second specifies how many test cases should `hephaestus` 
+generate and run.
 
-* Example 1: `--seconds 120` -- hephaestus will run for 2 minutes.
+Example 1: `--seconds 120` -- `hephaestus` will run for 2 minutes.
 
-* Example 2: `--transformations 60` -- hephaestus will generate and run 60 test programs.
+Example 2: `--transformations 60` -- `hephaestus` will generate and run 60 test 
+programs.
 
-## `--batch` (Optional)
+* `--batch` (Optional)
 
-When running `hephaestus`, most of the testing time is spent compiling the test programs. Instead of generating one program at a time, you can specify the number of programs you want to generate before compiling them with the `--batch` option.
+When running `hephaestus`, most of the testing time is spent compiling the test 
+programs. Instead of generating one program at a time, you can specify the 
+number of programs you want to generate before compiling them in a batch.
 
 NOTE: The default option is 1.
 
-* Example: `--batch 30` -- First, create 30 programs and then compile them with a single compiler execution.
+Example: `--batch 30` -- First, create 30 programs and then compile them with 
+a single compiler execution.
 
-## `--workers` (Optional)
+* `--workers` (Optional)
 
-When `--batch` option is larger than one, you can specify the number of workers that will generate and mutate programs in parallel.
+When `--batch` option is larger than one, you can specify the number of workers 
+that will generate and mutate programs in parallel.
 
 NOTE: The default option is 1.
 
-* Example: `--workers 4` -- Use four workers to generate and mutate test programs.
+* Example: `--workers 4` -- Use four workers to generate and mutate test 
+programs.
 
-## `--transformation-types` and `--only-preserve-correctness-substitutions` 
+* `--transformation-types` and `--only-preserve-correctness-substitutions` 
 
-Hephaestus supports two transformations, those that produce well-typed test programs and those that produce ill-typed test programs. Currently, `hephaestus` implements two mutators: Type Erasure Mutator (TEM) and Type Overwriting Mutator (TOM). The former produces well-typed programs, whereas the latter produces ill-typed. 
+Hephaestus supports two transformations, those that produce well-typed test 
+programs and those that produce ill-typed test programs. Currently, 
+`hephaestus` implements Type Erasure Mutator (TEM) and Type Overwriting 
+Mutator (TOM). The former constructs well-typed programs, 
+while the latter yields ill-typed. 
 
-By default TOM is running always after generating a test program and perform correctness-preserving mutations on it. To disable TOM you should use the option `--only-preserve-correctness-substitutions`.
+By default, TOM is always running after generating a test program. 
+To disable TOM, you should use the option 
+`--only-preserve-correctness-substitutions`.
 
-`--transformation-types` option specifies which mutations, that produce well-typed programs, can be used during a testing session. Currently, `hephaestus` implements only one mutator that produces well-typed programs (i.e., TEM).
+`--transformation-types` option specifies which mutations that produce 
+well-typed programs should be used during a testing session. Currently, 
+`hephaestus` implements only one mutator that produces well-typed programs 
+(i.e., TEM).
 
-WARNING: Although you can use the mutators in combination, they have not been rigorously tested.
+WARNING: Although you can use the mutators in combination, they have not been 
+rigorously tested in combination, and FP may exist.
 
-* Example: `--transformation-types TypeErasure` -- enable TypeErasure mutation.
+Example: `--transformation-types TypeErasure` -- enable TypeErasure mutation.
 
-## `--transformations` and `--transformation-schedule`
+* `--transformations` and `--transformation-schedule`
 
-You should always specify one of those options. `--transformations` specify the number of mutations that should be applied per test program. If the value is `0`, `hephaestus` will run only the generator. Note that this option only specifies how many correctness-preserving mutations should be run.
+You should always specify one of those options. `--transformations` specify the
+number of mutations that should be applied per test program. If the value is 
+`0`, `hephaestus` will run only the generator. Note that this option only 
+specifies how many correctness-preserving mutations should be applied.
 
-`--transformation-schedule` expects a path for a file containing the schedule of transformations. This file should specify a transformation per line.
+`--transformation-schedule` expects a path for a file containing the schedule 
+of transformations. This file should specify a mutator per line.
 
-* Example 1: `--transformations 0` -- Do not perform any transformation
+Example 1: `--transformations 0` -- Do not perform any transformations.
 
-* Example 2: `--transformation-schedule transformations.txt` -- Perform the transformations declared in file `transformations.txt`. The `transformations.txt` file could contain the following.
+Example 2: `--transformation-schedule transformations.txt` -- Perform the 
+transformations declared in file `transformations.txt`. 
+The `transformations.txt` file could contain the following.
 
 ```
 TypeErasure
 ```
 
-## `--keep-all` (Optional)
+* `--keep-all` (Optional)
 
-`hephaestus` only save programs that cause a compiler error.
-When `--keep-all` is enabled, `hephaestus` will save all generated and mutated test programs.
+`hephaestus` only saves programs that cause a compiler error.
+When `--keep-all` is enabled, `hephaestus` will save all generated and mutated 
+test programs.
 
-* Example: `--keep-all`
+Example: `--keep-all`
 
-## `--dry-run` (Optional)
+* `--dry-run` (Optional)
 
-When this option is used, `hephaestus` only produces and mutates test programs, i.e. it does not test the compiler.
+When this option is used, `hephaestus` only produces and mutates test programs, 
+i.e., it does not test the compiler.
 
-NOTE: always use this option with `-keep-all`.
+Example: `--dry-run`
 
-* Example: `--dry-run`
+* `--log-file` (Optional)
 
-## `--log-file` (Optional)
+By default, `hephaestus` keeps logs of testing sessions in a file called `logs` 
+in the working directory. However, with `--log-file` option, you can specify 
+another file to save the logs.
 
-By default, `hephaestus` keeps logs of testing sessions in a file called `logs` in the working directory. With `--log-file` option, you can specify another file to save the logs.
+Example: `--log-file my_logs`
 
-* Example: `--log-file my_logs`
+* `--replay` (Optional)
 
-## `--replay` (Optional)
-
-Use a seed program instead of `hephaestus`'s generated programs. 
+Use a seed program instead of `hephaestus`' generated programs. 
 
 NOTE: The input program should be pickled.
 
-* Example: `--replay bugs/idET7/generator/iter_1/Main.java.bin`
+Example: `--replay bugs/idET7/generator/iter_1/Main.java.bin`
 
-## `--debug` (Debugging option)
+* `--debug` (Debugging option)
 
-Print debug messages before every step (i.e. program generation, mutation, compilation).
+Print debug messages before every step (i.e., program generation, mutation, 
+compilation).
 
-NOTE: Use this option only when `--workers` option is set to 1 and `-batch` is set to 1.
+NOTE: Use this option only when `--workers` option is set to 1 
+and `-batch` is set to 1.
 
-* Example: `--debug`
+Example: `--debug`
 
-## `--examine` (Debugging option)
+* `--examine` (Debugging option)
 
 Open a debugger session to inspect the IR of the generated program.
 
 NOTE: This option can only be used with `--replay` option.
 
-## `--print-stacktrace` (Debugging option)
+* `--print-stacktrace` (Debugging option)
 
 Print stacktaces for `hephaestus` internal errors. 
 
-* Example: `--print-stacktrace`
+Example: `--print-stacktrace`
 
-## `--cast-numbers` (Optional)
+* `--cast-numbers` (Optional)
 
-This option is used to cast numeric constants to their actual type in Groovy programs. This option is used to avoid the re-occurrence of a specific Groovy bug.
+This option is used to cast numeric constants to their actual type in Groovy 
+programs. We use this option to avoid the re-occurrence of a specific Groovy 
+bug.
 
 NOTE: This option has an effect only when `--language` is set to `groovy`.
 
-* Example: `--cast-numbers`
+Example: `--cast-numbers`
 
-## `--disable-use-site-variance` (Optional)
+* `--disable-use-site-variance` (Optional)
 
 Generate programs that do not use use-site variance.
 
-* Example: `--disable-use-site-variance`
+Example: `--disable-use-site-variance`
 
-## `--disable-contravariance-use-site` (Optional)
+* `--disable-contravariance-use-site` (Optional)
 
 Generate programs that do not use contravariance in use-site variance.
 
-## `--max-type-params` (Optional)
+Example: `--disable-contravariance-use-site`
 
-Specify the number maximum number of type parameters for a parameterized class.
+* `--max-type-params` (Optional)
+
+Specify the maximum number of type parameters for a parameterized class.
 
 NOTE: the default value is `3`.
 
@@ -305,7 +357,9 @@ tests/test_use_analysis.py::test_program8 PASSED                        [100%]
 
 ## Example
 
-Here, we will test the Kotlin compiler by employing hephaestus' program generator . Specifically with the following command we are going to produce 30 test programs in batches of 10 test programs using 2 workers.
+Here, we will test the Kotlin compiler by employing Hephaestus's program 
+generator. Specifically, we will produce 30 test programs in batches of 10 
+test programs using two workers with the following command.
 
 ```
 hephaestus@e0456a9b520e:~/hephaestus$ hephaestus.py \
@@ -382,7 +436,10 @@ In this example, `faults.json` is empty. If there were some bugs detected,
 
 ```
 
-The first error is an unexpected compile-time error detected using the Type Erasure mutation. The second is a compiler bug where the compiler accepts an ill-typed program. Finally, the third one is an internal error of `hephaestus`. 
+The first error is an unexpected compile-time error detected using the 
+Type Erasure mutation. The second is a compiler bug where the compiler accepts 
+an ill-typed program. Finally, the third one is an internal error of 
+`hephaestus`. 
 
 In the above scenario, the testing session directory would be like the following:
 
@@ -407,7 +464,8 @@ hephaestus@e0456a9b520e:~$ exit
 
 # Step By Step Instructions
 
-To validate the main results presented in the paper, first create a new Docker container by running:
+To validate the main results presented in the paper, first create a new Docker 
+container by running:
 
 ```
 docker run -ti --rm \
@@ -418,11 +476,20 @@ docker run -ti --rm \
   hephaestus-eval
 ```
 
-Note that we mount four local volumes inside the newly-created container. The first volume (`database/`) contains the bug database that includes the bugs discovered by our approach, while the second volume (`data/`) provides the data collected during our evaluation. The third volume (`eval-scripts/`) includes some scripts to reproduce and validate the results of the paper. Finally, the fourth volume (`eval-figures/`) will be used to save Figure 8 of our paper.
+Note that we mount four local volumes inside the newly-created container. 
+The first volume (`database/`) contains the bug database that includes the bugs 
+discovered by our approach, while the second volume (`data/`) provides the data 
+collected during our evaluation. The third volume (`eval-scripts/`) includes 
+some scripts to reproduce and validate the results of the paper. Finally, the 
+fourth volume (`eval-figures/`) will be used to save Figure 8 of our paper.
 
 ## Bug Database
 
-We provide an SQLite database (see the file `bugs/bugdb.sqlite3`) that contains information about the bugs discovered by our approach during the evaluation. This database is initialized based on the SQL script stored into `bugs/bug_schema.sql`. The bug database consists of three tables, namely `CompilerBug`, `Characteristic`, and `CompilerBugCharacteristics`. 
+We provide an SQLite database (see the file `bugs/bugdb.sqlite3`) that contains 
+information about the bugs discovered by our approach during the evaluation. 
+This database is initialized based on the SQL script stored into 
+`bugs/bug_schema.sql`. The bug database consists of three tables, 
+namely `CompilerBug`, `Characteristic`, and `CompilerBugCharacteristics`. 
 
 Each record of the `CompilerBug` table consists of the following columns.
 
@@ -432,55 +499,66 @@ Each record of the `CompilerBug` table consists of the following columns.
 * `compiler`: The name of the compiler where the bug was found.
 * `title`: The title of the bug report.
 * `issue_tracker_link`: A URL pointing to the bug report opened by us.
-* `mutator`: The component that detected the bug. There are four possible values: generator, soundness (i.e., TOM), inference (i.e., TEM), and inference/soundness (i.e., TEM and then TOM).
+* `mutator`: The component that detected the bug. There are four possible 
+values: generator, soundness (i.e., TOM), inference (i.e., TEM), and 
+inference/soundness (i.e., TEM and then TOM).
 * `fix_link`: A URL pointing to the fix of the bug.
 * `severity`: The severity of the bugs given by the developers.
 * `status`: The status of the bug.
 * `resolution`: The resolution of the bug (e.g., Fixed, Duplicate).
 * `report_date`: The date that we reported the bug.
 * `resolution_date`: The date that the developers resolved the bug.
-* `symptom`: The symptom of the bug. There are three possible values: unexpected compile-time error (UCTE), unexpected runtime behavior (URB), and crash.
+* `symptom`: The symptom of the bug. There are three possible values: 
+unexpected compile-time error (UCTE), unexpected runtime behavior (URB), 
+and crash.
 * `resolved_in`: How long did it take to resolve this bug.
 * `test`: The test program that revealed the bug.
-* `error_msg`: The error message reported by the compiler, or the stacktrace of the crash, or the exception caused in the runtime.
+* `error_msg`: The error message reported by the compiler, or the stacktrace of 
+the crash, or the exception caused in the runtime.
 
 The `Characteristic` table contains the following three fields.
 
 * `cid`: A serial number corresponding to the ID of the characteristic.
-* `characteristic_name`: The name of the characteristic (e.g., Parameterized class).
-* `category`: The category of the characteristic (e.g. Parametric polymorphism).
+* `characteristic_name`: The name of the characteristic 
+(e.g., Parameterized class).
+* `category`: The category of the characteristic 
+(e.g. Parametric polymorphism).
 
-Finally, `CompilerBugCharacteristics` is a table implementing the many-to-many relationship between `CompilerBug` and `CompilerBugCharacteristics`, this table contains three fields: `bcid`, `cid`, `bid`.
+Finally, `CompilerBugCharacteristics` is a table implementing the many-to-many 
+relationship between `CompilerBug` and `CompilerBugCharacteristics`, 
+this table contains three fields: `bcid`, `cid`, `bid`.
 
 ### Example Queries
 
-From inside the container, we can perform some basic queries on this bug database.
+From inside the container, we can perform some basic queries on this bug 
+database.
 
 Get the total number of the discovered bugs.
 
 ```
-hephaestus@5021c7920e54:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug";
+hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug";
 153
 ```
 
 Find the number of `groovyc` bugs.
 
 ```
-sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug WHERE compiler = 'groovyc'";
+hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug WHERE compiler = 'groovyc'";
 110
 ```
 
 Find the number of `javac` bugs that have UCTE as their symptom.
 
 ```
-hephaestus@5021c7920e54:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug WHERE compiler = 'javac' AND symptom = 'Unexpected Compile-Time Error'";
+hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug WHERE compiler = 'javac' AND symptom = 'Unexpected Compile-Time Error'";
 7
 ```
 
-For each Kotlin bug revealed by TEM (i.e., soundness mutator), dump the URLs pointing to our bug reports.
+For each Kotlin bug revealed by TEM (i.e., soundness mutator), dump the URLs 
+pointing to our bug reports.
 
 ```
-hephaestus@5021c7920e54:~$ sqlite3 database/bugdb.sqlite3 "SELECT issue_tracker_link FROM CompilerBug WHERE compiler = 'kotlinc' AND mutator = 'inference'";
+hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT issue_tracker_link FROM CompilerBug WHERE compiler = 'kotlinc' AND mutator = 'inference'";
 https://youtrack.jetbrains.com/issue/KT-45118
 https://youtrack.jetbrains.com/issue/KT-49092
 https://youtrack.jetbrains.com/issue/KT-48764
@@ -495,10 +573,11 @@ https://youtrack.jetbrains.com/issue/KT-46684
 https://youtrack.jetbrains.com/issue/KT-44651
 ```
 
-Get the three most common characteristics in the test cases of the reported bugs.
+Get the three most common characteristics used in the test cases of the 
+reported bugs.
 
 ```
-sqlite3 database/bugdb.sqlite3 "SELECT c.characteristic_name, COUNT(*) as total FROM CompilerBugCharacteristics as cbc JOIN Characteristic as c ON c.cid = cbc.cid GROUP BY cbc.cid ORDER BY total DESC LIMIT 3";
+hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT c.characteristic_name, COUNT(*) as total FROM CompilerBugCharacteristics as cbc JOIN Characteristic as c ON c.cid = cbc.cid GROUP BY cbc.cid ORDER BY total DESC LIMIT 3";
 Parameterized class|96
 Parameterized type|77
 Bounded type parameter|50
@@ -506,10 +585,12 @@ Bounded type parameter|50
 
 ## RQ1: Bug-Finding Results (Section 4.2)
 
-For the first research question, first we will use `database/bugs.json` to reproduce Figure 7a that shows how many bugs (and their status) were found in each tested compiler. To do so, run:
+For the first research question, first, we will use `database/bugs.json` to 
+reproduce Figure 7a, which shows how many bugs (and their status) were found in 
+each tested compiler. To do so, run:
 
 ```
-hephaestus@0f0e136c9699:~$ python eval-scripts/process_bugs.py database/bugs.json rq1
+hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py database/bugs.json rq1
                          Figure 7a
 ============================================================
 Status              groovyc   kotlinc   Java      Total
@@ -523,10 +604,12 @@ Duplicate           2         1         1         4
 Total               110       32        11        153
 ```
 
-Next to produce Figure 8 and compute the numbers of **"Affected compiler versions"** paragraph run the following script.
+Next, run the following script to produce Figure 8 and compute the numbers of 
+**"Affected compiler versions"** paragraph.
 
 ```
-hephaestus@65dcb5e94149:~$ python eval-scripts/history_analysis.py data/history/history_19_11_21.json eval-figures/bug_versions.pdf
+hephaestus@e0456a9b520e:~$ python eval-scripts/history_analysis.py \
+    data/history/history_19_11_21.json eval-figures/bug_versions.pdf
 groovyc
 All versions are buggy: 35
 The error exist only in master: 50
@@ -560,29 +643,38 @@ Compiler Affected stable versions  Bugs
 14    javac                    [4-6]     1
 ```
 
-This script will also generate Figure 8 and save it at `figures/bug_versions.pdf` in your host machine.
+This script will also generate Figure 8 and save it at 
+`figures/bug_versions.pdf` in your host machine.
 
-The statements that we want to check from paragraph **"Affected compiler versions"** are the following:
+The statements that we want to check from paragraph 
+**"Affected compiler versions"** are the following:
 
 * 35 `groovyc` and 14 `kotlinc` bugs occur in all stable compiler versions.
-* A large portion of `groovyc` bugs (50/110 -- 45%) are triggered only in the master branch of the compiler.
+* A large portion of `groovyc` bugs (50/110 -- 45%) are triggered only in 
+the master branch of the compiler.
 
 ### Re-run Affected Compiler Versions Experiments. (Optional)
 
-To re-compute which compiler versions are affected you can run the following command (it will take around 90 minutes):
+To re-compute which compiler versions are affected, you can run the following 
+command (it will take around 90 minutes):
 
 ```
 python scripts/history_run.py database/bugs.json history.json
 ```
 
-NOTE: The results might be slightly different because (1) SDKMAN does not support the same compiler version, (2) some bugs may have been fixed by the developers.
+NOTE: The results might be slightly different because (1) SDKMAN does not 
+support the same compiler version, (2) the developers may have fixed some bugs.
+
 
 ## RQ2: Bug and Test Case Characteristics (Section 4.3)
 
-For the second research question, we will use `database/bugs.json` to reproduce Figure 78 that shows the symptoms of the reported bugs. Furthermore, we will the most popular features used in the bug-revealing test programs. To do so, run:
+For the second research question, we will use `database/bugs.json` to reproduce 
+Figure 7b, which shows the symptoms of the reported bugs. Furthermore, we will 
+find the most popular features used in the bug-revealing test programs. 
+To do so, run:
 
 ```
-hephaestus@9dfe76e26efa:~$ python eval-scripts/process_bugs.py database/bugs.json rq2
+hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py database/bugs.json rq2
                          Figure 7b
 ============================================================
 Symptoms            groovyc   kotlinc   Java      Total
@@ -634,14 +726,18 @@ Other                        1
 ================================================================================
 ```
 
-Beyond Figure 7b, this script produces the number used in Section 4.3.
+Beyond Figure 7b, this script produces the numbers used in Section 4.3.
 Specifically, Section 4.3 contains the following statements:
 
-* Features related to parametric polymorphism (e.g., parameterized class) are in the list of features with the most bug-revealing capability. 
-* In total, 104/153 bugs are caused by programs containing at least one such feature (parametric polymorphism).
-* In 47% of test cases that use conditionals, type inference features are also included.
+* Features related to parametric polymorphism (e.g., parameterized class) are 
+in the list of features with the most bug-revealing capability. 
+* In total, 104/153 bugs are caused by programs containing at least one such 
+feature (parametric polymorphism).
+* In 47% of test cases that use conditionals, type inference features are 
+also included.
 
-To see the results for how features are used with other features you can use the option `--combinations` in the previous script, and it will print the following.
+To verify the last statement, you can use the option `--combinations` 
+and see which features are used with conditionals.
 
 ```
 Combinations
@@ -768,10 +864,12 @@ Declaration-site variance     OOP features                      1
 
 ## RQ3: Effectiveness of Mutations (Section 4.4)
 
-For the third research question, first we will use `database/bugs.json` to reproduce Figure 7c that shows how many bugs does each component revealed. To do so, run:
+For the third research question, we will first use `database/bugs.json` to 
+reproduce Figure 7c, which shows how many bugs each component revealed. 
+To do so, run:
 
 ```
-hephaestus@fe6883e92441:~$ python eval-scripts/process_bugs.py database/bugs.json rq3
+hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py database/bugs.json rq3
                          Figure 7c
 ============================================================
 Component           groovyc   kotlinc   Java      Total
@@ -783,13 +881,14 @@ TEM & TOM           1         1         0         2
 ```
 
 Next, we are going to compute the results of Figure 9 per compiler.
-In the `data/coverage/mutations/` directory we provide the results of JaCoCo on 5k random test programs per compiler saved at `data/test_programs/mutations`.
+In the `data/coverage/mutations/` directory, we provide the results of JaCoCo 
+on 5k random test programs per compiler saved at `data/test_programs/mutations`.
 
 * `groovyc`
 
 ```
 # TEM
-hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py \
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/mutations/groovy/groovy-generator-inf.csv \
     data/coverage/mutations/groovy/groovy-combination-inf.csv \
     data/coverage/mutations/groovy/groovy_whitelist --increasepkg
@@ -811,7 +910,10 @@ org.apache.groovy.parser.antlr4: Branch -- 30 (0.17), Line -- 9 (0.28), Func -- 
 org.codehaus.groovy.ast.expr: Branch -- 3 (0.16), Line -- 1 (0.19), Func -- 1 (0.49)
 
 # TOM
-hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/groovy/groovy-generator-sound.csv data/coverage/mutations/groovy/groovy-combination-sound.csv data/coverage/mutations/groovy/groovy_whitelist
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/mutations/groovy/groovy-generator-sound.csv \
+    data/coverage/mutations/groovy/groovy-combination-sound.csv \
+    data/coverage/mutations/groovy/groovy_whitelist
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           43.30              42.21              42.72
 Combination                       43.57              42.35              42.99
@@ -823,7 +925,7 @@ Absolute change                      99                 10                447
 
 ```
 # TEM
-hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py k \
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py k \
     data/coverage/mutations/kotlin/kotlin-generator-inf.csv \
     data/coverage/mutations/kotlin/kotlin-combination-inf.csv \
     data/coverage/mutations/kotlin/kotlin_whitelist --increasepkg
@@ -872,7 +974,10 @@ org.jetbrains.kotlin.resolve.jvm.checkers: Branch -- 2 (0.06), Line -- 0 (0.00),
 org.jetbrains.kotlin.resolve.checkers: Branch -- 2 (0.05), Line -- 0 (0.00), Func -- 0 (0.00)
 
 # TOM
-hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/kotlin/kotlin-generator-sound.csv data/coverage/mutations/kotlin/kotlin-combination-sound.csv data/coverage/mutations/kotlin/kotlin_whitelist
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/mutations/kotlin/kotlin-generator-sound.csv \
+    data/coverage/mutations/kotlin/kotlin-combination-sound.csv \
+    data/coverage/mutations/kotlin/kotlin_whitelist
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           31.47              31.01              30.87
 Combination                       31.80              31.31              31.22
@@ -884,7 +989,10 @@ Absolute change                     572                166               4171
 
 ```
 # TEM
-hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/java/java-generator-inf.csv data/coverage/mutations/java/java-combination-inf.csv data/coverage/mutations/java/java_whitelist --increasepkg
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/mutations/java/java-generator-inf.csv \
+    data/coverage/mutations/java/java-combination-inf.csv \
+    data/coverage/mutations/java/java_whitelist --increasepkg
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           36.99              39.68              34.56
 Combination                       37.68              40.49              35.18
@@ -901,7 +1009,10 @@ com.sun.tools.javac.tree: Branch -- 12 (0.23), Line -- 4 (0.33), Func -- 2 (0.53
 com.sun.tools.javac.main: Branch -- 5 (0.11), Line -- 1 (0.12), Func -- 0 (0.00)
 
 # TOM
-hephaestus@0f633ede0d56:~$ python eval-scripts/compute_coverage.py g data/coverage/mutations/java/java-generator-sound.csv data/coverage/mutations/java/java-combination-sound.csv data/coverage/mutations/java/java_whitelist
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/mutations/java/java-generator-sound.csv \
+    data/coverage/mutations/java/java-combination-sound.csv \
+    data/coverage/mutations/java/java_whitelist
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           37.63              40.46              35.18
 Combination                       38.26              41.19              35.76
@@ -911,30 +1022,38 @@ Absolute change                     362                 79               1990
 
 ### Reproducing RQ3's Coverage Experiment (Optional)
 
-To re-run the complete experiment, depending on your machine(s), could take up to 5 days. Here, we will provide a complete example of how you get the coverage of 10 Java test programs for both TEM and TOM, using JaCoCo. To reproduce the full results, you should (1) produce 5k programs for both TOM and TEM, and (2) run the same experiments for the other compilers by replacing `java` with `groovy` and `kotlin` in the following commands.
+Re-run the complete experiment, depending on your machine(s), 
+could take up to 5 days. Here, we will provide a complete example of how you 
+get the coverage of 10 Java test programs for both TEM and TOM, using JaCoCo. 
+To reproduce the full results, you should (1) produce 5k programs for both TOM 
+and TEM, and (2) run the same experiments for the other compilers by replacing 
+`java` with `groovy` and `kotlin` in the following commands.
 
 * Step 1: Generate the test programs.
 
 ```
-hephaestus.py --bugs coverage_programs --name java_tem_10 --language java \
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name java_tem_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 1 \
     --keep-all --dry-run --only-preserve-correctness-substitutions
-hephaestus.py --bugs coverage_programs --name java_tom_10 --language java \
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name java_tom_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 0 \
     --keep-all --dry-run 
 ```
 
-* Step 2: Produce coverage reports for generator and TEM.
+* Step 2: Produce the coverage reports for generator and TEM.
 
 ```
-./eval-scripts/coverage/java_mutations.sh $HOME/coverage \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
+    $HOME/coverage \
     $HOME/coverage_programs/java_tem_10/ 10 inference 2> /dev/null
 ```
 
 * Step 3: Compute the results for generator and TEM.
 
 ```
-python eval-scripts/compute_coverage.py g \
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py g \
     results/java/java-generator-inference.csv \
     results/java/java-comb-inference.csv \
     data/coverage/mutations/java/java_whitelist
@@ -943,24 +1062,20 @@ Initial                           35.12              38.10              32.31
 Combination                       35.55              38.66              32.74
 % change                           0.43               0.56               0.43
 Absolute change                     250                 60               1511
-
-python eval-scripts/compute_coverage.py g \
-    results/kotlin/kotlin-generator-inference.csv \
-    results/kotlin/kotlin-comb-inference.csv \
-    data/coverage/mutations/kotlin/java_whitelist
 ```
 
-* Step 4: Produce coverage reports for generator and TOM.
+* Step 4: Produce the coverage reports for generator and TOM.
 
 ```
-./eval-scripts/coverage/java_mutations.sh $HOME/coverage \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
+    $HOME/coverage \
     $HOME/coverage_programs/java_tom_10/ 10 2> /dev/null
 ```
 
 * Step 5: Compute the results for generator and TOM.
 
 ```
-python eval-scripts/compute_coverage.py g \
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py g \
     results/java/java-generator-soundness.csv \
     results/java/java-comb-soundness.csv \
     data/coverage/mutations/java/java_whitelist
@@ -973,12 +1088,18 @@ Absolute change                     670                162               5225
 
 ## RQ4: Code Coverage (Section 4.5)
 
-For the fourth research question, we will use coverage data from `data/coverage/compilers/` to reproduce Figure 10 that shows the code coverage improvement when adding 10k programs produced by `hephaestus` to the test suites of the compiler. In the following, we compute the results per compiler.
+For the fourth research question, we will use coverage data from 
+`data/coverage/compilers/` to reproduce Figure 10 that shows the code coverage 
+improvement when adding 10k programs produced by `hephaestus` to the test 
+suites of the compiler. In the following, we compute the results per compiler.
 
 * `groovyc`
 
 ```
-hephaestus@94771ee464b4:~$ python eval-scripts/compute_coverage.py g data/coverage/compilers/groovy/groovy-vanilla.csv data/coverage/compilers/groovy/groovy-hephaestus.csv data/coverage/compilers/groovy/groovy_whitelist
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/compilers/groovy/groovy-vanilla.csv \
+    data/coverage/compilers/groovy/groovy-hephaestus.csv \
+    data/coverage/compilers/groovy/groovy_whitelist --compiler
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           82.00              71.77              78.38
 Combination                       82.06              71.79              78.44
@@ -988,70 +1109,88 @@ Combination                       82.06              71.79              78.44
 * `kotlinc`
 
 ```
-python eval-scripts/compute_coverage.py g data/coverage/compilers/kotlin/kotlin-vanilla.csv data/coverage/compilers/kotlin/kotlin-hephaestus.csv data/coverage/compilers/kotlin/kotlin_whitelist --compiler
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/compilers/kotlin/kotlin-vanilla.csv \
+    data/coverage/compilers/kotlin/kotlin-hephaestus.csv \
+    data/coverage/compilers/kotlin/kotlin_whitelist --compiler
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           80.80              72.99              74.08
 Combination                       80.83              73.05              74.11
 % change                           0.03               0.06               0.04
 ```
 
-NOTE: Our results are slightly different from the submitted paper. We will update Figure 10 on the camera-ready paper to match the results of our artifact.
+NOTE: Our results are slightly different from the submitted paper. 
+We will update Figure 10 on the camera-ready paper to match the results of 
+our artifact.
 
 
 * `javac`
 
 ```
-python eval-scripts/compute_coverage.py g data/coverage/compilers/java/java-vanilla.csv data/coverage/compilers/java/java-hephaestus.csv data/coverage/compilers/java/java_whitelist --compiler
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/compilers/java/java-vanilla.csv \
+    data/coverage/compilers/java/java-hephaestus.csv \
+    data/coverage/compilers/java/java_whitelist --compiler
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           83.76              83.95              83.90
 Combination                       83.94              83.99              84.12
 % change                           0.18               0.03               0.22
 ```
 
-NOTE: Our results are slightly different from the submitted paper. We will update Figure 10 on the camera-ready paper to match the results of our artifact.
+NOTE: Our results are slightly different from the submitted paper. 
+We will update Figure 10 on the camera-ready paper to match the results of 
+our artifact.
 
-### Reproducing RQ3's Coverage Experiment (Optional)
+### Reproducing RQ4's Coverage Experiment (Optional)
 
-Similar to RQ3, to re-run the full experiments for this RQ would take days.
+Similar to RQ3, re-run the full experiments for this RQ would take days.
 Hence, you can use the generated programs from RQ3 to test our tools.
-Note that these experiments would also take much time because you will have to run the test-suites of the compilers to produce their code coverage.
-We should also mention that if you run the experiments with a small number of generated test programs, then the code coverage increase should be minimal.
+Note that these experiments would also take much time because you will have to 
+run the test-suites of the compilers to produce their code coverage. 
+Note that if you run the experiments with a small number of generated test 
+programs, the code coverage increase should be minimal.
 
 * Java, Kotlin
 
-`javac` does not provide any script to generate code coverage metrics for its test-suite. Hence, we are going to compile the test-suite itself by an instrumented version of `javac` to compute the code coverage of its test-suite.
+`javac` does not provide any script to generate code coverage metrics for 
+its test-suite. Hence, we are going to compile the test-suite itself with an 
+instrumented version of `javac` to compute the code coverage of its test-suite.
 
 ```
 # This will generate a code coverage report for the test-suite in
 # results/java_test_suite/java-test-suite.csv
 # It will take around 4 hours.
-./eval-scripts/coverage/java_test_suite.sh
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_test_suite.sh
 
-# You can skip this setp if you have already generate some programs
+# You can skip this step if you have already generate some programs
 # and their reports
-hephaestus.py --bugs coverage_programs --name java_tem_10 --language java \
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name java_tem_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 1 \
     --keep-all --dry-run --only-preserve-correctness-substitutions
-hephaestus.py --bugs coverage_programs --name java_tom_10 --language java \
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name java_tom_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 0 \
     --keep-all --dry-run 
-./eval-scripts/coverage/java_mutations.sh $HOME/coverage \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
+    $HOME/coverage \
     $HOME/coverage_programs/java_tom_10/ 10 2> /dev/null
-./eval-scripts/coverage/java_mutations.sh $HOME/coverage \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
+    $HOME/coverage \
     $HOME/coverage_programs/java_tem_10/ 10 inference 2> /dev/null
 
 # Combine the reports
-./eval-scripts/coverage/combine.sh java \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/combine.sh java \
     results/java/jacoco-comb-inference.exec \
     results/java/jacoco-comb-soundness.exec \
     results/java java-comb
-./eval-scripts/coverage/combine.sh java \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/combine.sh java \
     results/java-test-suite/jacoco.exec \
     results/java/java-comb.exec \
     results/java java-hephaestus
 
 # Print results
-python ~/eval-scripts/compute_coverage.py g \
+hephaestus@e0456a9b520e:~$ python ~/eval-scripts/compute_coverage.py g \
     results/java-test-suite/java-test-suite.csv \
     results/java/java-hephaestus.csv \
     ~/data/coverage/compilers/java/java_whitelist
@@ -1060,57 +1199,69 @@ Initial                           82.84              83.09              83.07
 Combination                       82.89              83.09              83.13
 % change                           0.06               0.00               0.06
 Absolute change                      13                  0                 75
-hephaestus@d4246b0fecb5:~$
 ```
 
-`kotlinc` does not provide any script to generate code coverage metrics for its test-suite. Hence, we are going to compile the test-suite itself by an instrumented version of `kotlinc` to compute the code coverage of its test-suite.
+Similar to `javac`, `kotlinc` does not provide any script to generate code 
+coverage metrics for its test-suite. Hence, we are going to compile the 
+test-suite itself with an instrumented version of `kotlinc` to compute the 
+code coverage of its test-suite.
 
-You can perform the experiments by changing `java` to `kotlin` in the previous commands. Note that it would take up to 30 hours to compute the code coverage for Kotlin's test-suite.
+You can perform the experiments by changing `java` to `kotlin` in the previous 
+commands. Note that it would take up to 30 hours to compute the code coverage 
+for Kotlin's test-suite.
 
 * Groovy
 
-The build scripts of `groovyc` provide a command to generate code coverage reports; thus, we are going to use it instead of compiling the test-suite with an instrumented compiler (This will take ~60 minutes).
+The build scripts of `groovyc` provide a command to generate code coverage 
+reports; thus, we will use it instead of compiling the test-suite with an 
+instrumented compiler (This will take around 2 hours).
 
 ```bash
 # You can skip this setp if you have already generate some programs
-hephaestus.py --bugs coverage_programs --name groovy_tem_10 --language groovy \
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name groovy_tem_10 --language groovy \
     --iterations 10 --batch 10 --workers 2 --transformations 1 \
     --keep-all --dry-run --only-preserve-correctness-substitutions
-hephaestus.py --bugs coverage_programs --name groovy_tom_10 --language groovy \
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name groovy_tom_10 --language groovy \
     --iterations 10 --batch 10 --workers 2 --transformations 0 \
     --keep-all --dry-run 
 
-source eval-scripts/coverage/config.sh $(uname -s) $HOME/coverage
-sdk use java 11.0.2-open
+hephaestus@e0456a9b520e:~$ source eval-scripts/coverage/config.sh \
+    $(uname -s) $HOME/coverage
+hephaestus@e0456a9b520e:~$ sdk use java 11.0.2-open
 
 # Produce code coverage report for the test-suite of groovyc
-# This will take around X minutes
-cd ~/coverage/groovy
-./gradlew clean jacocoAllReport
-cp build/jacoco/test.exec vanilla.exec
-$JAVA_11 -jar $JACOCO/lib/jacococli.jar report vanilla.exec \
+hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
+hephaestus@e0456a9b520e:~/coverage/groovy$ ./gradlew clean jacocoAllReport
+hephaestus@e0456a9b520e:~/coverage/groovy$ cp build/jacoco/test.exec vanilla.exec
+hephaestus@e0456a9b520e:~/coverage/groovy$ $JAVA_11 \
+    -jar $JACOCO/lib/jacococli.jar report vanilla.exec \
     --classfiles $GROOVY_SRC/build/classes \
     --html vanilla --csv groovy-vanilla.csv
-cd $HOME
+hephaestus@e0456a9b520e:~/coverage/groovy$ cd $HOME
 
 # Replace bug directories
-./eval-scripts/coverage/groovy-create-test-class.sh $coverage \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/groovy-create-test-class.sh \
+    $coverage \
     coverage_programs/groovy_tom_10/generator/ GeneratorSTCTest
-./eval-scripts/coverage/groovy-create-test-class.sh $coverage \
+hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/groovy-create-test-class.sh \
+    $coverage \
     coverage_programs/groovy_tem_10/transformations/ InferenceSTCTest 0
 
 # Produce code coverage report for the test-suite of groovyc + generated
 # test cases
-cd ~/coverage/groovy
-./gradlew clean jacocoAllReport
-cp build/jacoco/test.exec hephaestus.exec
-$JAVA_11 -jar $JACOCO/lib/jacococli.jar report hephaestus.exec \
+hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
+hephaestus@e0456a9b520e:~/coverage/groovy$ ./gradlew clean jacocoAllReport
+hephaestus@e0456a9b520e:~/coverage/groovy$ cp build/jacoco/test.exec hephaestus.exec
+hephaestus@e0456a9b520e:~/coverage/groovy$ $JAVA_11 \
+    -jar $JACOCO/lib/jacococli.jar report hephaestus.exec \
     --classfiles $GROOVY_SRC/build/classes \
     --html hephaestus --csv groovy-hephaestus.csv
 
 # Print results
-python ~/eval-scripts/compute_coverage.py g \
-    groovy-vanilla.csv
-    groovy-hephaestus.csv
+hephaestus@e0456a9b520e:~/coverage/groovy$ python ~/eval-scripts/compute_coverage.py \
+    g groovy-vanilla.csv \
+    groovy-hephaestus.csv \
     ~/data/coverage/compilers/groovy/groovy_whitelist
 ```
