@@ -1227,9 +1227,7 @@ hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
     --iterations 10 --batch 10 --workers 2 --transformations 0 \
     --keep-all --dry-run 
 
-hephaestus@e0456a9b520e:~$ source eval-scripts/coverage/config.sh \
-    $(uname -s) $HOME/coverage
-hephaestus@e0456a9b520e:~$ sdk use java 11.0.2-open
+hephaestus@e0456a9b520e:~$ sdk use java 18.ea.35-open
 
 # Produce code coverage report for the test-suite of groovyc
 hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
