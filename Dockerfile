@@ -3,7 +3,8 @@ FROM ubuntu:18.04
 ENV TZ=Europe/Athens
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update -yq && apt upgrade -yq
-RUN apt install -y vim software-properties-common git curl unzip zip sudo
+RUN apt install -y vim software-properties-common git curl unzip zip sudo \
+    sqlite3 wget unzip
 RUN add-apt-repository ppa:deadsnakes/ppa && \
     apt -yqq update && \
     apt -yqq install python3.9 python3-pip && \
@@ -23,6 +24,10 @@ WORKDIR ${HOME}
 
 # Install missing python packages
 RUN pip3 install --upgrade setuptools
+RUN pip3 install --upgrade setuptools
+RUN pip3 install --upgrade distlib
+RUN pip3 install --upgrade pip
+RUN pip3 install seaborn pandas matplotlib
 
 USER hephaestus
 
@@ -64,12 +69,6 @@ RUN cd ${HOME}/hephaestus/ && python setup.py test
 RUN cd ${HOME}/hephaestus/ && python setup.py install --prefix /home/hephaestus/.local/
 RUN echo "export PATH=$PATH:/home/hephaestus/.local/bin" >> ${HOME}/.bash_profile
 
-# TODO move this in the begining
-RUN sudo apt install sqlite3
-RUN pip3 install --upgrade setuptools
-RUN pip3 install --upgrade distlib
-RUN pip3 install --upgrade pip
-RUN pip3 install seaborn pandas matplotlib
 
 # Coverage dependencies: Install JaCoCo and all compilers
 RUN mkdir ${HOME}/coverage
@@ -82,7 +81,7 @@ RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
     cd groovy && \
     git checkout 538374a1799947912496bf3a9aa8590cf5e38a75 && \
     ./gradlew -p bootstrap && ./gradlew clean dist
-# Download Java
+# Install Java
 RUN sudo apt install -yq autoconf build-essential gcc libx11-dev libxext-dev \
     libxrender-dev libxrandr-dev libxtst-dev libxt-dev libcups2-dev \
     libfontconfig1-dev libcups2-dev libasound2-dev
@@ -100,7 +99,6 @@ RUN source ${HOME}/.sdkman/bin/sdkman-init.sh && \
     cd kotlin && \
     git checkout 3ccbd25856ccfc3942a563e4833d87c7d5865c7f
 ## Install JaCoCo
-RUN sudo apt -yq install wget unzip
 RUN mkdir jacoco && \
     cd jacoco && \
     wget https://search.maven.org/remotecontent\?filepath\=org/jacoco/jacoco/0.8.7/jacoco-0.8.7.zip -O jacoco-0.8.7.zip && \
