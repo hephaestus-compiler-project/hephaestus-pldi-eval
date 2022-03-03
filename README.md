@@ -173,7 +173,7 @@ Hephaestus will use the selected language's compiler that is on the `PATH`.
 If you want to test a specific compiler version, you should configure it as 
 the current session's default compiler.
 
-* Example: `--language kotlin` -- `hephaestus` will test Kotlin's compiler 
+Example: `--language kotlin` -- `hephaestus` will test Kotlin's compiler 
 (i.e., `kotlinc`)
 
 * `--seconds` and `--iterations`
@@ -206,7 +206,7 @@ that will generate and mutate programs in parallel.
 
 NOTE: The default option is 1.
 
-* Example: `--workers 4` -- Use four workers to generate and mutate test 
+Example: `--workers 4` -- Use four workers to generate and mutate test 
 programs.
 
 * `--transformation-types` and `--only-preserve-correctness-substitutions` 
