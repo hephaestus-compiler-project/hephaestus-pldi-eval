@@ -18,8 +18,8 @@ case "${unameOut}" in
     *)          echo "$unameOut: is not supported" && exit 1
 esac
 
-source config.sh $distro $COVERAGE
-OUTPUT=$GROOVY_SRC/src/test/groovy/transform/stc/
+source $HOME/eval-scripts/coverage/config.sh $distro $COVERAGE
+OUTPUT=$COVERAGE/groovy/src/test/groovy/transform/stc/
 
 BEGIN='''
 package groovy.transform.stc\n\n

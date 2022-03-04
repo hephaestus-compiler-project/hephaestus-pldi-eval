@@ -1236,15 +1236,15 @@ hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
     --iterations 10 --batch 10 --workers 2 --transformations 0 \
     --keep-all --dry-run
 
-hephaestus@e0456a9b520e:~$ sdk default java 18.ea.35-open
+hephaestus@e0456a9b520e:~$ sdk default use sdk use java 11.0.2-open
 
 # Produce code coverage report for the test-suite of groovyc
 hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
 hephaestus@e0456a9b520e:~/coverage/groovy$ ./gradlew clean jacocoAllReport
 hephaestus@e0456a9b520e:~/coverage/groovy$ cp build/jacoco/test.exec vanilla.exec
-hephaestus@e0456a9b520e:~/coverage/groovy$ $JAVA_11 \
-    -jar $JACOCO/lib/jacococli.jar report vanilla.exec \
-    --classfiles $GROOVY_SRC/build/classes \
+hephaestus@e0456a9b520e:~/coverage/groovy$ java \
+    -jar $HOME/coverage/jacoco/lib/jacococli.jar report vanilla.exec \
+    --classfiles $HOME/coverage/groovy/build/classes \
     --html vanilla --csv groovy-vanilla.csv
 hephaestus@e0456a9b520e:~/coverage/groovy$ cd $HOME
 
@@ -1261,9 +1261,9 @@ hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/groovy-create-test-class.sh \
 hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
 hephaestus@e0456a9b520e:~/coverage/groovy$ ./gradlew clean jacocoAllReport
 hephaestus@e0456a9b520e:~/coverage/groovy$ cp build/jacoco/test.exec hephaestus.exec
-hephaestus@e0456a9b520e:~/coverage/groovy$ $JAVA_11 \
-    -jar $JACOCO/lib/jacococli.jar report hephaestus.exec \
-    --classfiles $GROOVY_SRC/build/classes \
+hephaestus@e0456a9b520e:~/coverage/groovy$ java \
+    -jar $HOME/coverage/jacoco/lib/jacococli.jar report hephaestus.exec \
+    --classfiles $HOME/coverage/groovy/build/classes \
     --html hephaestus --csv groovy-hephaestus.csv
 
 # Print results
@@ -1271,4 +1271,9 @@ hephaestus@e0456a9b520e:~/coverage/groovy$ python ~/eval-scripts/compute_coverag
     g groovy-vanilla.csv \
     groovy-hephaestus.csv \
     $HOME/data/coverage/compilers/groovy/groovy_whitelist
+Line Coverage  Function Coverage    Branch Coverage
+Initial                           81.98              71.86              78.52
+Combination                       82.06              71.95              78.58
+% change                           0.08               0.09               0.06
+Absolute change                     129                 40                736
 ```

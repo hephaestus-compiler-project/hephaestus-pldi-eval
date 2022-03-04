@@ -4,7 +4,9 @@ ENV TZ=Europe/Athens
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update -yq && apt upgrade -yq
 RUN apt install -y vim software-properties-common git curl unzip zip sudo \
-    sqlite3 wget unzip
+    sqlite3 wget unzip locales
+RUN sudo locale-gen "en_US.UTF-8"
+RUN update-locale LC_ALL="en_US.UTF-8"
 RUN add-apt-repository ppa:deadsnakes/ppa && \
     apt -yqq update && \
     apt -yqq install python3.9 python3-pip && \
@@ -33,6 +35,7 @@ USER hephaestus
 
 RUN touch ${HOME}/.bash_profile
 RUN echo "source ${HOME}/.bash_profile" >> ${HOME}/.bashrc
+RUN echo 'export LANG="en_US.UTF-8"' >> ${HOME}/.bashrc
 
 # Create directory for helper installation scripts
 RUN mkdir ${HOME}/installation_scripts
