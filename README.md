@@ -357,13 +357,13 @@ tests/test_use_analysis.py::test_program8 PASSED                        [100%]
 
 ## Example
 
-Here, we will test the Kotlin compiler by employing Hephaestus's program
+Here, we will test the Groovy compiler by employing Hephaestus's program
 generator. Specifically, we will produce 30 test programs in batches of 10
 test programs using two workers with the following command.
 
 ```
 hephaestus@e0456a9b520e:~/hephaestus$ hephaestus.py \
-    --language kotlin --transformations 0 \
+    --language groovy --transformations 0 \
     --batch 10 --iterations 30 --workers 2
 ```
 
@@ -375,8 +375,9 @@ transformations       0
 transformation_types
 bugs                  /home/hephaestus/bugs
 name                  gWYHl
-language              kotlin
-compiler              info: kotlinc-jvm 1.5.31 (JRE 18-ea+35-2085)
+language              groovy
+compiler              Groovy compiler version 4.0.0
+Copyright 2003-2021 The Apache Software Foundation. http://groovy-lang.org/
 ===============================================================================
 Test Programs Passed 30 / 30 ✔          Test Programs Failed 0 / 30 ✘
 ```
@@ -395,8 +396,8 @@ Two files are generated inside `/home/hephaestus/bugs/gWYH`:
     "transformation_types": "",
     "bugs": "/home/hephaestus/bugs",
     "name": "gWYHl",
-    "language": "kotlin",
-    "compiler": "info: kotlinc-jvm 1.5.31 (JRE 18-ea+35-2085)"
+    "language": "groovy",
+    "compiler"  "Groovy compiler version 4.0.0"
   },
   "totals": {
     "passed": 30,
@@ -409,49 +410,57 @@ In this example, `faults.json` is empty. If there were some bugs detected,
 `faults.json` would look like the following JSON file.
 
 ```
-"326": {
+{
+  "7": {
     "transformations": [
       "TypeErasure"
     ],
-    "error": "type argument is not within its bounds: should be subtype of 'CapturedType(out Int)'",
+    "error": " 18: [Static type checking] - Incompatible generic argument types. Cannot assign src.easy.Function2<java.lang.Double, java.lang.Float, ?> to: src.easy.Function2<java.lang.Double, java.lang.Float, ? extends java.lang.Object>\n @ line 18, column 5.\n       gurgling\n       ^",
     "programs": {
-      "/tmp/tmpesvj9j_f/src/apologias/program.kt": true,
-      "/tmp/tmpesvj9j_f/src/trims/program.kt": false
+      "/tmp/tmpyp4u90z5/src/easy/Main.groovy": true
     }
-},
-"414": {
-    "transformations": [
-      "TypeOverwriting"
-    ],
-    "error": "SHOULD NOT BE COMPILED: Array<Boolean(kotlin-builtin)> expected but String(kotlin-builtin) found in node global/jerseys/fandom/Critiqued/beatify/Yearling",
-    "programs": {
-      "/tmp/tmpru0kfhkr/src/polyamory/program.kt": true,
-      "/tmp/tmpru0kfhkr/src/giddier/program.kt": false
-    }
-"502": {
-    "transformations": [],
-    "error": "maximum recursion depth exceeded in comparison",
-    "program": null
   },
-
+  "11": {
+    "transformations": [
+        "OverwritingMutation"
+    ],
+    "error": "SHOULD NOT BE COMPILED: X <: N expected but Imagine <: (Playing<Function1<Boolean(groovy-builtin), Float(groovy-builtin)>>) found in node global/Reconcile/reflexes/soybeans/cellos",
+    "programs": {
+      "/tmp/tmpmtyy6u6q/src/spanners/Main.groovy": true,
+      "/tmp/tmpmtyy6u6q/src/franker/Main.groovy": false
+    }
+  },
+  "1050": {
+    "transformations": [
+      "TypeErasure"
+    ],
+    "error": ">>> a serious error occurred: BUG! exception in phase 'instruction selection' in source unit '/tmp/tmphj006wfu/src/wack/Main.groovy' unexpected NullPointerException\n>>> stacktrace:\nBUG! exception in phase 'instruction selection' in source unit '/tmp/tmphj006wfu/src/wack/Main.groovy' unexpected NullPointerException\n\tat org.codehaus.groovy.control.CompilationUnit$IPrimaryClassNodeOperation.doPhaseOperation(CompilationUnit.java:905)\n\tat org.codehaus.groovy.control.CompilationUnit.processPhaseOperations(CompilationUnit.java:654)\n\tat org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:628)\n\tat org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:609)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.compile(FileSystemCompiler.java:311)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.doCompilation(FileSystemCompiler.java:240)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.commandLineCompile(FileSystemCompiler.java:165)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.commandLineCompileWithErrorHandling(FileSystemCompiler.java:205)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.main(FileSystemCompiler.java:189)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.codehaus.groovy.tools.GroovyStarter.rootLoader(GroovyStarter.java:112)\n\tat org.codehaus.groovy.tools.GroovyStarter.main(GroovyStarter.java:130)\nCaused by: java.lang.NullPointerException: Cannot invoke \"org.codehaus.groovy.ast.stmt.Statement.visit(org.codehaus.groovy.ast.GroovyCodeVisitor)\" because the return value of \"org.codehaus.groovy.ast.MethodNode.getCode()\" is null\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.isTypeSource(StaticTypeCheckingVisitor.java:4189)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.checkForTargetType(StaticTypeCheckingVisitor.java:4160)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitTernaryExpression(StaticTypeCheckingVisitor.java:4136)\n\tat org.codehaus.groovy.ast.expr.TernaryExpression.visit(TernaryExpression.java:44)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitMethodCallExpression(StaticTypeCheckingVisitor.java:3303)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitMethodCallExpression(StaticCompilationVisitor.java:421)\n\tat org.codehaus.groovy.ast.expr.MethodCallExpression.visit(MethodCallExpression.java:77)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitExpressionStatement(CodeVisitorSupport.java:117)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitExpressionStatement(ClassCodeVisitorSupport.java:204)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitExpressionStatement(StaticTypeCheckingVisitor.java:2188)\n\tat org.codehaus.groovy.ast.stmt.ExpressionStatement.visit(ExpressionStatement.java:41)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitBlockStatement(CodeVisitorSupport.java:86)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitBlockStatement(ClassCodeVisitorSupport.java:168)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitBlockStatement(StaticTypeCheckingVisitor.java:3895)\n\tat org.codehaus.groovy.ast.stmt.BlockStatement.visit(BlockStatement.java:70)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitBlockStatement(CodeVisitorSupport.java:86)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitBlockStatement(ClassCodeVisitorSupport.java:168)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitBlockStatement(StaticTypeCheckingVisitor.java:3895)\n\tat org.codehaus.groovy.ast.stmt.BlockStatement.visit(BlockStatement.java:70)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitClosureExpression(CodeVisitorSupport.java:239)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitClosureExpression(StaticTypeCheckingVisitor.java:2402)\n\tat org.codehaus.groovy.ast.expr.ClosureExpression.visit(ClosureExpression.java:110)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitCastExpression(StaticTypeCheckingVisitor.java:4074)\n\tat org.codehaus.groovy.ast.expr.CastExpression.visit(CastExpression.java:96)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitInitialExpression(StaticTypeCheckingVisitor.java:1931)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitDefaultParameterArguments(StaticTypeCheckingVisitor.java:2616)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitConstructorOrMethod(StaticTypeCheckingVisitor.java:2588)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitMethod(ClassCodeVisitorSupport.java:110)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.startMethodInference(StaticTypeCheckingVisitor.java:2573)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitMethod(StaticTypeCheckingVisitor.java:2552)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitConstructorOrMethod(StaticCompilationVisitor.java:236)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitMethod(StaticCompilationVisitor.java:251)\n\tat org.codehaus.groovy.ast.ClassNode.visitMethods(ClassNode.java:1135)\n\tat org.codehaus.groovy.ast.ClassNode.visitContents(ClassNode.java:1128)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitClass(ClassCodeVisitorSupport.java:52)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitClass(StaticTypeCheckingVisitor.java:437)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitClass(StaticCompilationVisitor.java:197)\n\tat org.codehaus.groovy.transform.sc.StaticCompileTransformation.visit(StaticCompileTransformation.java:68)\n\tat org.codehaus.groovy.control.customizers.ASTTransformationCustomizer.call(ASTTransformationCustomizer.groovy:298)\n\tat org.codehaus.groovy.control.CompilationUnit$IPrimaryClassNodeOperation.doPhaseOperation(CompilationUnit.java:900)\n\t... 14 more\n",
+    "programs": {
+      "/tmp/tmphj006wfu/src/yarn/Main.groovy": true
+    }
+  }
+}
 ```
 
 The first error is an unexpected compile-time error detected using the
-Type Erasure mutation. The second is a compiler bug where the compiler accepts
+`TypeErasure` mutation. The second is a compiler bug where the compiler accepts
 an ill-typed program. Finally, the third one is an internal error of
-`hephaestus`.
+`groovyc`.
 
 In the above scenario, the testing session directory would be like the following:
 
 ```
-|-- 326
-|   |-- program.kt
-|   `-- program.kt.bin
-|-- 414
-|   |-- incorrect.kt
-|   |-- incorrect.kt.bin
-|   |-- program.kt
-|   `-- program.kt.bin
+|-- 7
+|   |-- Main.groovy
+|   `-- Main.groovy.bin
+|-- 11
+|   |-- incorrect.groovy
+|   |-- incorrect.groovy.bin
+|   |-- Main.groovy
+|   `-- Main.groovy.bin
+|-- 1050
+|   |-- Main.groovy
+|   `-- Main.groovy.bin
 |-- faults.json
 `-- stats.json
 ```
