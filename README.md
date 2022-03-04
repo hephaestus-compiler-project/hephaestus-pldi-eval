@@ -1226,7 +1226,7 @@ reports; thus, we will use it instead of compiling the test-suite with an
 instrumented compiler (This will take around 2 hours).
 
 ```bash
-# You can skip this setp if you have already generate some programs
+# You can skip this step if you have already generate some programs
 hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
     --name groovy_tem_10 --language groovy \
     --iterations 10 --batch 10 --workers 2 --transformations 1 \
@@ -1250,10 +1250,10 @@ hephaestus@e0456a9b520e:~/coverage/groovy$ cd $HOME
 
 # Replace bug directories
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/groovy-create-test-class.sh \
-    $coverage \
+    $HOME/coverage \
     coverage_programs/groovy_tom_10/generator/ GeneratorSTCTest
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/groovy-create-test-class.sh \
-    $coverage \
+    $HOME/coverage \
     coverage_programs/groovy_tem_10/transformations/ InferenceSTCTest 0
 
 # Produce code coverage report for the test-suite of groovyc + generated
@@ -1270,5 +1270,5 @@ hephaestus@e0456a9b520e:~/coverage/groovy$ $JAVA_11 \
 hephaestus@e0456a9b520e:~/coverage/groovy$ python ~/eval-scripts/compute_coverage.py \
     g groovy-vanilla.csv \
     groovy-hephaestus.csv \
-    ~/data/coverage/compilers/groovy/groovy_whitelist
+    $HOME/data/coverage/compilers/groovy/groovy_whitelist
 ```
