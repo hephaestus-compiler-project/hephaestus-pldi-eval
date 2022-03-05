@@ -682,7 +682,7 @@ To re-compute which compiler versions are affected, you can run the following
 command (it will take around 90 minutes):
 
 ```
-python scripts/history_run.py database/bugs.json history.json
+python eval-scripts/history_run.py database/bugs.json history.json
 ```
 
 **Note**: The results might be slightly different because
@@ -1412,7 +1412,7 @@ each program in the test-suite individually with an
 instrumented compiler (This will take around 2 hours).
 
 ```bash
-hephaestus@e0456a9b520e:~$ sdk default use sdk use java 11.0.2-open
+hephaestus@e0456a9b520e:~$ sdk use java 11.0.2-open
 # Produce code coverage report for the test-suite of groovyc
 hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
 hephaestus@e0456a9b520e:~/coverage/groovy$ ./gradlew clean jacocoAllReport
