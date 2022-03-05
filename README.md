@@ -4,7 +4,7 @@ This artifact is for the conditionally accepted PLDI'22 paper titled
 "Finding Typing Compiler Bugs".
 
 An archived version of the artifact is also available on Zenodo.
-See https://doi.org/XXX.
+See https://zenodo.org/record/6330357.
 
 # Table of Contents
 
