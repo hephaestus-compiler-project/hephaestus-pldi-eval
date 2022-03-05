@@ -509,7 +509,7 @@ fourth volume (`eval-figures/`) will be used to save Figure 8 of our paper.
 ## Bug Database
 
 We provide an SQLite database (see the file `bugs/bugdb.sqlite3`) that contains
-information about the bugs discovered by our approach during the evaluation.
+information about the bugs discovered by `Hephaestus` during the evaluation.
 This database is initialized based on the SQL script stored into
 `bugs/bug_schema.sql`. The bug database consists of three tables,
 namely `CompilerBug`, `Characteristic`, and `CompilerBugCharacteristics`.
@@ -533,7 +533,7 @@ inference/soundness (i.e., TEM and then TOM).
 * `resolution_date`: The date that the developers resolved the bug.
 * `symptom`: The symptom of the bug. There are three possible values:
 unexpected compile-time error (UCTE), unexpected runtime behavior (URB),
-and crash.
+and crash. Note that the URB symptom corresponds to soundness bugs detected by TOM.
 * `resolved_in`: How long did it take to resolve this bug.
 * `test`: The test program that revealed the bug.
 * `error_msg`: The error message reported by the compiler, or the stacktrace of
@@ -577,7 +577,7 @@ hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM 
 7
 ```
 
-For each Kotlin bug revealed by TEM (i.e., soundness mutator), dump the URLs
+For each Kotlin bug revealed by TEM (i.e., type erasure mutation), dump the URLs
 pointing to our bug reports.
 
 ```
@@ -672,11 +672,11 @@ This script will also generate Figure 8 and save it at
 The statements that we want to check from paragraph
 **"Affected compiler versions"** are the following:
 
-* 35 `groovyc` and 14 `kotlinc` bugs occur in all stable compiler versions.
-* A large portion of `groovyc` bugs (50/110 -- 45%) are triggered only in
-the master branch of the compiler.
+* _"35 `groovyc` and 14 `kotlinc` bugs occur in all stable compiler versions"_.
+* _"A large portion of `groovyc` bugs (50/110 -- 45%) are triggered only in
+the master branch of the compiler_".
 
-### Re-run Affected Compiler Versions Experiments. (Optional)
+### Re-run the "Affected Compiler Versions" experiment. (Optional)
 
 To re-compute which compiler versions are affected, you can run the following
 command (it will take around 90 minutes):
@@ -685,8 +685,9 @@ command (it will take around 90 minutes):
 python scripts/history_run.py database/bugs.json history.json
 ```
 
-NOTE: The results might be slightly different because (1) SDKMAN does not
-support the same compiler version, (2) the developers may have fixed some bugs.
+**Note**: The results might be slightly different because
+(1) some compiler version might be no longer supported by SDKMAN,
+(2) the developers may have fixed some bugs.
 
 
 ## RQ2: Bug and Test Case Characteristics (Section 4.3)
@@ -749,20 +750,24 @@ Other                        1
 ================================================================================
 ```
 
-Beyond Figure 7b, this script produces the numbers used in Section 4.3.
+Beyond Figure 7b, this script produces the numbers mentioned in Section 4.3.
 Specifically, Section 4.3 contains the following statements:
 
-* Features related to parametric polymorphism (e.g., parameterized class) are
-in the list of features with the most bug-revealing capability.
-* In total, 104/153 bugs are caused by programs containing at least one such
-feature (parametric polymorphism).
-* In 47% of test cases that use conditionals, type inference features are
-also included.
+* _"Features related to parametric polymorphism (e.g., parameterized class) are
+in the list of features with the most bug-revealing capability_".
+* _"In total, 104/153 bugs are caused by programs containing at least one such
+feature (parametric polymorphism)_".
+* _"In 47% of test cases that use conditionals, type inference features are
+also included_".
 
 To verify the last statement, you can use the option `--combinations`
-and see which features are used with conditionals.
+and see which features are used with conditionals (i.e.,
+15 out of 32 programs that use conditionals,
+they also involve type inference).
 
 ```
+hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py --combinations \
+    database/bugs.json rq2
 Combinations
 ==============================================================================
 Parameterized class           Parametric polymorphism          93
