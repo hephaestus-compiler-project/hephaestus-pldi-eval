@@ -912,14 +912,21 @@ Next, we are going to compute the results of Figure 9 per compiler.
 In the `data/coverage/mutations/` directory, we provide the results of JaCoCo
 on 5k random test programs per compiler saved at `data/test_programs/mutations`.
 
-* `groovyc`
+### `groovyc`
+
+For computing the impact of TEM on code coverage,
+run
 
 ```
-# TEM
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/mutations/groovy/groovy-generator-inf.csv \
     data/coverage/mutations/groovy/groovy-combination-inf.csv \
     data/coverage/mutations/groovy/groovy_whitelist --increasepkg
+```
+
+This script will produce the following output:
+
+```
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           42.68              41.77              42.07
 Combination                       43.14              42.14              42.52
@@ -936,8 +943,23 @@ org.codehaus.groovy.control: Branch -- 32 (0.49), Line -- 10 (0.65), Func -- 3 (
 org.codehaus.groovy.transform.sc.transformers: Branch -- 2 (0.22), Line -- 0 (0.00), Func -- 0 (0.00)
 org.apache.groovy.parser.antlr4: Branch -- 30 (0.17), Line -- 9 (0.28), Func -- 1 (0.16)
 org.codehaus.groovy.ast.expr: Branch -- 3 (0.16), Line -- 1 (0.19), Func -- 1 (0.49)
+```
 
-# TOM
+In the above output,
+please notice line:
+```
+org.codehaus.groovy.transform.stc: Branch -- 531 (4.58), Line -- 106 (4.25), Func -- 13 (3.58)
+```
+This line presents the absolute and percentage increase
+(shown inside parentheses) of branch,
+line, and function coverage caused by TEM on package
+`org.codehaus.groovy.transform.stc.*`.
+
+
+Now, for computing the impact of TOM on code coverage,
+run:
+
+```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/mutations/groovy/groovy-generator-sound.csv \
     data/coverage/mutations/groovy/groovy-combination-sound.csv \
@@ -949,14 +971,19 @@ Combination                       43.57              42.35              42.99
 Absolute change                      99                 10                447
 ```
 
-* `kotlinc`
+### `kotlinc`
 
+For computing the impact of TEM on code coverage,
+run:
 ```
-# TEM
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py k \
     data/coverage/mutations/kotlin/kotlin-generator-inf.csv \
     data/coverage/mutations/kotlin/kotlin-combination-inf.csv \
     data/coverage/mutations/kotlin/kotlin_whitelist --increasepkg
+```
+The above script will produce the following output:
+
+```
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           30.92              30.60              30.32
 Combination                       31.38              31.00              30.78
@@ -964,48 +991,74 @@ Combination                       31.38              31.00              30.78
 Absolute change                     787                217               5431
 
 org.jetbrains.kotlin.resolve.calls.inference.constraintPosition: Branch -- 83 (73.45), Line -- 6 (54.55), Func -- 5 (100.00)
-org.jetbrains.kotlin.resolve.calls.inference: Branch -- 1114 (72.72), Line -- 146 (71.57), Func -- 43 (52.44)
 org.jetbrains.kotlin.resolve.typeBinding: Branch -- 136 (60.44), Line -- 16 (50.00), Func -- 6 (54.55)
+org.jetbrains.kotlin.resolve.calls.inference: Branch -- 1865 (20.09), Line -- 238 (17.75), Func -- 63 (14.89)
 org.jetbrains.kotlin.resolve.calls.tower: Branch -- 938 (10.98), Line -- 137 (10.69), Func -- 36 (10.98)
 org.jetbrains.kotlin.resolve.calls.inference.model: Branch -- 202 (9.36), Line -- 23 (6.97), Func -- 10 (7.35)
 org.jetbrains.kotlin.resolve.calls.inference.components: Branch -- 466 (8.50), Line -- 63 (7.91), Func -- 5 (2.50)
+org.jetbrains.kotlin.resolve.calls: Branch -- 3402 (8.38), Line -- 476 (8.11), Func -- 119 (6.94)
 org.jetbrains.kotlin.psi.psiUtil: Branch -- 59 (8.35), Line -- 10 (12.66), Func -- 2 (4.26)
-org.jetbrains.kotlin.types: Branch -- 666 (7.08), Line -- 103 (7.03), Func -- 56 (12.33)
-org.jetbrains.kotlin.resolve.calls: Branch -- 223 (5.23), Line -- 48 (7.35), Func -- 2 (1.71)
+org.jetbrains.kotlin.types: Branch -- 957 (4.32), Line -- 147 (4.47), Func -- 69 (6.48)
+org.jetbrains.kotlin.resolve: Branch -- 4086 (4.17), Line -- 572 (3.93), Func -- 135 (3.33)
 org.jetbrains.kotlin.resolve.calls.tasks: Branch -- 14 (4.11), Line -- 3 (5.66), Func -- 1 (3.85)
 org.jetbrains.kotlin.resolve.constants.evaluate: Branch -- 125 (3.86), Line -- 22 (4.33), Func -- 0 (0.00)
 org.jetbrains.kotlin.resolve.calls.components: Branch -- 218 (3.53), Line -- 32 (3.88), Func -- 6 (2.27)
 org.jetbrains.kotlin.resolve.calls.model: Branch -- 80 (3.18), Line -- 11 (2.70), Func -- 9 (5.49)
 org.jetbrains.kotlin.types.checker: Branch -- 127 (2.95), Line -- 16 (3.54), Func -- 7 (2.73)
+org.jetbrains.kotlin.resolve.constants: Branch -- 138 (2.89), Line -- 23 (3.17), Func -- 1 (0.57)
 org.jetbrains.kotlin.descriptors.annotations: Branch -- 33 (2.83), Line -- 6 (4.23), Func -- 2 (3.77)
 org.jetbrains.kotlin.types.expressions: Branch -- 164 (2.28), Line -- 28 (2.16), Func -- 6 (2.18)
 org.jetbrains.kotlin.resolve.descriptorUtil: Branch -- 15 (2.24), Line -- 1 (1.32), Func -- 1 (2.04)
-org.jetbrains.kotlin.diagnostics: Branch -- 87 (2.10), Line -- 14 (1.26), Func -- 3 (1.96)
 org.jetbrains.kotlin.resolve.calls.util: Branch -- 10 (1.90), Line -- 1 (1.06), Func -- 1 (1.72)
-org.jetbrains.kotlin.resolve.jvm: Branch -- 33 (1.80), Line -- 4 (1.23), Func -- 1 (1.12)
 org.jetbrains.kotlin.resolve.calls.smartcasts: Branch -- 46 (1.64), Line -- 5 (1.20), Func -- 1 (0.88)
 total: Branch -- 5431 (1.52), Line -- 787 (1.48), Func -- 217 (1.29)
-org.jetbrains.kotlin.cfg: Branch -- 74 (1.40), Line -- 13 (1.49), Func -- 0 (0.00)
-org.jetbrains.kotlin.resolve: Branch -- 358 (1.38), Line -- 52 (1.28), Func -- 7 (0.80)
-org.jetbrains.kotlin.resolve.constants: Branch -- 13 (0.85), Line -- 1 (0.46), Func -- 1 (0.97)
-org.jetbrains.kotlin.psi: Branch -- 45 (0.80), Line -- 7 (0.64), Func -- 4 (0.70)
+org.jetbrains.kotlin: Branch -- 5431 (1.52), Line -- 787 (1.48), Func -- 217 (1.29)
+org.jetbrains: Branch -- 5431 (1.52), Line -- 787 (1.48), Func -- 217 (1.29)
+org: Branch -- 5431 (1.52), Line -- 787 (1.48), Func -- 217 (1.29)
+org.jetbrains.kotlin.psi: Branch -- 104 (1.43), Line -- 17 (1.27), Func -- 6 (0.90)
+org.jetbrains.kotlin.diagnostics: Branch -- 92 (1.04), Line -- 15 (0.73), Func -- 4 (1.74)
 org.jetbrains.kotlin.cli.jvm.compiler: Branch -- 40 (0.76), Line -- 7 (0.90), Func -- 1 (0.70)
+org.jetbrains.kotlin.cfg: Branch -- 74 (0.64), Line -- 13 (0.72), Func -- 0 (0.00)
 org.jetbrains.kotlin.parsing: Branch -- 31 (0.52), Line -- 9 (0.77), Func -- 0 (0.00)
+org.jetbrains.kotlin.cli.jvm: Branch -- 44 (0.49), Line -- 8 (0.63), Func -- 1 (0.36)
+org.jetbrains.kotlin.resolve.jvm: Branch -- 35 (0.44), Line -- 4 (0.31), Func -- 1 (0.33)
 org.jetbrains.kotlin.cli.common.messages: Branch -- 5 (0.40), Line -- 0 (0.00), Func -- 0 (0.00)
-org.jetbrains.kotlin.cli.jvm: Branch -- 4 (0.24), Line -- 1 (0.39), Func -- 0 (0.00)
+org.jetbrains.kotlin.descriptors: Branch -- 33 (0.39), Line -- 6 (0.45), Func -- 2 (0.34)
+org.jetbrains.kotlin.cli: Branch -- 49 (0.27), Line -- 8 (0.38), Func -- 1 (0.16)
 org.jetbrains.kotlin.resolve.calls.checkers: Branch -- 6 (0.20), Line -- 0 (0.00), Func -- 0 (0.00)
 org.jetbrains.kotlin.psi2ir.transformations: Branch -- 2 (0.14), Line -- 0 (0.00), Func -- 0 (0.00)
 org.jetbrains.kotlin.resolve.calls.results: Branch -- 2 (0.13), Line -- 1 (0.40), Func -- 0 (0.00)
 org.jetbrains.kotlin.diagnostics.rendering: Branch -- 5 (0.11), Line -- 1 (0.11), Func -- 1 (1.30)
 org.jetbrains.kotlin.renderer: Branch -- 3 (0.07), Line -- 0 (0.00), Func -- 0 (0.00)
 org.jetbrains.kotlin.resolve.jvm.checkers: Branch -- 2 (0.06), Line -- 0 (0.00), Func -- 0 (0.00)
+org.jetbrains.kotlin.cli.common: Branch -- 5 (0.06), Line -- 0 (0.00), Func -- 0 (0.00)
 org.jetbrains.kotlin.resolve.checkers: Branch -- 2 (0.05), Line -- 0 (0.00), Func -- 0 (0.00)
+org.jetbrains.kotlin.psi2ir: Branch -- 2 (0.02), Line -- 0 (0.00), Func -- 0 (0.00)
+```
 
-# TOM
+In the above output,
+please notice the following three lines:
+```
+org.jetbrains.kotlin.resolve.calls.inference: Branch -- 1865 (20.09), Line -- 238 (17.75), Func -- 63 (14.89)
+org.jetbrains.kotlin.resolve: Branch -- 4086 (4.17), Line -- 572 (3.93), Func -- 135 (3.33)
+org.jetbrains.kotlin.types: Branch -- 957 (4.32), Line -- 147 (4.47), Func -- 69 (6.48)
+```
+These lines present the absolute and percentage increase
+(shown inside parentheses) of branch,
+line, and function coverage caused by TEM on packages
+`org.jetbrains.kotlin.resolve.calls.inference.*`,
+`org.jetbrains.kotlin.resolve.*`,
+and `org.jetbrains.kotlin.types.*` respectively.
+
+For computing the impact of TOM on code coverage,
+run:
+
+```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/mutations/kotlin/kotlin-generator-sound.csv \
     data/coverage/mutations/kotlin/kotlin-combination-sound.csv \
     data/coverage/mutations/kotlin/kotlin_whitelist
+
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           31.47              31.01              30.87
 Combination                       31.80              31.31              31.22
@@ -1013,14 +1066,20 @@ Combination                       31.80              31.31              31.22
 Absolute change                     572                166               4171
 ```
 
-* `javac`
+### `javac`
+
+For computing the impact of TEM on code coverage,
+run:
 
 ```
-# TEM
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/mutations/java/java-generator-inf.csv \
     data/coverage/mutations/java/java-combination-inf.csv \
     data/coverage/mutations/java/java_whitelist --increasepkg
+```
+The above command will produce the following output:
+
+```
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           36.99              39.68              34.56
 Combination                       37.68              40.49              35.18
@@ -1035,12 +1094,46 @@ com.sun.tools.javac.parser: Branch -- 59 (0.86), Line -- 14 (0.93), Func -- 0 (0
 com.sun.tools.javac.resources: Branch -- 109 (0.62), Line -- 13 (3.20), Func -- 2 (10.00)
 com.sun.tools.javac.tree: Branch -- 12 (0.23), Line -- 4 (0.33), Func -- 2 (0.53)
 com.sun.tools.javac.main: Branch -- 5 (0.11), Line -- 1 (0.12), Func -- 0 (0.00)
+```
+In the above output,
+please notice the following two lines:
+```
+com.sun.tools.javac.code: Branch -- 636 (3.27), Line -- 131 (3.31), Func -- 31 (3.16)
+com.sun.tools.javac.comp: Branch -- 1200 (3.06), Line -- 204 (2.66), Func -- 47 (3.59)
+```
+These lines present the absolute and percentage increase
+(shown inside parentheses) of branch,
+line, and function coverage caused by TEM on packages
+`com.sun.tools.javac.code.*`,
+and `com.sun.tools.javac.comp.*`
+respectively.
 
-# TOM
+To see, the impact of TEM on the code coverage of classes instead of
+packages, please run:
+
+```
+hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
+    g data/coverage/mutations/java/java-generator-inf.csv \
+    data/coverage/mutations/java/java-combination-inf.csv \
+    data/coverage/mutations/java/java_whitelist --increasecls
+```
+
+Now notice, the following lines, which presented in Figure 9.
+```
+com.sun.tools.javac.comp,Attr: Branch -- 295 (4.39), Line -- 57 (4.66), Func -- 10 (6.25)
+com.sun.tools.javac.code,Types: Branch -- 558 (7.54), Line -- 113 (8.11), Func -- 23 (7.67)
+```
+
+Finally,
+for computing the impact of TOM on `javac`'s code coverage,
+run
+
+```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/mutations/java/java-generator-sound.csv \
     data/coverage/mutations/java/java-combination-sound.csv \
     data/coverage/mutations/java/java_whitelist
+
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           37.63              40.46              35.18
 Combination                       38.26              41.19              35.76
@@ -1050,27 +1143,52 @@ Absolute change                     362                 79               1990
 
 ### Reproducing RQ3's Coverage Experiment (Optional)
 
-Re-run the complete experiment, depending on your machine(s),
-could take up to 5 days. Here, we will provide a complete example of how you
+Depending on your machine(s),
+re-running the complete experiment could take up to 5 days.
+Here, we will provide a complete example of how you
 get the coverage of 10 Java test programs for both TEM and TOM, using JaCoCo.
 To reproduce the full results, you should (1) produce 5k programs for both TOM
 and TEM, and (2) run the same experiments for the other compilers by replacing
 `java` with `groovy` and `kotlin` in the following commands.
 
-* Step 1: Generate the test programs.
+#### Step 1: Generate the test programs.
+
+The following command uses `Hephaestus` to generate 10 programs
+written in Java using our program generator.
+This command also produces a variant for each of those 10 programs
+using TEM. Note that this command does not invoke the
+compiler under test (see `--dry-run` option).
 
 ```
 hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
     --name java_tem_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 1 \
-    --keep-all --dry-run --only-preserve-correctness-substitutions
+    --keep-all --dry-run -P
+```
+
+The following command uses `Hephaestus` to generate 10 programs
+written in Java using our program generator.
+This command also produces a variant for each of those 10 programs
+using TOM. Note that this command does not invoke the
+compiler under test (see `--dry-run` option).
+
+```
 hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
     --name java_tom_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 0 \
     --keep-all --dry-run
 ```
 
-* Step 2: Produce the coverage reports for generator and TEM.
+#### Step 2: Produce the coverage reports for generator and TEM.
+
+This command takes the programs generated in step 1,
+and compiles them using `javac`.
+This script first compiles the programs produced
+by our program generator,
+and tracks the code coverage of `javac`.
+After that,
+this script takes the TEM variants,
+and compiles them using the instrumented version of `javac`.
 
 ```
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
@@ -1078,7 +1196,7 @@ hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
     $HOME/coverage_programs/java_tem_10/ 10 inference 2> /dev/null
 ```
 
-* Step 3: Compute the results for generator and TEM.
+#### Step 3: Compute the results for generator and TEM.
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py g \
@@ -1092,7 +1210,16 @@ Combination                       35.55              38.66              32.74
 Absolute change                     250                 60               1511
 ```
 
-* Step 4: Produce the coverage reports for generator and TOM.
+#### Step 4: Produce the coverage reports for generator and TOM.
+
+This command takes the programs generated in Step 1,
+and compiles them using `javac`.
+This script first compiles the programs produced
+by our program generator,
+and tracks the code coverage of `javac`.
+After that,
+this script takes the TOM variants,
+and compiles them using the instrumented version of `javac`.
 
 ```
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
@@ -1100,114 +1227,140 @@ hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
     $HOME/coverage_programs/java_tom_10/ 10 2> /dev/null
 ```
 
-* Step 5: Compute the results for generator and TOM.
+#### Step 5: Compute the results for generator and TOM.
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py g \
     results/java/java-generator-soundness.csv \
     results/java/java-comb-soundness.csv \
     data/coverage/mutations/java/java_whitelist
+
                           Line Coverage  Function Coverage    Branch Coverage
-Initial                           36.22              39.04              33.30
-Combination                       37.38              40.55              34.81
-% change                           1.16               1.51               1.50
-Absolute change                     670                162               5225
+Initial                           36.18              39.23              33.23
+Combination                       36.64              39.86              34.19
+% change                           0.45               0.63               0.96
+Absolute change                     263                 68               3327
 ```
 
 ## RQ4: Code Coverage (Section 4.5)
 
 For the fourth research question, we will use coverage data from
 `data/coverage/compilers/` to reproduce Figure 10 that shows the code coverage
-improvement when adding 10k programs produced by `hephaestus` to the test
-suites of the compiler. In the following, we compute the results per compiler.
+improvement when adding 10k programs produced by `Hephaestus` to the test
+suites of each compiler. In the following, we compute the results per compiler.
 
-* `groovyc`
+### `groovyc`
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/compilers/groovy/groovy-vanilla.csv \
     data/coverage/compilers/groovy/groovy-hephaestus.csv \
     data/coverage/compilers/groovy/groovy_whitelist --compiler
+
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           82.00              71.77              78.38
 Combination                       82.06              71.79              78.44
 % change                           0.06               0.02               0.05
 ```
 
-* `kotlinc`
+### `kotlinc`
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/compilers/kotlin/kotlin-vanilla.csv \
     data/coverage/compilers/kotlin/kotlin-hephaestus.csv \
     data/coverage/compilers/kotlin/kotlin_whitelist --compiler
+
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           80.80              72.99              74.08
 Combination                       80.83              73.05              74.11
 % change                           0.03               0.06               0.04
 ```
 
-NOTE: Our results are slightly different from the submitted paper.
+**Note**: Our results are slightly different from the submitted paper.
 We will update Figure 10 on the camera-ready paper to match the results of
 our artifact.
 
 
-* `javac`
+### `javac`
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
     g data/coverage/compilers/java/java-vanilla.csv \
     data/coverage/compilers/java/java-hephaestus.csv \
     data/coverage/compilers/java/java_whitelist --compiler
+
                           Line Coverage  Function Coverage    Branch Coverage
 Initial                           83.76              83.95              83.90
 Combination                       83.94              83.99              84.12
 % change                           0.18               0.03               0.22
 ```
 
-NOTE: Our results are slightly different from the submitted paper.
+**Note**: Our results are slightly different from the submitted paper.
 We will update Figure 10 on the camera-ready paper to match the results of
 our artifact.
 
 ### Reproducing RQ4's Coverage Experiment (Optional)
 
-Similar to RQ3, re-run the full experiments for this RQ would take days.
-Hence, you can use the generated programs from RQ3 to test our tools.
-Note that these experiments would also take much time because you will have to
+Similar to RQ3,
+re-running the full experiments for this RQ might take days.
+These experiments require much time because you have to
 run the test-suites of the compilers to produce their code coverage.
 Note that if you run the experiments with a small number of generated test
 programs, the code coverage increase should be minimal.
 
-* Java, Kotlin
+#### Java, Kotlin
 
 `javac` does not provide any script to generate code coverage metrics for
-its test-suite. Hence, we are going to compile the test-suite itself with an
-instrumented version of `javac` to compute the code coverage of its test-suite.
+its test-suite. Hence, we are going to compile
+every program in the test-suite using an
+instrumented version of `javac` to get the code coverage metrics
+of `javac`'s test suite.
 
-```
+To compute the code coverage metrics of `javac's` test suite,
+run:
+
+```bash
 # This will generate a code coverage report for the test-suite in
 # results/java_test_suite/java-test-suite.csv
 # It will take around 4 hours.
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_test_suite.sh
+```
 
-# You can skip this step if you have already generate some programs
-# and their reports
+
+To generate Java programs using `Hephaestus`,
+run the following commands. Note
+that these commands generate 10 Java programs using TEM,
+and 10 Java programs using TOM.
+
+```
+# You can skip this step if you have already generated some programs
+# and their reports.
 hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
     --name java_tem_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 1 \
-    --keep-all --dry-run --only-preserve-correctness-substitutions
+    --keep-all --dry-run -P
 hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
     --name java_tom_10 --language java \
     --iterations 10 --batch 10 --workers 2 --transformations 0 \
     --keep-all --dry-run
+```
+
+Compute code coverage metrics using the `Hephaestus` programs
+generated previously:
+
+```
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
     $HOME/coverage \
     $HOME/coverage_programs/java_tom_10/ 10 2> /dev/null
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
     $HOME/coverage \
     $HOME/coverage_programs/java_tem_10/ 10 inference 2> /dev/null
+```
 
-# Combine the reports
+Combine the code coverage reports
+
+```
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/combine.sh java \
     results/java/jacoco-comb-inference.exec \
     results/java/jacoco-comb-soundness.exec \
@@ -1216,8 +1369,11 @@ hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/combine.sh java \
     results/java-test-suite/jacoco.exec \
     results/java/java-comb.exec \
     results/java java-hephaestus
+```
 
-# Print results
+Print results
+
+```
 hephaestus@e0456a9b520e:~$ python ~/eval-scripts/compute_coverage.py g \
     results/java-test-suite/java-test-suite.csv \
     results/java/java-hephaestus.csv \
@@ -1230,33 +1386,25 @@ Absolute change                      13                  0                 75
 ```
 
 Similar to `javac`, `kotlinc` does not provide any script to generate code
-coverage metrics for its test-suite. Hence, we are going to compile the
-test-suite itself with an instrumented version of `kotlinc` to compute the
+coverage metrics for its test-suite. Hence, we are going to compile
+every program in the test-suite
+with an instrumented version of `kotlinc` to compute the
 code coverage of its test-suite.
 
 You can perform the experiments by changing `java` to `kotlin` in the previous
 commands. Note that it would take up to 30 hours to compute the code coverage
 for Kotlin's test-suite.
 
-* Groovy
+
+### Groovy
 
 The build scripts of `groovyc` provide a command to generate code coverage
-reports; thus, we will use it instead of compiling the test-suite with an
+reports; thus, we will use it instead of compiling
+each program in the test-suite individually with an
 instrumented compiler (This will take around 2 hours).
 
 ```bash
-# You can skip this step if you have already generate some programs
-hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
-    --name groovy_tem_10 --language groovy \
-    --iterations 10 --batch 10 --workers 2 --transformations 1 \
-    --keep-all --dry-run --only-preserve-correctness-substitutions
-hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
-    --name groovy_tom_10 --language groovy \
-    --iterations 10 --batch 10 --workers 2 --transformations 0 \
-    --keep-all --dry-run
-
 hephaestus@e0456a9b520e:~$ sdk default use sdk use java 11.0.2-open
-
 # Produce code coverage report for the test-suite of groovyc
 hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
 hephaestus@e0456a9b520e:~/coverage/groovy$ ./gradlew clean jacocoAllReport
@@ -1266,17 +1414,41 @@ hephaestus@e0456a9b520e:~/coverage/groovy$ java \
     --classfiles $HOME/coverage/groovy/build/classes \
     --html vanilla --csv groovy-vanilla.csv
 hephaestus@e0456a9b520e:~/coverage/groovy$ cd $HOME
+```
 
-# Replace bug directories
+To generate Groovy programs using `Hephaestus`,
+run the following commands. Note
+that these commands generate 10 Groovy programs using TEM,
+and 10 Groovy programs using TOM.
+
+```bash
+# You can skip this step if you have already generated some Groovy programs
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name groovy_tem_10 --language groovy \
+    --iterations 10 --batch 10 --workers 2 --transformations 1 \
+    --keep-all --dry-run -P
+hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
+    --name groovy_tom_10 --language groovy \
+    --iterations 10 --batch 10 --workers 2 --transformations 0 \
+    --keep-all --dry-run
+```
+
+Replace bug directories
+
+```bash
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/groovy-create-test-class.sh \
     $HOME/coverage \
     coverage_programs/groovy_tom_10/generator/ GeneratorSTCTest
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/groovy-create-test-class.sh \
     $HOME/coverage \
     coverage_programs/groovy_tem_10/transformations/ InferenceSTCTest 0
+```
 
-# Produce code coverage report for the test-suite of groovyc + generated
-# test cases
+
+Produce code coverage report for the test-suite of groovyc + the generated
+test cases by `Hephaestus`
+
+```bash
 hephaestus@e0456a9b520e:~$ cd ~/coverage/groovy
 hephaestus@e0456a9b520e:~/coverage/groovy$ ./gradlew clean jacocoAllReport
 hephaestus@e0456a9b520e:~/coverage/groovy$ cp build/jacoco/test.exec hephaestus.exec
@@ -1284,8 +1456,11 @@ hephaestus@e0456a9b520e:~/coverage/groovy$ java \
     -jar $HOME/coverage/jacoco/lib/jacococli.jar report hephaestus.exec \
     --classfiles $HOME/coverage/groovy/build/classes \
     --html hephaestus --csv groovy-hephaestus.csv
+```
 
-# Print results
+Print results
+
+```bash
 hephaestus@e0456a9b520e:~/coverage/groovy$ python ~/eval-scripts/compute_coverage.py \
     g groovy-vanilla.csv \
     groovy-hephaestus.csv \

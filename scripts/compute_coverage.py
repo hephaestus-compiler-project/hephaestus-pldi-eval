@@ -42,6 +42,13 @@ def check(pkg, cls, whitelist):
 
 
 def read_csv(name, whitelist):
+    def add_coverage(res, pkg, key, value):
+        segs = pkg.split(".")
+        while segs:
+            pkg = ".".join(segs)
+            res[pkg][key] += value
+            segs = segs[:-1]
+
     res = defaultdict(lambda: defaultdict(lambda: 0))
     with open(name, 'r') as f:
         csvreader = csv.reader(f)
@@ -64,12 +71,12 @@ def read_csv(name, whitelist):
                 line_covered = row[8]
                 function_missed = row[11]
                 function_covered = row[12]
-                res[pkg]['branch_missed'] += int(branch_missed)
-                res[pkg]['branch_covered'] += int(branch_covered)
-                res[pkg]['line_missed'] += int(line_missed)
-                res[pkg]['line_covered'] += int(line_covered)
-                res[pkg]['function_missed'] += int(function_missed)
-                res[pkg]['function_covered'] += int(function_covered)
+                add_coverage(res, pkg, "branch_missed", int(branch_missed))
+                add_coverage(res, pkg, "branch_covered", int(branch_covered))
+                add_coverage(res, pkg, "line_missed", int(line_missed))
+                add_coverage(res, pkg, "line_covered", int(line_covered))
+                add_coverage(res, pkg, "function_missed", int(function_missed))
+                add_coverage(res, pkg, "function_covered", int(function_covered))
                 res[(pkg, cls)]['branch_missed'] += int(branch_missed)
                 res[(pkg, cls)]['branch_covered'] += int(branch_covered)
                 res[(pkg, cls)]['line_missed'] += int(line_missed)
@@ -82,6 +89,7 @@ def read_csv(name, whitelist):
                 res['total']['line_covered'] += int(line_covered)
                 res['total']['function_missed'] += int(function_missed)
                 res['total']['function_covered'] += int(function_covered)
+
     return res
 
 
@@ -190,6 +198,7 @@ def compute_increase(res1, res2, cls=False):
         res3[pkg]['function_covered'] = func_incr
         res3[pkg]['function_perc'] = func_perc_incr
     return res3
+
 
 def main():
     args = get_args()
