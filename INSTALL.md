@@ -39,9 +39,9 @@ You can download the Docker image from DockerHub by using the following
 commands:
 
 ```
-docker pull schaliasos/hephaestus-eval
+docker pull theosotr/hephaestus-eval
 # Rename the image to be consistent with our scripts
-docker tag schaliasos/hephaestus-eval hephaestus-eval
+docker tag theosotr/hephaestus-eval hephaestus-eval
 ```
 
 After downloading the Docker image successfully, 
