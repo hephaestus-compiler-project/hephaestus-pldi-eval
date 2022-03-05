@@ -22,6 +22,7 @@ We provide a `Dockerfile` to build images that contain:
 * An installation of the latest `javac` compiler.
 * An installation of all Kotlin versions up to version `1.5.31` available on 
 SDKMAN.
+* An installation of the latest `kotlinc` compiler.
 * An installation of all Groovy versions up to version `4.0.0` available 
 on SDKMAN.
 * An installation of the latest `groovyc` compiler.
@@ -89,7 +90,7 @@ pip setuptools distlib seaborn pandas matplotlib
 ```
 
 * The following system packages (the names here are provided as given in 
-the APT repository of Ubuntu.
+the APT repository of Ubuntu).
 
 ```
 software-properties-common git curl unzip zip python3.9-distutils sqlite3

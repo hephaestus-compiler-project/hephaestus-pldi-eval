@@ -33,28 +33,28 @@ experiments presented in our paper.
 evaluation.
 * `database/bug_schema.sql`: This is the database schema that contains the bugs
 discovered by our approach.
-* `database/bugdb.sqlite3`: This is the sqlite3 database file corresponding to
+* `database/bugdb.sqlite3`: This is the `sqlite3` database file corresponding to
+  our bug database.
 * `database/bugs.json`: This JSON file contains the bugs
 of `database/bugdb.sqlite`.
 * `example_bugs/`: Contains the test programs that trigger the two compiler
 bugs demonstrated in Section II of our paper.
 * `hephaestus/`: Contains the source code of the tool
-(provided as a git submodule) used in our paper for testing the compilers of
-Java, Kotlin, and Groovy.
+(provided as a git submodule) used for testing the compilers of
+Java, Kotlin, and Groovy. The name of our tool is `Hephaestus`.
 * `installation_scripts/`: Contains helper scripts used to install all
 dependencies (e.g., compiler versions from SDKMAN).
 * `figures/`: This directory will be used to save figure 8 of the paper.
-* `Dockerfile`: The Dockerfile used to create the Docker image of this artifact
-that contains all data and dependencies.
+* `Dockerfile`: The Dockerfile used to create a Docker image of our artifact.
+  This image contains all data and dependencies.
 
 `Hephaestus` is available as open-source software under the
 GNU General Public License v3.0, and can also be reached through the following
 repository: https://github.com/hephaestus-compiler-project/hephaestus.
 
-Inside the `hephaestus` directory, there are the following directories:
+Inside the `hephaestus/` directory, there are the following directories:
 
 * `src/`: The source code of `Hephaestus`, which is written in Python.
-* `scripts/`: Some helper scripts for trying to reproduce detected bugs.
 * `tests/`: Contains the tests of `Hephaestus`.
 * `deployment/`: Contains configuration and scripts to install and run
 `Hephaestus` on a machine every second day.
@@ -69,7 +69,7 @@ See [INSTALL.md](./INSTALL.md)
 
 # Getting Started
 
-We will use the Docker image from **Setup** (namely, `hephaestus-eval`)
+We will use the Docker image from [Setup](#Setup) (namely, `hephaestus-eval`)
 to get started with `Hephaestus`. Recall that this image contains all the
 required environments for testing the three compilers (i.e., it includes
 installations of the corresponding compilers, as well as any other tool
@@ -88,12 +88,10 @@ the most important parameters you should specify when running `hephaestus`.
 
 ```
 hephaestus@e0456a9b520e:~$ hephaestus.py --help
-usage: hephaestus.py [-h] [-s SECONDS] [-i ITERATIONS] [-t TRANSFORMATIONS] [--batch BATCH] [-b BUGS] [-n NAME]
-                     [-T [{TypeErasure} ...]] [--transformation-schedule TRANSFORMATION_SCHEDULE] [-R REPLAY] [-e] [-k] [-S]
-                     [-w WORKERS] [-d] [-r] [-F LOG_FILE] [-L] [-N] [--language {kotlin,groovy,java}]
-                     [--disable-params-type-widening] [--disable-inverted-smart-cast] [--find-classes-blacklist]
-                     [--max-type-params MAX_TYPE_PARAMS] [--min-expr-depth MIN_EXPR_DEPTH] [-P] [--timeout TIMEOUT]
-                     [--cast-numbers] [--disable-use-site-variance] [--disable-contravariance-use-site]
+usage: hephaestus.py [-h] [-s SECONDS] [-i ITERATIONS] [-t TRANSFORMATIONS] [--batch BATCH] [-b BUGS] [-n NAME] [-T [{TypeErasure} [{TypeErasure} ...]]]
+                     [--transformation-schedule TRANSFORMATION_SCHEDULE] [-R REPLAY] [-e] [-k] [-S] [-w WORKERS] [-d] [-r] [-F LOG_FILE] [-L] [-N] [--language {kotlin,groovy,java}]
+                     [--max-type-params MAX_TYPE_PARAMS] [--max-depth MAX_DEPTH] [-P] [--timeout TIMEOUT] [--cast-numbers] [--disable-use-site-variance] [--disable-contravariance-use-site]
+                     [--disable-bounded-type-parameters] [--disable-parameterized-functions]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -102,11 +100,11 @@ optional arguments:
   -i ITERATIONS, --iterations ITERATIONS
                         Iterations to run (default: 3)
   -t TRANSFORMATIONS, --transformations TRANSFORMATIONS
-                        Number of transformations in each round
+                        Number of transformations in each round (default: 0)
   --batch BATCH         Number of programs to generate before invoking the compiler
   -b BUGS, --bugs BUGS  Set bug directory (default: /home/hephaestus/bugs)
   -n NAME, --name NAME  Set name of this testing instance (default: random string)
-  -T [{TypeErasure} ...], --transformation-types [{TypeErasure} ...]
+  -T [{TypeErasure} [{TypeErasure} ...]], --transformation-types [{TypeErasure} [{TypeErasure} ...]]
                         Select specific transformations to perform
   --transformation-schedule TRANSFORMATION_SCHEDULE
                         A file containing the schedule of transformations
@@ -119,36 +117,34 @@ optional arguments:
   -w WORKERS, --workers WORKERS
                         Number of workers for processing test programs
   -d, --debug
-  -r, --rerun           Run only the last transformation. If failed, start from the last and go back until the transformation
-                        introduces the error
+  -r, --rerun           Run only the last transformation. If failed, start from the last and go back until the transformation introduces the error
   -F LOG_FILE, --log-file LOG_FILE
                         Set log file (default: /home/hephaestus/logs)
   -L, --log             Keep logs for each transformation (bugs/session/logs)
   -N, --dry-run         Do not compile the programs
   --language {kotlin,groovy,java}
                         Select specific language
-  --disable-params-type-widening
-                        Option for TypeSubstitution
-  --disable-inverted-smart-cast
-                        Option for TypeSubstitution
-  --find-classes-blacklist
-                        Option for ParameterizedSubstitution
   --max-type-params MAX_TYPE_PARAMS
-                        Option for ParameterizedSubstitution
-  --min-expr-depth MIN_EXPR_DEPTH
-                        Option for IncorrectSubtypingSubstitution
-  -P, --only-preserve-correctness-substitutions
-                        Use only preserve correctness substitution
+                        Maximum number of type parameters to generate
+  --max-depth MAX_DEPTH
+                        Generate programs up to the given depth
+  -P, --only-correctness-preserving-transformations
+                        Use only correctness-preserving transformations
   --timeout TIMEOUT     Timeout for transformations (in seconds)
-  --cast-numbers        Cast numeric constants to their actual type (this option is used to avoid re-occrrence of a specific Groovy
-                        bug)
+  --cast-numbers        Cast numeric constants to their actual type (this option is used to avoid re-occrrence of a specific Groovy bug)
   --disable-use-site-variance
                         Disable use-site variance
   --disable-contravariance-use-site
                         Disable contravariance in use-site variance
+  --disable-bounded-type-parameters
+                        Disable bounded type parameters
+  --disable-parameterized-functions
+                        Disable parameterized functions
 ```
 
-* `--bugs` (Optional)
+## CLI Options
+
+#### `--bugs` (Optional)
 
 Set the directory to save the results of the testing session.
 
@@ -156,7 +152,7 @@ NOTE: The default directory is `$(pwd)/bugs`.
 
 Example: `--bugs hephaestus-results`
 
-* `--name` (Optional)
+#### `--name` (Optional)
 
 Name of the current testing session.
 
@@ -165,7 +161,7 @@ NOTE: The default name is a randomly generated 5-character long string
 
 Example: `--name test-javac-1`
 
-* `--language`
+#### `--language`
 
 When running `hephaestus`, you should specify which language's the compiler you
 want to test. The available options are `kotlin`, `groovy`, and `java`.
@@ -173,10 +169,10 @@ Hephaestus will use the selected language's compiler that is on the `PATH`.
 If you want to test a specific compiler version, you should configure it as
 the current session's default compiler.
 
-Example: `--language kotlin` -- `hephaestus` will test Kotlin's compiler
+Example: `--language kotlin` -- `hephaestus` will test the Kotlin compiler
 (i.e., `kotlinc`)
 
-* `--seconds` and `--iterations`
+#### `--seconds` and `--iterations`
 
 You should always specify either `--seconds` or `--iterations` option.
 The former specifies how much time `hephaestus` should test a compiler in
@@ -185,21 +181,22 @@ generate and run.
 
 Example 1: `--seconds 120` -- `hephaestus` will run for 2 minutes.
 
-Example 2: `--transformations 60` -- `hephaestus` will generate and run 60 test
+Example 2: `--iterations 60` -- `hephaestus` will generate and run 60 test
 programs.
 
-* `--batch` (Optional)
+#### `--batch` (Optional)
 
 When running `hephaestus`, most of the testing time is spent compiling the test
 programs. Instead of generating one program at a time, you can specify the
-number of programs you want to generate before compiling them in a batch.
+number of programs you want to generate and the compiling all of them as
+a batch.
 
 NOTE: The default option is 1.
 
 Example: `--batch 30` -- First, create 30 programs and then compile them with
 a single compiler execution.
 
-* `--workers` (Optional)
+#### `--workers` (Optional)
 
 When `--batch` option is larger than one, you can specify the number of workers
 that will generate and mutate programs in parallel.
@@ -209,7 +206,7 @@ NOTE: The default option is 1.
 Example: `--workers 4` -- Use four workers to generate and mutate test
 programs.
 
-* `--transformation-types` and `--only-preserve-correctness-substitutions`
+#### `--transformation-types` and `--only-correctness-preserving-transformations`
 
 Hephaestus supports two transformations, those that produce well-typed test
 programs and those that produce ill-typed test programs. Currently,
@@ -219,25 +216,23 @@ while the latter yields ill-typed.
 
 By default, TOM is always running after generating a test program.
 To disable TOM, you should use the option
-`--only-preserve-correctness-substitutions`.
-
+`--only-correctness-preserving-transformations`.
 `--transformation-types` option specifies which mutations that produce
 well-typed programs should be used during a testing session. Currently,
 `hephaestus` implements only one mutator that produces well-typed programs
 (i.e., TEM).
 
-WARNING: Although you can use the mutators in combination, they have not been
-rigorously tested in combination, and FP may exist.
+**Note**: Although you can use the mutators in combination, they have not been
+rigorously tested in combination.
 
 Example: `--transformation-types TypeErasure` -- enable TypeErasure mutation.
 
-* `--transformations` and `--transformation-schedule`
+#### `--transformations` and `--transformation-schedule`
 
 You should always specify one of those options. `--transformations` specify the
 number of mutations that should be applied per test program. If the value is
 `0`, `hephaestus` will run only the generator. Note that this option only
 specifies how many correctness-preserving mutations should be applied.
-
 `--transformation-schedule` expects a path for a file containing the schedule
 of transformations. This file should specify a mutator per line.
 
@@ -251,88 +246,105 @@ The `transformations.txt` file could contain the following.
 TypeErasure
 ```
 
-* `--keep-all` (Optional)
+#### `--keep-all` (Optional)
 
-`hephaestus` only saves programs that cause a compiler error.
+`hephaestus` only saves programs that result in compiler bugs.
 When `--keep-all` is enabled, `hephaestus` will save all generated and mutated
-test programs.
+test programs regardless of whether they trigger compiler bugs or not.
 
 Example: `--keep-all`
 
-* `--dry-run` (Optional)
+#### `--dry-run` (Optional)
 
 When this option is used, `hephaestus` only produces and mutates test programs,
-i.e., it does not test the compiler.
+i.e., it does not invoke the compiler under test.
 
 Example: `--dry-run`
 
-* `--log-file` (Optional)
+#### `--log-file` (Optional)
 
-By default, `hephaestus` keeps logs of testing sessions in a file called `logs`
-in the working directory. However, with `--log-file` option, you can specify
+By default, `hephaestus` keeps logs of a testing session in a file called `logs`,
+which resides in the current working directory.
+However, with `--log-file` option, you can specify
 another file to save the logs.
 
 Example: `--log-file my_logs`
 
-* `--replay` (Optional)
+#### `--replay` (Optional)
 
-Use a seed program instead of `hephaestus`' generated programs.
+Use a seed program written in `hephaestus`' IR,
+instead of invoking `hephaestus`' program generator.
 
-NOTE: The input program should be pickled.
+**Note**: The input program should be pickled.
 
 Example: `--replay bugs/idET7/generator/iter_1/Main.java.bin`
 
-* `--debug` (Debugging option)
+#### `--debug` (Debugging option)
 
 Print debug messages before every step (i.e., program generation, mutation,
 compilation).
 
-NOTE: Use this option only when `--workers` option is set to 1
+**Note**: Use this option only when `--workers` option is set to 1
 and `-batch` is set to 1.
 
 Example: `--debug`
 
-* `--examine` (Debugging option)
+#### `--examine` (Debugging option)
 
 Open a debugger session to inspect the IR of the generated program.
 
-NOTE: This option can only be used with `--replay` option.
+**Note**: This option can only be used with `--replay` option.
 
-* `--print-stacktrace` (Debugging option)
+#### `--print-stacktrace` (Debugging option)
 
-Print stacktaces for `hephaestus` internal errors.
+Print stacktaces when encountering `hephaestus` internal errors.
 
 Example: `--print-stacktrace`
 
-* `--cast-numbers` (Optional)
+#### `--cast-numbers` (Optional)
 
 This option is used to cast numeric constants to their actual type in Groovy
 programs. We use this option to avoid the re-occurrence of a specific Groovy
 bug.
 
-NOTE: This option has an effect only when `--language` is set to `groovy`.
+**Note**: This option has an effect only when `--language` is set to `groovy`.
 
 Example: `--cast-numbers`
 
-* `--disable-use-site-variance` (Optional)
+#### `--disable-use-site-variance` (Optional)
 
 Generate programs that do not use use-site variance.
 
 Example: `--disable-use-site-variance`
 
-* `--disable-contravariance-use-site` (Optional)
+#### `--disable-contravariance-use-site` (Optional)
 
 Generate programs that do not use contravariance in use-site variance.
 
 Example: `--disable-contravariance-use-site`
 
-* `--max-type-params` (Optional)
 
-Specify the maximum number of type parameters for a parameterized class.
+#### `--disable-parameterized-functions` (Optional)
 
-NOTE: the default value is `3`.
+Generate programs that do not declare parameterized functions.
+
+Example: `--disable-parameterized-functions`
+
+#### `--disable-bounded-type-parameters` (Optional)
+
+Generate programs that do declare type parameters with upper bounds.
+
+Example: `--disable-bounded-type-parameters`
+
+#### `--max-type-params` (Optional)
+
+Specify the maximum number of type parameters for a parameterized class
+or a parameterized function.
+
+**Note**: the default value is `3`.
 
 Example: `--max-type-params 5`
+
 
 ## Run Tests
 
@@ -355,34 +367,35 @@ tests/test_use_analysis.py::test_program8 PASSED                        [100%]
 ============================ 154 passed in 0.55s =============================
 ```
 
-## Example
+## Example: Testing the Groovy compiler
 
-Here, we will test the Groovy compiler by employing Hephaestus's program
+Here, we will test the Groovy compiler by employing `hephaestus`' program
 generator. Specifically, we will produce 30 test programs in batches of 10
 test programs using two workers with the following command.
+Our testing session is named `groovy-session`.
 
 ```
 hephaestus@e0456a9b520e:~/hephaestus$ hephaestus.py \
     --language groovy --transformations 0 \
-    --batch 10 --iterations 30 --workers 2
+    --batch 10 --iterations 30 --workers 2 -P \
+    --name groovy-session
 ```
 
-The expected outcome is:
+The expected outcome is something like the following:
 
 ```
 stop_cond             iterations (30)
 transformations       0
-transformation_types
-bugs                  /home/hephaestus/bugs
-name                  gWYHl
+transformation_types  TypeErasure
+bugs                  /home/hephaestus/hephaestus/bugs
+name                  groovy-session
 language              groovy
 compiler              Groovy compiler version 4.0.0
-Copyright 2003-2021 The Apache Software Foundation. http://groovy-lang.org/
 ===============================================================================
 Test Programs Passed 30 / 30 ✔          Test Programs Failed 0 / 30 ✘
 ```
 
-Two files are generated inside `/home/hephaestus/bugs/gWYH`:
+Two files are generated inside `/home/hephaestus/bugs/groovy-session`:
 `stats.json` and `faults.json`.
 
 `stats.json` contains the following details about the testing session.
@@ -395,7 +408,7 @@ Two files are generated inside `/home/hephaestus/bugs/gWYH`:
     "transformations": 0,
     "transformation_types": "",
     "bugs": "/home/hephaestus/bugs",
-    "name": "gWYHl",
+    "name": "groovy-session",
     "language": "groovy",
     "compiler"  "Groovy compiler version 4.0.0"
   },
@@ -406,23 +419,22 @@ Two files are generated inside `/home/hephaestus/bugs/gWYH`:
 }
 ```
 
-In this example, `faults.json` is empty. If there were some bugs detected,
+If there were some bugs detected,
 `faults.json` would look like the following JSON file.
 
 ```
 {
-  "7": {
-    "transformations": [
-      "TypeErasure"
-    ],
-    "error": " 18: [Static type checking] - Incompatible generic argument types. Cannot assign src.easy.Function2<java.lang.Double, java.lang.Float, ?> to: src.easy.Function2<java.lang.Double, java.lang.Float, ? extends java.lang.Object>\n @ line 18, column 5.\n       gurgling\n       ^",
+
+  "3": {
+    "transformations": [],
+    "error": " 72: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 72, column 99.\n    extends Double> gifting(Door<? super Do\n                                 ^\n 100: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 100, column 90.\n    extends Double> gifting(Door<? super Do\n                                 ^\n 141: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 141, column 90.\n    extends Double> gifting(Door<? super Do\n                                 ^\n 202: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 202, column 90.\n    extends Double> gifting(Door<? super Do\n                                 ^\n 228: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 228, column 90.\n    extends Double> gifting(Door<? super Do\n                                 ^\n 299: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 299, column 90.\n    extends Double> gifting(Door<? super Do\n                                 ^\n 376: The type ? is not a valid substitute for the bounded parameter <Y extends java.lang.Short>\n @ line 376, column 44.\n   spoons(Sicken issued, Plumage<? super Sh\n                                 ^\n 393: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 393, column 90.\n    extends Double> gifting(Door<? super Do\n                                 ^\n 510: The type ? is not a valid substitute for the bounded parameter <F extends java.lang.Double>\n @ line 510, column 90.\n    extends Double> gifting(Door<? super Do\n                                 ^",
     "programs": {
-      "/tmp/tmpyp4u90z5/src/easy/Main.groovy": true
+      "/tmp/tmpt_x_l1wk/src/kettles/Main.groovy": true
     }
   },
   "11": {
     "transformations": [
-        "OverwritingMutation"
+        "TypeOverwriting"
     ],
     "error": "SHOULD NOT BE COMPILED: X <: N expected but Imagine <: (Playing<Function1<Boolean(groovy-builtin), Float(groovy-builtin)>>) found in node global/Reconcile/reflexes/soybeans/cellos",
     "programs": {
@@ -431,9 +443,7 @@ In this example, `faults.json` is empty. If there were some bugs detected,
     }
   },
   "1050": {
-    "transformations": [
-      "TypeErasure"
-    ],
+    "transformations": [],
     "error": ">>> a serious error occurred: BUG! exception in phase 'instruction selection' in source unit '/tmp/tmphj006wfu/src/wack/Main.groovy' unexpected NullPointerException\n>>> stacktrace:\nBUG! exception in phase 'instruction selection' in source unit '/tmp/tmphj006wfu/src/wack/Main.groovy' unexpected NullPointerException\n\tat org.codehaus.groovy.control.CompilationUnit$IPrimaryClassNodeOperation.doPhaseOperation(CompilationUnit.java:905)\n\tat org.codehaus.groovy.control.CompilationUnit.processPhaseOperations(CompilationUnit.java:654)\n\tat org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:628)\n\tat org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:609)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.compile(FileSystemCompiler.java:311)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.doCompilation(FileSystemCompiler.java:240)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.commandLineCompile(FileSystemCompiler.java:165)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.commandLineCompileWithErrorHandling(FileSystemCompiler.java:205)\n\tat org.codehaus.groovy.tools.FileSystemCompiler.main(FileSystemCompiler.java:189)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.codehaus.groovy.tools.GroovyStarter.rootLoader(GroovyStarter.java:112)\n\tat org.codehaus.groovy.tools.GroovyStarter.main(GroovyStarter.java:130)\nCaused by: java.lang.NullPointerException: Cannot invoke \"org.codehaus.groovy.ast.stmt.Statement.visit(org.codehaus.groovy.ast.GroovyCodeVisitor)\" because the return value of \"org.codehaus.groovy.ast.MethodNode.getCode()\" is null\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.isTypeSource(StaticTypeCheckingVisitor.java:4189)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.checkForTargetType(StaticTypeCheckingVisitor.java:4160)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitTernaryExpression(StaticTypeCheckingVisitor.java:4136)\n\tat org.codehaus.groovy.ast.expr.TernaryExpression.visit(TernaryExpression.java:44)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitMethodCallExpression(StaticTypeCheckingVisitor.java:3303)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitMethodCallExpression(StaticCompilationVisitor.java:421)\n\tat org.codehaus.groovy.ast.expr.MethodCallExpression.visit(MethodCallExpression.java:77)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitExpressionStatement(CodeVisitorSupport.java:117)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitExpressionStatement(ClassCodeVisitorSupport.java:204)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitExpressionStatement(StaticTypeCheckingVisitor.java:2188)\n\tat org.codehaus.groovy.ast.stmt.ExpressionStatement.visit(ExpressionStatement.java:41)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitBlockStatement(CodeVisitorSupport.java:86)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitBlockStatement(ClassCodeVisitorSupport.java:168)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitBlockStatement(StaticTypeCheckingVisitor.java:3895)\n\tat org.codehaus.groovy.ast.stmt.BlockStatement.visit(BlockStatement.java:70)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitBlockStatement(CodeVisitorSupport.java:86)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitBlockStatement(ClassCodeVisitorSupport.java:168)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitBlockStatement(StaticTypeCheckingVisitor.java:3895)\n\tat org.codehaus.groovy.ast.stmt.BlockStatement.visit(BlockStatement.java:70)\n\tat org.codehaus.groovy.ast.CodeVisitorSupport.visitClosureExpression(CodeVisitorSupport.java:239)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitClosureExpression(StaticTypeCheckingVisitor.java:2402)\n\tat org.codehaus.groovy.ast.expr.ClosureExpression.visit(ClosureExpression.java:110)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitCastExpression(StaticTypeCheckingVisitor.java:4074)\n\tat org.codehaus.groovy.ast.expr.CastExpression.visit(CastExpression.java:96)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitInitialExpression(StaticTypeCheckingVisitor.java:1931)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitDefaultParameterArguments(StaticTypeCheckingVisitor.java:2616)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitConstructorOrMethod(StaticTypeCheckingVisitor.java:2588)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitMethod(ClassCodeVisitorSupport.java:110)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.startMethodInference(StaticTypeCheckingVisitor.java:2573)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitMethod(StaticTypeCheckingVisitor.java:2552)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitConstructorOrMethod(StaticCompilationVisitor.java:236)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitMethod(StaticCompilationVisitor.java:251)\n\tat org.codehaus.groovy.ast.ClassNode.visitMethods(ClassNode.java:1135)\n\tat org.codehaus.groovy.ast.ClassNode.visitContents(ClassNode.java:1128)\n\tat org.codehaus.groovy.ast.ClassCodeVisitorSupport.visitClass(ClassCodeVisitorSupport.java:52)\n\tat org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.visitClass(StaticTypeCheckingVisitor.java:437)\n\tat org.codehaus.groovy.transform.sc.StaticCompilationVisitor.visitClass(StaticCompilationVisitor.java:197)\n\tat org.codehaus.groovy.transform.sc.StaticCompileTransformation.visit(StaticCompileTransformation.java:68)\n\tat org.codehaus.groovy.control.customizers.ASTTransformationCustomizer.call(ASTTransformationCustomizer.groovy:298)\n\tat org.codehaus.groovy.control.CompilationUnit$IPrimaryClassNodeOperation.doPhaseOperation(CompilationUnit.java:900)\n\t... 14 more\n",
     "programs": {
       "/tmp/tmphj006wfu/src/yarn/Main.groovy": true
@@ -442,12 +452,16 @@ In this example, `faults.json` is empty. If there were some bugs detected,
 }
 ```
 
-The first error is an unexpected compile-time error detected using the
-`TypeErasure` mutation. The second is a compiler bug where the compiler accepts
-an ill-typed program. Finally, the third one is an internal error of
-`groovyc`.
+The first error is an unexpected compile-time error detected using
+our generator ([GROOVY-10153](https://issues.apache.org/jira/browse/GROOVY-10153)).
+The second is a compiler bug where the compiler accepts
+an ill-typed program ([GROOVY-10370](https://issues.apache.org/jira/browse/GROOVY-10370)).
+Finally, the third one is an internal error of
+`groovyc` ([GROOVY-10357](https://issues.apache.org/jira/browse/GROOVY-10357)).
 
-In the above scenario, the testing session directory would be like the following:
+In the above scenario,
+the testing session directory (i.e., `bugs/groovy-session/`)
+would be like the following:
 
 ```
 |-- 7
@@ -458,7 +472,7 @@ In the above scenario, the testing session directory would be like the following
 |   |-- incorrect.groovy.bin
 |   |-- Main.groovy
 |   `-- Main.groovy.bin
-|-- 1050
+|-- 29
 |   |-- Main.groovy
 |   `-- Main.groovy.bin
 |-- faults.json
