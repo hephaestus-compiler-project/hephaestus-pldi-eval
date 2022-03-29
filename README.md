@@ -508,10 +508,10 @@ fourth volume (`eval-figures/`) will be used to save Figure 8 of our paper.
 
 ## Bug Database
 
-We provide an SQLite database (see the file `bugs/bugdb.sqlite3`) that contains
+We provide an SQLite database (see the file `database/bugdb.sqlite3`) that contains
 information about the bugs discovered by `Hephaestus` during the evaluation.
 This database is initialized based on the SQL script stored into
-`bugs/bug_schema.sql`. The bug database consists of three tables,
+`database/bug_schema.sql`. The bug database consists of three tables,
 namely `CompilerBug`, `Characteristic`, and `CompilerBugCharacteristics`.
 
 Each record of the `CompilerBug` table consists of the following columns.
