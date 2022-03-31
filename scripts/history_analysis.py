@@ -98,6 +98,8 @@ def main():
 
     plt.style.use('ggplot')
     sns.set(style="whitegrid")
+    plt.rcParams['pdf.fonttype'] = 42
+    plt.rcParams['ps.fonttype'] = 42
     plt.rcParams['font.family'] = 'DejaVu Sans'
     plt.rcParams['figure.figsize'] = (9, 3.5)
     plt.rcParams['axes.labelsize'] = 17
