@@ -5,7 +5,7 @@ git clone --recursive https://github.com/hephaestus-compiler-project/hephaestus-
 ```
 
 The easiest way to get Hephaestus and all dependencies needed for evaluating 
-the artifact (e.g., javac, kotlinc, jacoco) is to download a pre-built Docker 
+the artifact (e.g., javac, kotlinc, JaCoCo) is to download a pre-built Docker 
 image from DockerHub. Another option is to build the Docker 
 image locally, or to try installing all dependencies on your machine 
 (not recommended).
@@ -13,7 +13,7 @@ image locally, or to try installing all dependencies on your machine
 Docker Image
 ============
 
-We provide a `Dockerfile` to build images that contain:
+We provide a `Dockerfile` to build an image that contain:
 
 * An installation of Python (version 3.9.10).
 * An installation of [SDKMAN](https://sdkman.io/).
@@ -29,7 +29,7 @@ on SDKMAN.
 * An installation of the `JaCoCo` Java code coverage library.
 * An installation of `Hephaestus`.
 * A user named `hephaestus` with sudo privileges.
-* Python packages for creating figures (i.e., `seaborn`, `pandas`, 
+* Python packages for plotting figures (i.e., `seaborn`, `pandas`, 
 and `matplotlib`)
 
 Pull Docker Image from DockerHub
@@ -48,16 +48,16 @@ After downloading the Docker image successfully,
 please navigate to the root directory of the artifact:
 
 ```
-cd hephaestus-eval
+cd hephaestus-pldi-eval
 ```
 
 Build Docker Image Locally
 --------------------------
 
-First enter the `hephaestus-eval/` directory:
+First enter the `hephaestus-pldi-eval/` directory:
 
 ```
-cd hephaestus-eval
+cd hephaestus-pldi-eval
 ```
 
 To build the image (named `hephaestus-eval`), run the following command 

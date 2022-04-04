@@ -1,6 +1,6 @@
 # Artifact for "Finding Typing Compiler Bugs" (PLDI'22)
 
-This artifact is for the conditionally accepted PLDI'22 paper titled
+This artifact is for the PLDI'22 paper titled
 "Finding Typing Compiler Bugs".
 
 An archived version of the artifact is also available on Zenodo.
@@ -37,8 +37,6 @@ discovered by our approach.
   our bug database.
 * `database/bugs.json`: This JSON file contains the bugs
 of `database/bugdb.sqlite`.
-* `example_bugs/`: Contains the test programs that trigger the two compiler
-bugs demonstrated in Section II of our paper.
 * `hephaestus/`: Contains the source code of the tool
 (provided as a git submodule) used for testing the compilers of
 Java, Kotlin, and Groovy. The name of our tool is `Hephaestus`.
@@ -69,7 +67,8 @@ See [INSTALL.md](./INSTALL.md)
 
 # Getting Started
 
-We will use the Docker image from [Setup](#Setup) (namely, `hephaestus-eval`)
+We will use the Docker image (namely `hephaestus-eval`) built by
+the instructions from the [Setup](#Setup) guide
 to get started with `Hephaestus`. Recall that this image contains all the
 required environments for testing the three compilers (i.e., it includes
 installations of the corresponding compilers, as well as any other tool
@@ -369,6 +368,10 @@ tests/test_use_analysis.py::test_program8 PASSED                        [100%]
 
 ## Example: Testing the Groovy compiler
 
+**NOTE:** At each run, `hephaestus` generates random programs.
+Therefore, you should expect to get different results at each run:
+some randomly generated programs might trigger unfixed compiler bugs.
+
 Here, we will test the Groovy compiler by employing `hephaestus`' program
 generator. Specifically, we will produce 30 test programs in batches of 10
 test programs using two workers with the following command.
@@ -381,7 +384,7 @@ hephaestus@e0456a9b520e:~/hephaestus$ hephaestus.py \
     --name groovy-session
 ```
 
-The expected outcome is something like the following:
+The expected outcome is something of the form:
 
 ```
 stop_cond             iterations (30)
@@ -460,8 +463,9 @@ Finally, the third one is an internal error of
 `groovyc` ([GROOVY-10357](https://issues.apache.org/jira/browse/GROOVY-10357)).
 
 In the above scenario,
-the testing session directory (i.e., `bugs/groovy-session/`)
-would be like the following:
+the structure of testing session directory
+(i.e., `bugs/groovy-session/`)
+would be like the following
 
 ```
 |-- 7
@@ -486,6 +490,9 @@ hephaestus@e0456a9b520e:~$ exit
 ```
 
 # Step By Step Instructions
+
+**NOTE**: Remember to run all the subsequent `docker run` commands
+from the root directory of the artifact (i.e., `hephaestus-pldi-eval/`).
 
 To validate the main results presented in the paper, first create a new Docker
 container by running:
@@ -560,14 +567,14 @@ Get the total number of the discovered bugs.
 
 ```
 hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug";
-153
+156
 ```
 
 Find the number of `groovyc` bugs.
 
 ```
 hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT COUNT(*) FROM CompilerBug WHERE compiler = 'groovyc'";
-110
+113
 ```
 
 Find the number of `javac` bugs that have UCTE as their symptom.
@@ -582,16 +589,16 @@ pointing to our bug reports.
 
 ```
 hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT issue_tracker_link FROM CompilerBug WHERE compiler = 'kotlinc' AND mutator = 'inference'";
-https://youtrack.jetbrains.com/issue/KT-45118
-https://youtrack.jetbrains.com/issue/KT-49092
-https://youtrack.jetbrains.com/issue/KT-48764
 https://youtrack.jetbrains.com/issue/KT-49024
+https://youtrack.jetbrains.com/issue/KT-49092
+https://youtrack.jetbrains.com/issue/KT-45118
+https://youtrack.jetbrains.com/issue/KT-47184
+https://youtrack.jetbrains.com/issue/KT-48764
 https://youtrack.jetbrains.com/issue/KT-43846
 https://youtrack.jetbrains.com/issue/KT-44082
 https://youtrack.jetbrains.com/issue/KT-44742
 https://youtrack.jetbrains.com/issue/KT-44595
 https://youtrack.jetbrains.com/issue/KT-44551
-https://youtrack.jetbrains.com/issue/KT-47184
 https://youtrack.jetbrains.com/issue/KT-46684
 https://youtrack.jetbrains.com/issue/KT-44651
 ```
@@ -601,9 +608,9 @@ reported bugs.
 
 ```
 hephaestus@e0456a9b520e:~$ sqlite3 database/bugdb.sqlite3 "SELECT c.characteristic_name, COUNT(*) as total FROM CompilerBugCharacteristics as cbc JOIN Characteristic as c ON c.cid = cbc.cid GROUP BY cbc.cid ORDER BY total DESC LIMIT 3";
-Parameterized class|96
-Parameterized type|77
-Bounded type parameter|50
+Parameterized class|98
+Parameterized type|78
+Bounded type parameter|51
 ```
 
 ## RQ1: Bug-Finding Results (Section 4.2)
@@ -618,13 +625,13 @@ hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py database/bugs.jso
 ============================================================
 Status              groovyc   kotlinc   Java      Total
 ------------------------------------------------------------
-Reported            0         12        0         12
-Confirmed           46        8         3         57
-Fixed               60        9         2         71
+Reported            0         3         0         3
+Confirmed           34        14        3         51
+Fixed               74        10        2         86
 Wont fix            2         2         5         9
-Duplicate           2         1         1         4
+Duplicate           3         3         1         7
 ------------------------------------------------------------
-Total               110       32        11        153
+Total               113       32        11        156
 ```
 
 Next, run the following script to produce Figure 8 and compute the numbers of
@@ -648,7 +655,7 @@ All versions are buggy: 6
 The error exist only in master: 2
 Regressions: 3
 
-Compiler Affected stable versions  Bugs
+   Compiler Affected stable versions  Bugs
 0   kotlinc                    [1-3]     5
 1   kotlinc                     > 12     1
 2   kotlinc                    [7-9]     7
@@ -685,7 +692,7 @@ command (it will take around 90 minutes):
 python eval-scripts/history_run.py database/bugs.json history.json
 ```
 
-**Note**: The results might be slightly different because
+**NOTE**: The results might be slightly different because
 (1) some compiler version might be no longer supported by SDKMAN,
 (2) the developers may have fixed some bugs.
 
@@ -703,7 +710,7 @@ hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py database/bugs.jso
 ============================================================
 Symptoms            groovyc   kotlinc   Java      Total
 ------------------------------------------------------------
-UCTE                77        17        7         101
+UCTE                80        17        7         104
 URB                 19        3         0         22
 Crash               14        12        4         30
 
@@ -712,19 +719,19 @@ Crash               14        12        4         30
 ================================================================================
 Characteristics
 --------------------------------------------------------------------------------
-Parameterized class          96   Parametric polymorphism
-Parameterized type           77   Parametric polymorphism
-Bounded type parameter       50   Parametric polymorphism
-Type argument inference      35   Type inference
-Lambda                       34   Functional programming
+Parameterized class          98   Parametric polymorphism
+Parameterized type           78   Parametric polymorphism
+Bounded type parameter       51   Parametric polymorphism
+Type argument inference      36   Type inference
+Lambda                       35   Functional programming
 Conditionals                 32   Standard language features
 Inheritance                  31   OOP features
 Subtyping                    30   Type system-related features
 Function type                27   Functional programming
-Variable type inference      24   Type inference
+Variable type inference      25   Type inference
+Parameterized function       24   Parametric polymorphism
 Use-site variance            23   Parametric polymorphism
-Parameterized function       23   Parametric polymorphism
-Flow typing                  12   Type inference
+Flow typing                  13   Type inference
 Array                        11   Standard language features
 Primitive type               10   Type system-related features
 Function reference           9    Functional programming
@@ -740,11 +747,11 @@ Cast                         1    Standard language features
 ================================================================================
 Categories
 --------------------------------------------------------------------------------
-Parametric polymorphism      104
-Type inference               61
+Parametric polymorphism      106
+Type inference               63
 Standard language features   44
+Functional programming       39
 Type system-related features 38
-Functional programming       38
 OOP features                 31
 Other                        1
 ================================================================================
@@ -755,7 +762,7 @@ Specifically, Section 4.3 contains the following statements:
 
 * _"Features related to parametric polymorphism (e.g., parameterized class) are
 in the list of features with the most bug-revealing capability_".
-* _"In total, 104/153 bugs are caused by programs containing at least one such
+* _"In total, 106/156 bugs are caused by programs containing at least one such
 feature (parametric polymorphism)_".
 * _"In 47% of test cases that use conditionals, type inference features are
 also included_".
@@ -769,125 +776,125 @@ they also involve type inference).
 hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py --combinations \
     database/bugs.json rq2
 Combinations
-==============================================================================
-Parameterized class           Parametric polymorphism          93
-Parameterized class           OOP features                     24
-Parameterized class           Type inference                   42
+================================================================================
+SAM type                      Functional programming            5
+SAM type                      Parametric polymorphism           3
+SAM type                      Type system-related features      1
+Function type                 Functional programming           26
+Function type                 Type system-related features      6
+Function type                 Type inference                    7
+Function type                 Parametric polymorphism          10
+Function type                 Standard language features        5
+Function type                 OOP features                      3
+Function reference            Functional programming            9
+Function reference            Parametric polymorphism           4
+Function reference            Type system-related features      1
+Function reference            Type inference                    1
+Function reference            Standard language features        1
+Function reference            OOP features                      1
+Lambda                        Functional programming           25
+Lambda                        Parametric polymorphism          14
+Lambda                        Type system-related features      7
+Lambda                        Type inference                   16
+Lambda                        Standard language features        6
+Lambda                        OOP features                      2
+Parameterized class           Parametric polymorphism          95
+Parameterized class           Type inference                   43
 Parameterized class           Type system-related features     18
-Parameterized class           Standard language features       23
 Parameterized class           Functional programming           13
-Parameterized type            Parametric polymorphism          77
-Parameterized type            OOP features                     23
+Parameterized class           Standard language features       23
+Parameterized class           OOP features                     24
+Parameterized type            Parametric polymorphism          78
+Parameterized type            Type inference                   35
 Parameterized type            Type system-related features     17
 Parameterized type            Standard language features       22
-Parameterized type            Type inference                   34
+Parameterized type            OOP features                     23
 Parameterized type            Functional programming            6
-Use-site variance             Parametric polymorphism          22
-Use-site variance             OOP features                      6
-Use-site variance             Type system-related features      5
-Use-site variance             Standard language features        3
-Use-site variance             Type inference                    7
-Use-site variance             Functional programming            1
-Bounded type parameter        Parametric polymorphism          50
-Bounded type parameter        Type inference                   20
+Bounded type parameter        Parametric polymorphism          51
+Bounded type parameter        Type inference                   21
 Bounded type parameter        Type system-related features      9
 Bounded type parameter        OOP features                     12
 Bounded type parameter        Standard language features       13
 Bounded type parameter        Functional programming            6
+Declaration-site variance     Parametric polymorphism           2
+Declaration-site variance     Type inference                    1
+Declaration-site variance     OOP features                      1
+Variable type inference       Parametric polymorphism          15
+Variable type inference       Standard language features        6
+Variable type inference       Functional programming           10
+Variable type inference       Type inference                   13
+Variable type inference       Type system-related features      3
+Variable type inference       OOP features                      3
+Use-site variance             Parametric polymorphism          22
+Use-site variance             Type inference                    7
+Use-site variance             Type system-related features      5
+Use-site variance             Standard language features        3
+Use-site variance             OOP features                      6
+Use-site variance             Functional programming            1
+Parameterized function        Functional programming            4
+Parameterized function        Parametric polymorphism          19
+Parameterized function        Type system-related features      3
+Parameterized function        Type inference                   10
+Parameterized function        Standard language features        6
+Parameterized function        OOP features                      2
+Type argument inference       Parametric polymorphism          36
+Type argument inference       Type system-related features      7
+Type argument inference       Type inference                    9
+Type argument inference       OOP features                      7
+Type argument inference       Standard language features        9
+Type argument inference       Functional programming            4
+Subtyping                     Parametric polymorphism          17
+Subtyping                     Type inference                   14
+Subtyping                     OOP features                     16
+Subtyping                     Standard language features       14
+Subtyping                     Functional programming            7
+Subtyping                     Type system-related features      2
+Array                         Standard language features        4
+Array                         Type inference                    3
+Array                         Type system-related features      5
+Array                         OOP features                      2
+Array                         Parametric polymorphism           4
+Array                         Functional programming            2
+Conditionals                  Standard language features        2
+Conditionals                  Type inference                   15
+Conditionals                  OOP features                      9
+Conditionals                  Type system-related features     13
+Conditionals                  Parametric polymorphism          18
+Conditionals                  Functional programming            5
+Return type inference         OOP features                      3
+Return type inference         Type system-related features      3
+Return type inference         Standard language features        2
+Return type inference         Functional programming            1
+Return type inference         Parametric polymorphism           2
+Return type inference         Type inference                    1
+Inheritance                   Type system-related features     18
+Inheritance                   Type inference                   13
+Inheritance                   Standard language features       11
 Inheritance                   Parametric polymorphism          24
 Inheritance                   OOP features                      8
-Inheritance                   Type system-related features     18
-Inheritance                   Standard language features       11
-Inheritance                   Type inference                   13
 Inheritance                   Functional programming            3
-Type argument inference       Parametric polymorphism          35
-Type argument inference       Type inference                    9
-Type argument inference       Functional programming            4
-Type argument inference       Standard language features        9
-Type argument inference       Type system-related features      7
-Type argument inference       OOP features                      7
+Flow typing                   Functional programming            6
+Flow typing                   Type inference                    7
+Flow typing                   Standard language features        4
+Flow typing                   OOP features                      4
+Flow typing                   Type system-related features      3
+Flow typing                   Parametric polymorphism           1
+Overriding                    Standard language features        4
+Overriding                    Type system-related features      4
+Overriding                    Type inference                    2
+Overriding                    Parametric polymorphism           8
+Overriding                    OOP features                      8
+Variable arguments            Parametric polymorphism           4
+Variable arguments            OOP features                      1
+Variable arguments            Type inference                    2
+Variable arguments            Functional programming            1
+Variable arguments            Standard language features        1
 Primitive type                Parametric polymorphism           2
 Primitive type                OOP features                      2
 Primitive type                Standard language features        3
 Primitive type                Functional programming            2
 Primitive type                Type system-related features      2
-Overriding                    Type system-related features      4
-Overriding                    Parametric polymorphism           8
-Overriding                    OOP features                      8
-Overriding                    Standard language features        4
-Overriding                    Type inference                    2
-Parameterized function        Parametric polymorphism          18
-Parameterized function        Standard language features        6
-Parameterized function        Type inference                   10
-Parameterized function        Type system-related features      3
-Parameterized function        OOP features                      2
-Parameterized function        Functional programming            4
-Conditionals                  Parametric polymorphism          18
-Conditionals                  Type system-related features     13
-Conditionals                  OOP features                      9
-Conditionals                  Functional programming            5
-Conditionals                  Type inference                   15
-Conditionals                  Standard language features        2
-Subtyping                     Parametric polymorphism          17
-Subtyping                     OOP features                     16
-Subtyping                     Functional programming            7
-Subtyping                     Type system-related features      2
-Subtyping                     Type inference                   14
-Subtyping                     Standard language features       14
-Lambda                        Functional programming           25
-Lambda                        Standard language features        6
-Lambda                        Type inference                   15
-Lambda                        Parametric polymorphism          14
-Lambda                        Type system-related features      7
-Lambda                        OOP features                      2
-Function type                 Functional programming           26
-Function type                 Standard language features        5
-Function type                 Parametric polymorphism          10
-Function type                 Type system-related features      6
-Function type                 Type inference                    7
-Function type                 OOP features                      3
-Variable type inference       Type inference                   12
-Variable type inference       Functional programming            9
-Variable type inference       Parametric polymorphism          15
-Variable type inference       Type system-related features      3
-Variable type inference       OOP features                      3
-Variable type inference       Standard language features        6
-Flow typing                   Type inference                    6
-Flow typing                   Functional programming            5
-Flow typing                   Type system-related features      3
-Flow typing                   OOP features                      4
-Flow typing                   Standard language features        4
-Flow typing                   Parametric polymorphism           1
-Function reference            Functional programming            9
-Function reference            Parametric polymorphism           4
-Function reference            Type inference                    1
-Function reference            Standard language features        1
-Function reference            OOP features                      1
-Function reference            Type system-related features      1
-Array                         Type system-related features      5
-Array                         Type inference                    3
-Array                         OOP features                      2
-Array                         Standard language features        4
-Array                         Parametric polymorphism           4
-Array                         Functional programming            2
-Variable arguments            Parametric polymorphism           4
-Variable arguments            Functional programming            1
-Variable arguments            Standard language features        1
-Variable arguments            Type inference                    2
-Variable arguments            OOP features                      1
 Cast                          Standard language features        1
-SAM type                      Functional programming            5
-SAM type                      Parametric polymorphism           3
-SAM type                      Type system-related features      1
-Return type inference         Type system-related features      3
-Return type inference         OOP features                      3
-Return type inference         Standard language features        2
-Return type inference         Functional programming            1
-Return type inference         Parametric polymorphism           2
-Return type inference         Type inference                    1
-Declaration-site variance     Type inference                    1
-Declaration-site variance     Parametric polymorphism           2
-Declaration-site variance     OOP features                      1
 ```
 
 ## RQ3: Effectiveness of Mutations (Section 4.4)
@@ -902,8 +909,8 @@ hephaestus@e0456a9b520e:~$ python eval-scripts/process_bugs.py database/bugs.jso
 ============================================================
 Component           groovyc   kotlinc   Java      Total
 ------------------------------------------------------------
-Generator           54        16        7         77
-TEM                 35        12        3         50
+Generator           55        16        7         78
+TEM                 37        12        3         52
 TOM                 20        3         1         24
 TEM & TOM           1         1         0         2
 ```
@@ -912,7 +919,7 @@ Next, we are going to compute the results of Figure 9 per compiler.
 In the `data/coverage/mutations/` directory, we provide the results of JaCoCo
 on 5k random test programs per compiler saved at `data/test_programs/mutations`.
 
-### `groovyc`
+### Impact of mutations on `groovyc`
 
 For computing the impact of TEM on code coverage,
 run
@@ -979,7 +986,7 @@ Combination                       43.57              42.35              42.99
 Absolute change                      99                 10                447
 ```
 
-### `kotlinc`
+### Impact of mutations on `kotlinc`
 
 For computing the impact of TEM on code coverage,
 run:
@@ -1074,7 +1081,7 @@ Combination                       31.80              31.31              31.22
 Absolute change                     572                166               4171
 ```
 
-### `javac`
+### Impact of mutations on `javac`
 
 For computing the impact of TEM on code coverage,
 run:
@@ -1128,7 +1135,7 @@ hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
 
 Now notice, the following lines, which presented in Figure 9.
 ```
-com.sun.tools.javac.comp,Attr: Branch -- 295 (4.39), Line -- 57 (4.66), Func -- 10 (6.25)
+com.sun.tools.javac.comp,Resolve: Branch -- 613 (15.67), Line -- 100 (14.12), Func -- 27 (17.20)
 com.sun.tools.javac.code,Types: Branch -- 558 (7.54), Line -- 113 (8.11), Func -- 23 (7.67)
 ```
 
@@ -1155,15 +1162,16 @@ Depending on your machine(s),
 re-running the complete experiment could take up to 5 days.
 Here, we will provide a complete example of how you
 get the coverage of 10 Java test programs for both TEM and TOM, using JaCoCo.
-To reproduce the full results, you should (1) produce 5k programs for both TOM
-and TEM, and (2) run the same experiments for the other compilers by replacing
+To reproduce the full results, you should (1) produce 5k programs
+(instead of 10 programs) for both TOM and TEM, and (2) run the same experiments
+for the other compilers by replacing
 `java` with `groovy` and `kotlin` in the following commands.
 
 #### Step 1: Generate the test programs.
 
 The following command uses `Hephaestus` to generate 10 programs
 written in Java using our program generator.
-This command also produces a variant for each of those 10 programs
+This command also produces one variant for each of those 10 programs
 using TEM. Note that this command does not invoke the
 compiler under test (see `--dry-run` option).
 
@@ -1176,7 +1184,7 @@ hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
 
 The following command uses `Hephaestus` to generate 10 programs
 written in Java using our program generator.
-This command also produces a variant for each of those 10 programs
+This command also produces one variant for each of those 10 programs
 using TOM. Note that this command does not invoke the
 compiler under test (see `--dry-run` option).
 
@@ -1189,7 +1197,7 @@ hephaestus@e0456a9b520e:~$ hephaestus.py --bugs coverage_programs \
 
 #### Step 2: Produce the coverage reports for generator and TEM.
 
-This command takes the programs generated in step 1,
+This command takes the programs generated in Step 1
 and compiles them using `javac`.
 This script first compiles the programs produced
 by our program generator,
@@ -1220,7 +1228,7 @@ Absolute change                     250                 60               1511
 
 #### Step 4: Produce the coverage reports for generator and TOM.
 
-This command takes the programs generated in Step 1,
+This command takes the programs generated in Step 1
 and compiles them using `javac`.
 This script first compiles the programs produced
 by our program generator,
@@ -1236,6 +1244,10 @@ hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_mutations.sh \
 ```
 
 #### Step 5: Compute the results for generator and TOM.
+
+**NOTE**: You are expected to get slightly different results
+as the generated programs are different than those used in
+the paper.
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py g \
@@ -1257,7 +1269,7 @@ For the fourth research question, we will use coverage data from
 improvement when adding 10k programs produced by `Hephaestus` to the test
 suites of each compiler. In the following, we compute the results per compiler.
 
-### `groovyc`
+### Impact on `groovyc`
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
@@ -1271,7 +1283,7 @@ Combination                       82.06              71.79              78.44
 % change                           0.06               0.02               0.05
 ```
 
-### `kotlinc`
+### Impact on `kotlinc`
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
@@ -1290,7 +1302,7 @@ We will update Figure 10 on the camera-ready paper to match the results of
 our artifact.
 
 
-### `javac`
+### Impact on `javac`
 
 ```
 hephaestus@e0456a9b520e:~$ python eval-scripts/compute_coverage.py \
@@ -1303,10 +1315,6 @@ Initial                           83.76              83.95              83.90
 Combination                       83.94              83.99              84.12
 % change                           0.18               0.03               0.22
 ```
-
-**Note**: Our results are slightly different from the submitted paper.
-We will update Figure 10 on the camera-ready paper to match the results of
-our artifact.
 
 ### Reproducing RQ4's Coverage Experiment (Optional)
 
@@ -1326,12 +1334,11 @@ instrumented version of `javac` to get the code coverage metrics
 of `javac`'s test suite.
 
 To compute the code coverage metrics of `javac's` test suite,
-run:
+run (estimated running time: 4 hours):
 
 ```bash
 # This will generate a code coverage report for the test-suite in
-# results/java_test_suite/java-test-suite.csv
-# It will take around 4 hours.
+# results/java_test_suite/java-test-suite.csv.
 hephaestus@e0456a9b520e:~$ ./eval-scripts/coverage/java_test_suite.sh
 ```
 
